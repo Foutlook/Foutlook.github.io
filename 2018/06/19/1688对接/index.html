@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/19/1688对接/sdk下载.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/19/1688对接/授权.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/19/1688对接/流程.jpg">
-<meta property="og:updated_time" content="2018-06-26T15:03:44.660Z">
+<meta property="og:updated_time" content="2018-06-26T16:42:38.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1688开放平台对接">
 <meta name="twitter:description" content="概述什么是1688开放平台（ https://open.1688.com  ）？  依托B2B海量用户资源以及强大的平台优势，是为阿里巴巴商家提供基础服务的重要开放途径，帮助商家提升经营能力、拓宽生意渠道、提高办公效率。从今年开始，阿里巴巴开放平台将向合作伙伴和广大第三方开发者逐步开放会员、公司库、类目、产品、交易、咨讯等一系列接口。为合作伙伴提供快捷的提交通路，多入口最优展现的同时，共享商机，互">
@@ -404,7 +404,7 @@
 <p><a href="https://open.1688.com/developer/serviceType.htm?spm=a260s.8209130.sidebar.2.4fbb55edhIdo07#/?_k=l6b00o" target="_blank" rel="noopener">https://open.1688.com/developer/serviceType.htm?spm=a260s.8209130.sidebar.2.4fbb55edhIdo07#/?_k=l6b00o</a></p>
 </blockquote>
 <p>1.<strong>创建应用</strong>：根据自己公司的业务需求可以选择不同的应用类型，如下图所示：</p>
-<p><img src="创建应用.jpg" alt="1688"><br>选择采购对接<br><img src="采购对接.jpg" alt="1688"><br>企业对接面向的是从1688网站上采购的数据信息拉取到公司自己的管理软件中进行统一的管理。点击^[采购对接]后填写必要的一些信息提交申请就可以了。<br>在填写信息的时候，<strong>应用类目</strong>选择企业采购，大企业采购一般是通过不了的；<strong>授权用户数</strong>可以选择<strong>单用户授权</strong>也可以选择<strong>多用户授权</strong>，他们其中的区别放到下面讲。<br><img src="信息填写.jpg" alt="1688"></p>
+<p><img src="创建应用.jpg" alt="1688"><br>选择采购对接<br><img src="采购对接.jpg" alt="1688"><br>企业对接面向的是从1688网站上采购的数据信息拉取到公司自己的管理软件中进行统一的管理。点击<strong>采购对接</strong>后填写必要的一些信息提交申请就可以了。<br>在填写信息的时候，<strong>应用类目</strong>选择企业采购，大企业采购一般是通过不了的；<strong>授权用户数</strong>可以选择<strong>单用户授权</strong>也可以选择<strong>多用户授权</strong>，他们其中的区别放到下面讲。<br><img src="信息填写.jpg" alt="1688"></p>
 <p>提交成功后便可在<strong>应用列表</strong>中看到申请到的对接应用。可以点击查看，就会看到应用详情，里面便包括了App Key和App Secret。如下图：<br><img src="查看应用详情.jpg" alt="1688"></p>
 <p>2.<strong>申请解决方案</strong>：即针对你申请到的账户需要申请调用对应API的权限</p>
 <p><strong>申请解决方案</strong>一般在48小时之内会反馈方案是否给予通过。所以开发的时候如果急于上线，需要提前申请。通过的解决方案便可以使用。<br><img src="申请解决方案.jpg" alt="1688"></p>
@@ -416,10 +416,10 @@
 <p>具体代码请看我的github上的项目，里面有完整的授权流程代码，地址：<a href="https://github.com/Foutlook/Docking-1688-Interface" target="_blank" rel="noopener">多用户授权下调用1688接口API授权流程</a>。</p>
 <h4 id="3-关于单用户授权和多用户授权的说明"><a href="#3-关于单用户授权和多用户授权的说明" class="headerlink" title="3 关于单用户授权和多用户授权的说明"></a>3 关于单用户授权和多用户授权的说明</h4><p>我们首先看一下官方给的不同授权方式的定义：<br><img src="授权.jpg" alt="1688"></p>
 <blockquote>
-<p>单用户授权和多用户授权的区别是：<br>1.单用户授权在调用API的时候不需要传access_token，而多用户授权需要传access_token ,不然的话无法调用1688的API。<br>2.单用户授权在申请上线的时候一个公司只能有一个账户，而多用户授权在上线的时候可以有多个账户。<br>3.多用户授权可以关联其他的账户，通过一个账户拉去多个账户的信息。</p>
+<p><strong>单用户授权和多用户授权</strong>的区别是：<br>1.单用户授权在调用API的时候不需要传access_token，而多用户授权需要传access_token ,不然的话无法调用1688的API。<br>2.单用户授权在申请上线的时候一个公司只能有一个账户，而多用户授权在上线的时候可以有多个账户。<br>3.多用户授权可以关联其他的账户，通过一个账户拉去多个账户的信息。</p>
 </blockquote>
 <p>虽然多用户授权有很多的好处，不过它开发起来要比单用户授权麻烦很多，主要是处理access_token 的问题。<br>首先我们先看看多用户授权下access_token 的授权流程，也就是获取access_token 的流程（<a href="https://open.1688.com/api/sysAuth.htm?spm=a260s.8208024.0.0.9f0e55edLOgOy1&amp;ns=cn.alibaba.open" target="_blank" rel="noopener">官网授权解释地址</a>）：</p>
-<p><img src="流程.jpg" alt="1688"><br>首先通过code即临时令牌得到access_token，第一次授权后会得到refresh_token，等下次access_token过期的时候就可以通过refresh_token来得到。</p>
+<p><img src="流程.jpg" alt="1688"><br>首先通过code即<strong>临时令牌</strong>得到<strong>access_token</strong>，第一次授权后会得到<strong>refresh_token</strong>，等下次access_token过期的时候就可以通过refresh_token来得到。</p>
 <p>具体代码请看我的github，地址：<a href="https://github.com/Foutlook/Docking-1688-Interface" target="_blank" rel="noopener">多用户授权下调用1688接口API授权流程</a>。</p>
 <hr>
 <p><strong>END</strong></p>
