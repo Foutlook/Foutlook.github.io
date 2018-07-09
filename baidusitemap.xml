@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/09/27/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%20String%20%E7%B1%BB%E5%9E%8B%E5%80%BC%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98/</loc>
+    <lastmod>2018-07-09T04:19:15.268Z</lastmod>
+    <data>
+        <display>
+        <title>如何理解 String 类型值的不可变？</title>
+        <pubTime>2017-09-27T14:09:00.000Z</pubTime>
+        
+        <tag>Java，String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/09/27/Integer%E7%94%A8==%E6%AF%94%E8%BE%83%E6%97%B6127%E7%9B%B8%E7%AD%89128%E4%B8%8D%E7%9B%B8%E7%AD%89%E7%9A%84%E5%8E%9F%E5%9B%A0/</loc>
+    <lastmod>2018-07-09T04:13:01.421Z</lastmod>
+    <data>
+        <display>
+        <title>Integer用==比较时127相等128不相等的原因</title>
+        <pubTime>2017-09-27T02:33:00.000Z</pubTime>
+        
+        <tag>Java，自动拆装箱</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/06/19/1688%E5%AF%B9%E6%8E%A5/</loc>
     <lastmod>2018-06-27T13:16:24.608Z</lastmod>
     <data>
@@ -212,26 +252,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/09/27/Integer%E7%94%A8==%E6%AF%94%E8%BE%83%E6%97%B6127%E7%9B%B8%E7%AD%89128%E4%B8%8D%E7%9B%B8%E7%AD%89%E7%9A%84%E5%8E%9F%E5%9B%A0/</loc>
-    <lastmod>2017-10-04T06:55:16.826Z</lastmod>
-    <data>
-        <display>
-        <title>Integer用==比较时127相等128不相等的原因</title>
-        <pubTime>2017-09-27T02:33:00.000Z</pubTime>
-        
-        <tag>Java，自动拆装箱</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/10/03/java%E6%B5%85%E5%A4%8D%E5%88%B6%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2017-10-03T04:31:25.885Z</lastmod>
     <data>
@@ -265,26 +285,6 @@
            
              
               <breadCrumb title="Java虚拟机" url="http://yoursite.com/categories/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/09/27/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%20String%20%E7%B1%BB%E5%9E%8B%E5%80%BC%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98/</loc>
-    <lastmod>2017-09-28T11:03:21.189Z</lastmod>
-    <data>
-        <display>
-        <title>如何理解 String 类型值的不可变？</title>
-        <pubTime>2017-09-27T14:09:00.000Z</pubTime>
-        
-        <tag>Java，String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
           
         </display>
     </data>
