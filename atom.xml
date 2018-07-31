@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-27T13:16:24.608Z</updated>
+  <updated>2018-07-31T16:01:59.768Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>思</title>
+    <link href="http://yoursite.com/2018/07/31/%E6%80%9D/"/>
+    <id>http://yoursite.com/2018/07/31/思/</id>
+    <published>2018-07-31T01:00:00.000Z</published>
+    <updated>2018-07-31T16:01:59.768Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="2018"><a href="#2018" class="headerlink" title="2018"></a>2018</h2><p>。。。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;2018&quot;&gt;&lt;a href=&quot;#2018&quot; class=&quot;headerlink&quot; title=&quot;2018&quot;&gt;&lt;/a&gt;2018&lt;/h2&gt;&lt;p&gt;。。。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="所思所想" scheme="http://yoursite.com/categories/%E6%89%80%E6%80%9D%E6%89%80%E6%83%B3/"/>
+    
+    
+      <category term="所思所想" scheme="http://yoursite.com/tags/%E6%89%80%E6%80%9D%E6%89%80%E6%83%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略模式和观察者模式</title>
+    <link href="http://yoursite.com/2018/07/27/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/07/27/策略模式和观察者模式/</id>
+    <published>2018-07-27T14:09:00.000Z</published>
+    <updated>2018-07-31T15:59:30.315Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在学习Zstack时候看到了系统中多处使用策略模式和观察者模式，学习了发现这两种模式在开发中经常用到，故在此记录下来。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在学习Zstack时候看到了系统中多处使用策略模式和观察者模式，学习了发现这两种模式在开发中经常用到，故在此记录下来。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式，Java" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8CJava/"/>
+    
+  </entry>
   
   <entry>
     <title>1688开放平台对接</title>
@@ -467,33 +519,6 @@
       <category term="介绍" scheme="http://yoursite.com/tags/%E4%BB%8B%E7%BB%8D/"/>
     
       <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HexoNext主题配置教程</title>
-    <link href="http://yoursite.com/2017/03/14/HexoNext/"/>
-    <id>http://yoursite.com/2017/03/14/HexoNext/</id>
-    <published>2017-03-14T11:37:46.000Z</published>
-    <updated>2017-03-15T05:51:47.589Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>前言</strong><br>我的博客是利用GitHub+hexo搭建的。<br>建立博客可以参考一下链接：</p><blockquote><p>这个博客主要主要介绍Hexo+coding搭建博客，但是里面的前几章可以参考。<br><a href="http://windliang.cc" target="_blank" rel="noopener">http://windliang.cc</a></p></blockquote><blockquote><p>这个主要介绍hexo+GitHub。<br><a href="http://svend.cc/posts/16820/" target="_blank" rel="noopener">http://svend.cc/posts/16820/</a></p></blockquote><p>今天我欣赏了别人的博客，许多主题都很好看，于是今天花费了一天的时间在整Next（花费时间比较长，毕竟不熟悉嘛）。我就稍微介绍一下Next主题配置的问题，也算是记录一下修改的过程。<br>下面介绍的主要是上面两个作者没有介绍的主题配置。</p><h3 id="设置社交链接"><a href="#设置社交链接" class="headerlink" title="设置社交链接"></a>设置社交链接</h3><p>侧栏社交链接的修改包含两个部分，第一是链接，第二是链接图标。 两者配置均在主题配置文件中。</p><p>1.链接放置在 social 字段下，一行一个链接。其键值格式是 显示文本: 链接地址。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Social</span><br><span class="line">social:</span><br><span class="line">  GitHub: https://github.com/your-user-name</span><br><span class="line">  Twitter: https://twitter.com/your-user-name</span><br><span class="line">  微博: http://weibo.com/your-user-name</span><br><span class="line">  豆瓣: http://douban.com/people/your-user-name</span><br><span class="line">  知乎: http://www.zhihu.com/people/your-user-name</span><br><span class="line">  #等等</span><br></pre></td></tr></table></figure><p>2.设定链接的图标，对应的字段是 social_icons。其键值格式是 匹配键: Font Awesome 图标名称， 匹配键 与上一步所配置的链接的 显示文本 相同（大小写严格匹配），图标名称 是 Font Awesome 图标的名字（不必带 fa- 前缀）。 enable 选项用于控制是否显示图标，你可以设置成 false 来去掉图标。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">social_icons:</span><br><span class="line"> enable: true</span><br><span class="line"> #Icon Mappings</span><br><span class="line"> GitHub: github</span><br><span class="line"> Twitter: twitter</span><br><span class="line"> 微博: weibo</span><br></pre></td></tr></table></figure><h3 id="文章打赏功能"><a href="#文章打赏功能" class="headerlink" title="文章打赏功能"></a>文章打赏功能</h3><p>越来越多的平台（微信公众平台，新浪微博，简书，百度打赏等）支持打赏功能，付费阅读时代越来越近，Next特此增加了打赏功能，支持微信打赏和支付宝打赏。 只需要复制下面的代码添加到主题配置文件中即可开启该功能。</p><blockquote><p>reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！<br>wechatpay: 图片链接<br>alipay: 图片链接</p></blockquote><h3 id="设置友情链接"><a href="#设置友情链接" class="headerlink" title="设置友情链接"></a>设置友情链接</h3><p>在主题文件开启links_title和links即可</p><blockquote><p>#title<br>links_title: 前端工具箱</p></blockquote><p>#links_layout: block</p><p>#links_layout: inline<br>links:<br>   代码压缩: <a href="http://tool.oschina.net/jscompress" target="_blank" rel="noopener">http://tool.oschina.net/jscompress</a><br>   CSS整理: <a href="http://example.com/" target="_blank" rel="noopener">http://example.com/</a></p><h3 id="修改底部logo"><a href="#修改底部logo" class="headerlink" title="修改底部logo"></a>修改底部logo</h3><p>首先，找到 \themes\next\layout_partials\下面的footer.swig文件，打开会发现，如下图的语句：<br><img src="Next.png" alt="图片"><br>  第一个框 是下面侧栏的“日期❤ XXX”<br>如果想像我一样加东西，一定要在双大括号外面写。如：xxx,当然你要是想改彻底可以变量都删掉，看个人意愿。<br>第二个，是图一当中 “由Hexo驱动” 的Hexo链接，先给删掉防止跳转，如果想跳转当然也可以自己写地址，至于中文一会处理。注意删除的时候格式不能错，只把<a>…</a>标签这部分删除即可，留着两个单引号”,否则会出错哦。<br>第三个框也是最后一个了，这个就是更改图一后半部分“主题-Next.XX”,这个比较爽直接将..都删掉，同样中文“主题”一会处理，删掉之后在上一行 ‘-’后面可以随意加上你想显示的东西，不要显示敏感信息哟，请自重。<br>接下来，处理剩余的中文信息。找到这个地方\themes\next\languages\ 下面的语言文件zh-Hans.yml（这里以中文为例，有的习惯用英文的配置文件，道理一样，找对应位置即可）</p><blockquote><p>如果有其他疑问可以结合NextT的使用文档<br><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">http://theme-next.iissnan.com/getting-started.html</a></p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;前言&lt;/strong&gt;&lt;br&gt;我的博客是利用GitHub+hexo搭建的。&lt;br&gt;建立博客可以参考一下链接：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这个博客主要主要介绍Hexo+coding搭建博客，但是里面的前几章可以参考。&lt;br&gt;&lt;a href=&quot;ht
-      
-    
-    </summary>
-    
-      <category term="Next主题配置教程" scheme="http://yoursite.com/categories/Next%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/"/>
-    
-    
-      <category term="Next主题" scheme="http://yoursite.com/tags/Next%E4%B8%BB%E9%A2%98/"/>
     
   </entry>
   
