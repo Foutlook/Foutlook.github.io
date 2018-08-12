@@ -99,7 +99,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/原子性.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/日志.jpg">
-<meta property="og:updated_time" content="2018-08-12T14:48:54.817Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/日志2.jpg">
+<meta property="og:updated_time" content="2018-08-12T16:17:15.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库事务--原子性">
 <meta name="twitter:description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
@@ -409,7 +410,7 @@
 <p>[事务T1,  旺财原有余额 ， 200]<br>   [事务T1, 小强原有余额， 50 ] </p>
 </blockquote>
 <p>如果事务执行到一半，就断电了，那数据库重启以后我就根据undo的日志文件来恢复。</p>
-<p>问题：恢复数据的时候， 那你怎么才能知道一个事务没有完成呢？</p>
+<p><strong>问题：恢复数据的时候， 那你怎么才能知道一个事务没有完成呢？</strong></p>
 <blockquote>
 <p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>    [事务T1, 小强原有余额，50]<br>    [提交事务 T1]</p>
 </blockquote>
@@ -418,8 +419,41 @@
 <p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>   [事务T1, 小强原有余额，50]</p>
 </blockquote>
 <p>如果已经恢复了，就在日志文件中加上一行 <strong>回滚事务 T1</strong> ， 这样下一次恢复我就不用再考虑T1这个事务了。</p>
-<p>问题：那我们应该什么时候记录Undo日志呢？什么时候把Undo日志写入文件呢？</p>
+<p><strong>问题：那我们应该什么时候记录Undo日志呢？什么时候把Undo日志写入文件呢？</strong></p>
 <p>把日志记录也放到了内存的Undo日志缓冲区，伺机写入硬盘。<br><img src="日志.jpg" alt="日志"></p>
+<p>我们来看看下面的分析：</p>
+<ol>
+<li>如果系统在第4步和第5步之间崩溃，旺财的余额写入了硬盘，但是小强的还没写入， 那Undo日志看起来是这样的：</li>
+</ol>
+<blockquote>
+<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]</p>
+</blockquote>
+<p>由于找不到事务结束的日志， 你会进行恢复操作， 把旺财的原有余额给恢复了。</p>
+<ol start="2">
+<li>如果是在第7步和第8步之间系统崩溃，旺财和小强的最新余额都写入了硬盘，但是没有提交事务， 那Undo日志看起来是这样的：</li>
+</ol>
+<blockquote>
+<p>[开始事务 T1]<br>  [事务T1, 旺财原有余额，200]<br>  [事务T1, 小强原有余额，50]</p>
+</blockquote>
+<p>由于没有事务结束的日志，你也需要进行恢复，把旺财和小强的原有余额恢复成200和50 ”</p>
+<ol start="3">
+<li>如果是在第8步和第9步之间系统崩溃， 旺财和小强的最新余额都写入了硬盘， 也提交了事务， 但是提交事务的操作没有写入Undo 日志， 所以Undo日志还是这样：</li>
+</ol>
+<blockquote>
+<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>   [事务T1, 小强原有余额，50]</p>
+</blockquote>
+<p>由于没有事务结束的日志，你还得需要进行恢复，把旺财和小强的原有余额恢复成200和50。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这里面是有规律的，如果实现了这个规律便可以解决所有的问题：</p>
+<ol>
+<li><p>在你把最新余额写入硬盘之前， <strong>一定要先把相关的Undo日志记录写入硬盘</strong>。 例如 <strong>[事务T1, 旺财原有余额，200]</strong> 一定要在旺财的新余额=100写入硬盘之前写入。</p>
+</li>
+<li><p><strong>[提交事务 T1]</strong> 这样的<strong>Undo日志记录一定要在所有的新余额写入硬盘之后再写入</strong>。  有了这两条的保证，我就可以高枕无忧了！， 比如说，换个操作次序也没有问题：<br><img src="日志2.jpg" alt="日志"></p>
+</li>
+</ol>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>参考：<a href="https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&amp;mid=2665514001&amp;idx=1&amp;sn=17b72c3e69db6c4277e3045c699b7b6b&amp;chksm=80d67c52b7a1f5446020826841869221873f4578524181384592839d19c4810dc68807117e13&amp;mpshare=1&amp;scene=1&amp;srcid=0311ddHdl0tOCk3XkUy6l8lA#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&amp;mid=2665514001&amp;idx=1&amp;sn=17b72c3e69db6c4277e3045c699b7b6b&amp;chksm=80d67c52b7a1f5446020826841869221873f4578524181384592839d19c4810dc68807117e13&amp;mpshare=1&amp;scene=1&amp;srcid=0311ddHdl0tOCk3XkUy6l8lA#rd</a></p>
+<blockquote>
+<p>我所向往的不过是如此简单而已</p>
+</blockquote>
 
       
     </div>
@@ -704,7 +738,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Undo-日志"><span class="nav-number">3.</span> <span class="nav-text">Undo 日志</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Undo-日志"><span class="nav-number">3.</span> <span class="nav-text">Undo 日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">5.</span> <span class="nav-text">end</span></a></li></ol></div>
             
 
           </div>
