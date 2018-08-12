@@ -92,15 +92,18 @@
 <meta name="description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
 <meta name="keywords" content="数据库，事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库事务的原理">
+<meta property="og:title" content="数据库事务--原子性">
 <meta property="og:url" content="http://yoursite.com/2018/08/12/数据库事务-原子性/index.html">
 <meta property="og:site_name" content="Foutin">
 <meta property="og:description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-12T14:15:17.582Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/原子性.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/日志.jpg">
+<meta property="og:updated_time" content="2018-08-12T14:48:54.817Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库事务的原理">
+<meta name="twitter:title" content="数据库事务--原子性">
 <meta name="twitter:description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/原子性.jpg">
 
 
 
@@ -134,7 +137,7 @@
 
 
 
-  <title> 数据库事务的原理 | Foutin </title>
+  <title> 数据库事务--原子性 | Foutin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -304,7 +307,7 @@
             
             
               
-                数据库事务的原理
+                数据库事务--原子性
               
             
           </h1>
@@ -396,9 +399,27 @@
 <p>数据库看似简单，却是个十分复杂的东西</p>
 </blockquote>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>ACID：</strong> 指数据库事务正确执行的四个基本要素的缩写。包含：<strong>原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）</strong>。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极可能达不到交易方的要求。 </p>
-<p>1，脏读（dirtyRead）<br>脏读是指的一个事物正在访问数据，并且对数据进行了修改，而且这种修改还没有提交到数据库中，这时，另一个事物也访问这个数据<br>，然后使用了这个数据。因为这个数据还没有提交数据，那么另外一个事物读到的这个数据就是脏数据。</p>
+<p><strong>如果没有没有正确执行便会出现以下问题：</strong><br>1，脏读（dirtyRead）<br>脏读是指的一个事物正在访问数据，并且对数据进行了修改，而且这种修改还没有提交到数据库中，这时，另一个事物也访问这个数据<br>，然后使用了这个数据。因为这个数据还没有提交数据，那么另外一个事物读到的这个数据就是脏数据。</p>
 <p>2，不可重复读<br>不可重复读，就是在同一事务中，两次读取同一数据（同一主键），得到内容不同。不可重复读和脏读的区别是，不可重复读读取到的都是已经提交的数据，而不是脏数据。</p>
 <p>3，虚读(幻读)<br>幻读指的是，同一事务中，用同样的操作读取两次，得到的记录数不相同。幻读和不可重复读都是读取到了另一条已经提交的事物，这一点和脏读不同。<br>看似幻读和不可重复读都是一样的，但是区别在于不可重复读针对的是同一个主键的数据。而幻读针对的是一批数据两次读取中，有新增或者减少。</p>
+<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>了解了数据库的四大特性，那么今天就来讲讲数据库特性之一 —–<strong>原子性</strong><br>首先：原子性一说大家都明白，那你能说说在<strong>执行的操作过程中，如果还没做完系统就崩溃了，或者断电了，你怎么办啊？ 你怎么保证原子性？如果我还没做完，系统就崩溃了，那系统重启以后我就得做恢复操作？</strong></p>
+<p>下面我们就来讲讲这个问题的答案。<br>首先以<strong>旺财有200块钱， 小强有50 块钱，现在旺财要给小强转账，假设转100块</strong>为例。如果按照事务完整进行则会有一下四步：<br>(1)  开始事务 T1 （假设T1是个事务的内部编号）<br>(2)  旺财余额 = 旺财余额 -100<br>(3)  小强余额 = 小强余额 + 100<br>(4)  提交事务 T1<br>我们知道所有的计算操作都是在内存中进行的，这个时候被计算的数据首先放入缓冲区中：如下图<br><img src="原子性.jpg" alt="原子"><br>因为硬盘的速度太慢，所以不会经常性的操作硬盘，而是把数据放入到缓冲区中，然后一次性保存到硬盘中。</p>
+<h2 id="Undo-日志"><a href="#Undo-日志" class="headerlink" title="Undo 日志"></a>Undo 日志</h2><p>这里先假定数据缓冲区能和硬盘的数据文件同步。<br>问题：旺财在给小强转账， 第二步执行完了，旺财的余额变成了100块 （200-100）， 假设已经写入了硬盘文件， 现在断电了， 小强的余额有没有加上，系统的钱白白消失了100块， 数据已经不一致了，  你怎么办？<br>而这个叫做Undo的日志文件，就是为了解决这个问题的。<br><strong>分析：</strong><br>按照上面的情况，会在日志文件中记录下事务开始之前他俩账号余额：</p>
+<blockquote>
+<p>[事务T1,  旺财原有余额 ， 200]<br>   [事务T1, 小强原有余额， 50 ] </p>
+</blockquote>
+<p>如果事务执行到一半，就断电了，那数据库重启以后我就根据undo的日志文件来恢复。</p>
+<p>问题：恢复数据的时候， 那你怎么才能知道一个事务没有完成呢？</p>
+<blockquote>
+<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>    [事务T1, 小强原有余额，50]<br>    [提交事务 T1]</p>
+</blockquote>
+<p>Undo日志文件中不仅仅只有余额， 事务的开始和结束也会记录，如果我在日志文件中看到了<strong>提交事务 T1</strong>, 或者 <strong>回滚事务 T1</strong>, 我就知道这个事务已经结束，不用再去理会它了， 更不用去恢复。 如果我只看到 <strong>开始事务 T1</strong>, 而找不到提交或回滚，那我就得恢复。比如下面这个：</p>
+<blockquote>
+<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>   [事务T1, 小强原有余额，50]</p>
+</blockquote>
+<p>如果已经恢复了，就在日志文件中加上一行 <strong>回滚事务 T1</strong> ， 这样下一次恢复我就不用再考虑T1这个事务了。</p>
+<p>问题：那我们应该什么时候记录Undo日志呢？什么时候把Undo日志写入文件呢？</p>
+<p>把日志记录也放到了内存的Undo日志缓冲区，伺机写入硬盘。<br><img src="日志.jpg" alt="日志"></p>
 
       
     </div>
@@ -683,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Undo-日志"><span class="nav-number">3.</span> <span class="nav-text">Undo 日志</span></a></li></ol></div>
             
 
           </div>
@@ -823,7 +844,7 @@
       var disqus_shortname = 'foutlook';
       var disqus_identifier = '2018/08/12/数据库事务-原子性/';
 
-      var disqus_title = "数据库事务的原理";
+      var disqus_title = "数据库事务--原子性";
 
 
       function run_disqus_script(disqus_script) {
