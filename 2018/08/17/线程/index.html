@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据库，事务," />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -89,22 +89,21 @@
 
 
 
-<meta name="description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
-<meta name="keywords" content="数据库，事务">
+<meta name="description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
+<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库事务--原子性">
-<meta property="og:url" content="http://yoursite.com/2018/08/12/数据库事务-原子性/index.html">
+<meta property="og:title" content="多线程">
+<meta property="og:url" content="http://yoursite.com/2018/08/17/线程/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
+<meta property="og:description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/原子性.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/日志.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/日志2.jpg">
-<meta property="og:updated_time" content="2018-08-12T16:17:15.188Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535250738191.drawio.html">
+<meta property="og:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535212745961.drawio.html">
+<meta property="og:updated_time" content="2018-08-26T02:42:52.072Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库事务--原子性">
-<meta name="twitter:description" content="数据库看似简单，却是个十分复杂的东西  概述ACID： 指数据库事务正确执行的四个基本要素的缩写。包含：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极">
-<meta name="twitter:image" content="http://yoursite.com/2018/08/12/数据库事务-原子性/原子性.jpg">
+<meta name="twitter:title" content="多线程">
+<meta name="twitter:description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535250738191.drawio.html">
 
 
 
@@ -132,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/12/数据库事务-原子性/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/17/线程/"/>
 
 
 
 
 
-  <title> 数据库事务--原子性 | Foutin </title>
+  <title> 多线程 | Foutin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +283,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/数据库事务-原子性/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/线程/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Foutlook">
@@ -308,7 +307,7 @@
             
             
               
-                数据库事务--原子性
+                多线程
               
             
           </h1>
@@ -323,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-12T09:00:00+08:00">
-                2018-08-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T09:00:00+08:00">
+                2018-08-17
               </time>
             
 
@@ -346,8 +345,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
                   </a>
                 </span>
 
@@ -364,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/12/数据库事务-原子性/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/12/数据库事务-原子性/" itemprop="commentCount"></span>
+                <a href="/2018/08/17/线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/17/线程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -396,64 +395,54 @@
       
 
       
-        <blockquote>
-<p>数据库看似简单，却是个十分复杂的东西</p>
-</blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>ACID：</strong> 指数据库事务正确执行的四个基本要素的缩写。包含：<strong>原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）</strong>。一个支持事务（Transaction）的数据库，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极可能达不到交易方的要求。 </p>
-<p><strong>如果没有没有正确执行便会出现以下问题：</strong><br>1，脏读（dirtyRead）<br>脏读是指的一个事物正在访问数据，并且对数据进行了修改，而且这种修改还没有提交到数据库中，这时，另一个事物也访问这个数据<br>，然后使用了这个数据。因为这个数据还没有提交数据，那么另外一个事物读到的这个数据就是脏数据。</p>
-<p>2，不可重复读<br>不可重复读，就是在同一事务中，两次读取同一数据（同一主键），得到内容不同。不可重复读和脏读的区别是，不可重复读读取到的都是已经提交的数据，而不是脏数据。</p>
-<p>3，虚读(幻读)<br>幻读指的是，同一事务中，用同样的操作读取两次，得到的记录数不相同。幻读和不可重复读都是读取到了另一条已经提交的事物，这一点和脏读不同。<br>看似幻读和不可重复读都是一样的，但是区别在于不可重复读针对的是同一个主键的数据。而幻读针对的是一批数据两次读取中，有新增或者减少。</p>
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>了解了数据库的四大特性，那么今天就来讲讲数据库特性之一 —–<strong>原子性</strong><br>首先：原子性一说大家都明白，那你能说说在<strong>执行的操作过程中，如果还没做完系统就崩溃了，或者断电了，你怎么办啊？ 你怎么保证原子性？如果我还没做完，系统就崩溃了，那系统重启以后我就得做恢复操作？</strong></p>
-<p>下面我们就来讲讲这个问题的答案。<br>首先以<strong>旺财有200块钱， 小强有50 块钱，现在旺财要给小强转账，假设转100块</strong>为例。如果按照事务完整进行则会有一下四步：<br>(1)  开始事务 T1 （假设T1是个事务的内部编号）<br>(2)  旺财余额 = 旺财余额 -100<br>(3)  小强余额 = 小强余额 + 100<br>(4)  提交事务 T1<br>我们知道所有的计算操作都是在内存中进行的，这个时候被计算的数据首先放入缓冲区中：如下图<br><img src="原子性.jpg" alt="原子"><br>因为硬盘的速度太慢，所以不会经常性的操作硬盘，而是把数据放入到缓冲区中，然后一次性保存到硬盘中。</p>
-<h2 id="Undo-日志"><a href="#Undo-日志" class="headerlink" title="Undo 日志"></a>Undo 日志</h2><p>这里先假定数据缓冲区能和硬盘的数据文件同步。<br>问题：旺财在给小强转账， 第二步执行完了，旺财的余额变成了100块 （200-100）， 假设已经写入了硬盘文件， 现在断电了， 小强的余额有没有加上，系统的钱白白消失了100块， 数据已经不一致了，  你怎么办？<br>而这个叫做Undo的日志文件，就是为了解决这个问题的。<br><strong>分析：</strong><br>按照上面的情况，会在日志文件中记录下事务开始之前他俩账号余额：</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下</p>
 <blockquote>
-<p>[事务T1,  旺财原有余额 ， 200]<br>   [事务T1, 小强原有余额， 50 ] </p>
+<p>深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句</p>
 </blockquote>
-<p>如果事务执行到一半，就断电了，那数据库重启以后我就根据undo的日志文件来恢复。</p>
-<p><strong>问题：恢复数据的时候， 那你怎么才能知道一个事务没有完成呢？</strong></p>
-<blockquote>
-<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>    [事务T1, 小强原有余额，50]<br>    [提交事务 T1]</p>
-</blockquote>
-<p>Undo日志文件中不仅仅只有余额， 事务的开始和结束也会记录，如果我在日志文件中看到了<strong>提交事务 T1</strong>, 或者 <strong>回滚事务 T1</strong>, 我就知道这个事务已经结束，不用再去理会它了， 更不用去恢复。 如果我只看到 <strong>开始事务 T1</strong>, 而找不到提交或回滚，那我就得恢复。比如下面这个：</p>
-<blockquote>
-<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>   [事务T1, 小强原有余额，50]</p>
-</blockquote>
-<p>如果已经恢复了，就在日志文件中加上一行 <strong>回滚事务 T1</strong> ， 这样下一次恢复我就不用再考虑T1这个事务了。</p>
-<p><strong>问题：那我们应该什么时候记录Undo日志呢？什么时候把Undo日志写入文件呢？</strong></p>
-<p>把日志记录也放到了内存的Undo日志缓冲区，伺机写入硬盘。<br><img src="日志.jpg" alt="日志"></p>
-<p>我们来看看下面的分析：</p>
+<hr>
+<h2 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h2><p><strong>想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？</strong></p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a><strong>进程</strong></h3><p>通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。</p>
+<h4 id="进程的衍生"><a href="#进程的衍生" class="headerlink" title="进程的衍生"></a><strong>进程的衍生</strong></h4><p>进程使用<code>fork</code>（）系统调用来创建。父进程调用<code>fork</code>创建子进程。每个子进程都是源自它的父进程的一个副本，它会获得父进程的数据段、堆和栈的副本，并与父进程共享代码段。每一份副本都是独立的，子进程对属于它的副本的修改对其父进程和兄弟进程（同父进程）都是不可见的，反之亦然。全盘复制父进程的数据是一种相当低效的做法。 Linux操作系统内核使用写时复制（Copy on Write,常简称为COW，<strong>也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容复制一份给子进程</strong>)等技术来提高进程创建的效率。当然，刚创建的子进程也可以通过系统调用exec把一个新的程序加载到自己的内存中，而原先在内存中的数据段、堆、栈以及代码段就会被替换掉，在这之后，子进程执行的就会是那个刚刚加载进来的新程序（意思就是当传入的参数或者变量不同的时候，子进程就相当于在做自己的事情）。</p>
+<p><strong>父进程被如果优先于子进程结束，那么子进程就会被原来父进程的父进程“收养”（也就是子进程的爷爷）。</strong></p>
+<p>为了管理进程，内核必须对每个进程的数据和行为进行详细的记录，包括进程的优先级、状态、虚拟地址范围以及各种访问权限等等。更具体地说，这些信息都会被记在每个进程的进程描述符中。进程描述符并不是一个简单的符号，而是一个非常复杂的数据结构。保存在进程描述符中的进程ID (常称为PID )是进程在操作系统中的唯一标识，其中<strong>进程ID为1的进程就是之前提到的内核启动进程</strong>。进程id是一个非负整数且总是顺序的编号，新创建的进程ID总是前一个进程ID递增的结果。此外，进程ID也可以重复使用。当进程ID达到其最大限值时，内核会从头开始查找闲置的进程ID并使用M先找到的那一个作为新进程的ID。另外，进程描述符中还会包含当前进程的父进程的ID (常称为PPID )。</p>
+<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><p>进程通信叫做IPC(Inter-Process Communication)，Linux中通信的方式大致可分成三种：</p>
 <ol>
-<li>如果系统在第4步和第5步之间崩溃，旺财的余额写入了硬盘，但是小强的还没写入， 那Undo日志看起来是这样的：</li>
+<li>基于通信的IPC</li>
+<li>基于信号的IPC</li>
+<li>基于同步的IPC</li>
 </ol>
+<p><strong>通信IPC</strong></p>
+<ul>
+<li>以数据为传送手段的IPC</li>
+</ul>
 <blockquote>
-<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]</p>
+<p>管道(pipe)：用于传输字节流<br>消息队列(message queue)：用来传输结构化的对象</p>
 </blockquote>
-<p>由于找不到事务结束的日志， 你会进行恢复操作， 把旺财的原有余额给恢复了。</p>
-<ol start="2">
-<li>如果是在第7步和第8步之间系统崩溃，旺财和小强的最新余额都写入了硬盘，但是没有提交事务， 那Undo日志看起来是这样的：</li>
-</ol>
+<ul>
+<li>以共享内存为手段的IPC</li>
+</ul>
 <blockquote>
-<p>[开始事务 T1]<br>  [事务T1, 旺财原有余额，200]<br>  [事务T1, 小强原有余额，50]</p>
+<p>共享内存区（share memory)：最快的IPC方法</p>
 </blockquote>
-<p>由于没有事务结束的日志，你也需要进行恢复，把旺财和小强的原有余额恢复成200和50 ”</p>
-<ol start="3">
-<li>如果是在第8步和第9步之间系统崩溃， 旺财和小强的最新余额都写入了硬盘， 也提交了事务， 但是提交事务的操作没有写入Undo 日志， 所以Undo日志还是这样：</li>
-</ol>
+<p> <strong>信号IPC</strong></p>
 <blockquote>
-<p>[开始事务 T1]<br>   [事务T1, 旺财原有余额，200]<br>   [事务T1, 小强原有余额，50]</p>
+<p>操作系统的信号（signal）机制：唯一一种异步IPC方法。通过kill -l查看。</p>
 </blockquote>
-<p>由于没有事务结束的日志，你还得需要进行恢复，把旺财和小强的原有余额恢复成200和50。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这里面是有规律的，如果实现了这个规律便可以解决所有的问题：</p>
-<ol>
-<li><p>在你把最新余额写入硬盘之前， <strong>一定要先把相关的Undo日志记录写入硬盘</strong>。 例如 <strong>[事务T1, 旺财原有余额，200]</strong> 一定要在旺财的新余额=100写入硬盘之前写入。</p>
-</li>
-<li><p><strong>[提交事务 T1]</strong> 这样的<strong>Undo日志记录一定要在所有的新余额写入硬盘之后再写入</strong>。  有了这两条的保证，我就可以高枕无忧了！， 比如说，换个操作次序也没有问题：<br><img src="日志2.jpg" alt="日志"></p>
-</li>
-</ol>
-<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>参考：<a href="https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&amp;mid=2665514001&amp;idx=1&amp;sn=17b72c3e69db6c4277e3045c699b7b6b&amp;chksm=80d67c52b7a1f5446020826841869221873f4578524181384592839d19c4810dc68807117e13&amp;mpshare=1&amp;scene=1&amp;srcid=0311ddHdl0tOCk3XkUy6l8lA#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&amp;mid=2665514001&amp;idx=1&amp;sn=17b72c3e69db6c4277e3045c699b7b6b&amp;chksm=80d67c52b7a1f5446020826841869221873f4578524181384592839d19c4810dc68807117e13&amp;mpshare=1&amp;scene=1&amp;srcid=0311ddHdl0tOCk3XkUy6l8lA#rd</a></p>
+<p><strong>同步IPC</strong></p>
 <blockquote>
-<p>我所向往的不过是如此简单而已</p>
+<p>信号量（semaphore）</p>
 </blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程可以视为进程中的控制流。一个进程至少包含一个线程，因为其他至少会有一个控制流持续运行。因而，<strong>一个进程的第一个线程会随着这个进程的启动而创建</strong>，这个线程被称为该进程的主线程。当然，一个进程可以包含多个线程。这些线程都是由当前线程中已经存在的线程创建出来的，创建的方法就是系统调用（pthread_create）。<strong>拥有多个线程的进程可以并发执行多个任务，并且即时某个或某些任务被阻塞，也不会影响其他任务执行，这可以大大改善程序的响应时间和吞吐量</strong>。另一方面，线程不可能独立于进程存在。它的生命周期不可能逾越所属进程的生命周期。</p>
+<p>一个进程中的所有线程都拥有自己线程栈，并以此存储自己的私有数据。这些线程的线程栈都包含在其所属进程的虚拟内存地址中。不过要注意，一个进程中的很多资源都会被其中的所有线程共享，这些被线程共享的资源包含当前进程所持有文件描述符，等等。正因为如此，同一个进程的多个线程运行的一定是同一个程序，只不过具体的控制流程的执行函数可能有所不同。在同一个进程的多个线程之间共享数据也是一件非常轻松和自然的事情。另外，创建一个新线程，也不会像创建一个新进程那样耗时费力，因为在其所属进程的虚拟内存地址中存储的代码、数据和资源都不需要被复制。</p>
+<p>和进程一样，每个线程都有自己的ID（由内核分配），叫做线程ID或者TID。但是在操作系统范围内不唯一，在所属进程的范围内唯一。</p>
+<hr>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p>在线程的生命周期中，它要经过<strong>新建(New)、就绪（Runnable）、运行（Running）、阻塞(Blocked)和死亡(Dead)5种状态</strong>。尤其是当线程启动以后，它不可能一直”霸占”着CPU独自运行，所以CPU需要在多条线程之间切换，于是线程状态也会多次在运行、阻塞之间切换</p>
+<p><img src="./attachments/1535250738191.drawio.html" alt="Diagram"></p>
+<hr>
+<h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><p>主线程在其所属进程启动时创建。其他线程可以通过别的线程用pthread_create来创建——要传入新线程将要执行的函数以及传入该函数的参数值。在创建成功的时候，该函数会返回线程的TID。</p>
+<hr>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><hr>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p><img src="./attachments/1535212745961.drawio.html" alt="Diagram"></p>
 
       
     </div>
@@ -503,7 +492,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据库，事务/" rel="tag"># 数据库，事务</a>
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
           
         </div>
       
@@ -512,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/线程池/" rel="next" title="线程池">
-                <i class="fa fa-chevron-left"></i> 线程池
+              <a href="/2018/08/12/数据库事务-原子性/" rel="next" title="数据库事务--原子性">
+                <i class="fa fa-chevron-left"></i> 数据库事务--原子性
               </a>
             
           </div>
@@ -522,8 +511,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/17/线程/" rel="prev" title="多线程">
-                多线程 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/24/JMM和volatile与synchronized/" rel="prev" title="JMM和volatile与synchronized">
+                JMM和volatile与synchronized <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -738,7 +727,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Undo-日志"><span class="nav-number">3.</span> <span class="nav-text">Undo 日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">5.</span> <span class="nav-text">end</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程与进程的区别"><span class="nav-number">2.</span> <span class="nav-text">线程与进程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的衍生"><span class="nav-number">2.1.1.</span> <span class="nav-text">进程的衍生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程通信"><span class="nav-number">2.1.2.</span> <span class="nav-text">进程通信</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">2.2.</span> <span class="nav-text">线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的生命周期"><span class="nav-number">3.</span> <span class="nav-text">线程的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程"><span class="nav-number">4.</span> <span class="nav-text">创建线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">6.</span> <span class="nav-text">ThreadLocal</span></a></li></ol></div>
             
 
           </div>
@@ -876,9 +865,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'foutlook';
-      var disqus_identifier = '2018/08/12/数据库事务-原子性/';
+      var disqus_identifier = '2018/08/17/线程/';
 
-      var disqus_title = "数据库事务--原子性";
+      var disqus_title = "多线程";
 
 
       function run_disqus_script(disqus_script) {

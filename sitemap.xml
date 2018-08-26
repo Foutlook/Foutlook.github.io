@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/08/17/%E7%BA%BF%E7%A8%8B/</loc>
+    
+    <lastmod>2018-08-26T02:42:52.072Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/08/24/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
     
     <lastmod>2018-08-25T16:22:39.581Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2018/08/24/%E5%88%9D%E6%AC%A1%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2018-08-25T16:21:30.402Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/08/24/%E7%BA%BF%E7%A8%8B/</loc>
-    
-    <lastmod>2018-08-25T16:20:10.060Z</lastmod>
     
   </url>
   

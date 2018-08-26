@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/08/17/%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2018-08-26T02:42:52.072Z</lastmod>
+    <data>
+        <display>
+        <title>多线程</title>
+        <pubTime>2018-08-17T01:00:00.000Z</pubTime>
+        
+        <tag>多线程</tag>
+         
+         
+           
+             
+              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/08/24/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
     <lastmod>2018-08-25T16:22:39.581Z</lastmod>
     <data>
@@ -37,26 +57,6 @@
            
              
               <breadCrumb title="所思" url="http://yoursite.com/categories/%E6%89%80%E6%80%9D/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/08/24/%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2018-08-25T16:20:10.060Z</lastmod>
-    <data>
-        <display>
-        <title>多线程</title>
-        <pubTime>2018-08-24T01:00:00.000Z</pubTime>
-        
-        <tag>多线程</tag>
-         
-         
-           
-             
-              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
           
         </display>
     </data>
