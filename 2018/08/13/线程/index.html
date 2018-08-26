@@ -98,8 +98,8 @@
 <meta property="og:description" content="概述 深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。 进程的衍生进程使用fork（">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/13/线程/attachments/1535250738191.drawio.html">
-<meta property="og:image" content="http://yoursite.com/2018/08/13/线程/生命周期.png">
-<meta property="og:updated_time" content="2018-08-26T04:07:32.627Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/13/线程/生命周期.jpg">
+<meta property="og:updated_time" content="2018-08-26T04:21:05.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程">
 <meta name="twitter:description" content="概述 深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。 进程的衍生进程使用fork（">
@@ -437,7 +437,7 @@
 <hr>
 <h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><h3 id="五种状态"><a href="#五种状态" class="headerlink" title="五种状态"></a>五种状态</h3><p>在线程的生命周期中，它要经过<strong>新建(New)、就绪（Runnable）、运行（Running）、阻塞(Blocked)和死亡(Dead)5种状态</strong>。尤其是当线程启动以后，它不可能一直”霸占”着CPU独自运行，所以CPU需要在多条线程之间切换，于是线程状态也会多次在运行、阻塞之间切换</p>
 <p><img src="./attachments/1535250738191.drawio.html" alt="Diagram"></p>
-<p><img src="生命周期.png" alt="生命周期"></p>
+<p><img src="生命周期.jpg" alt="生命周期"></p>
 <ol>
 <li>新建状态，当程序使用new关键字创建了一个线程之后，该线程就处于新建状态，此时仅由JVM为其分配内存，并初始化其成员变量的值</li>
 <li>就绪状态，当线程对象调用了start()方法之后，该线程处于就绪状态。Java虚拟机会为其创建方法调用栈和程序计数器，等待调度运行</li>
@@ -476,7 +476,7 @@
 <blockquote>
 <p> ReentrantLock() : 创建一个ReentrantLock实例<br> lock() : 获得锁<br> unlock() : 释放锁</p>
 </blockquote>
-<h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p>互斥锁不同，条件变量是用来等待而不是用来上锁的。<strong>条件变量用来自动阻塞一个线程，直到某特殊情况发生为止。通常条件变量和互斥锁同时使用</strong>。条件变量分为两部分:<code>条件和变量</code>。条件本身是由互斥量保护的。线程在改变条件状态前先要锁住互斥量。条件变量使我们可以睡眠等待某种条件出现。条件变量是利用线程间共享的全局变量进行同步的一种机制，主要包括两个动作：一个线程等待”条件变量的条件成立”而挂起；另一个线程使”条件成立”（给出条件成立信号）。条件的检测是在<code>互斥锁</code>的保护下进行的。如果一个条件为假，一个线程自动阻塞，并释放等待状态改变的<code>互斥锁</code>。如果另一个线程改变了条件，它发信号给关联的条件变量，唤醒一个或多个等待它的线程，重新获得<code>互斥锁</code>，重新评价条件。<strong>如果两进程共享可读写的内存，条件变量可以被用来实现这两进程间的线程同步。</strong></p>
+<h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p>与互斥锁不同，条件变量是用来等待而不是用来上锁的。<strong>条件变量用来自动阻塞一个线程，直到某特殊情况发生为止。通常条件变量和互斥锁同时使用</strong>。条件变量分为两部分:<code>条件和变量</code>。条件本身是由互斥量保护的。线程在改变条件状态前先要锁住互斥量。条件变量使我们可以睡眠等待某种条件出现。条件变量是利用线程间共享的全局变量进行同步的一种机制，主要包括两个动作：一个线程等待”条件变量的条件成立”而挂起；另一个线程使”条件成立”（给出条件成立信号）。条件的检测是在<code>互斥锁</code>的保护下进行的。如果一个条件为假，一个线程自动阻塞，并释放等待状态改变的<code>互斥锁</code>。如果另一个线程改变了条件，它发信号给关联的条件变量，唤醒一个或多个等待它的线程，重新获得<code>互斥锁</code>，重新评价条件。<strong>如果两进程共享可读写的内存，条件变量可以被用来实现这两进程间的线程同步。</strong></p>
 <h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，<br>副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。<br>ThreadLocal 类的常用方法</p>
 <blockquote>
 <p>ThreadLocal() : 创建一个线程本地变量  get() : 返回此线程局部变量的当前线程副本中的值<br>initialValue() : 返回此线程局部变量的当前线程的”初始值”<br>set(T value) :将此线程局部变量的当前线程副本中的值设置为value</p>
