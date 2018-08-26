@@ -4,12 +4,32 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/13/%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2018-08-26T03:56:33.370Z</lastmod>
+    <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
+    <lastmod>2018-08-26T04:09:34.705Z</lastmod>
     <data>
         <display>
-        <title>多线程</title>
-        <pubTime>2018-08-13T01:00:00.000Z</pubTime>
+        <title>JMM和volatile与synchronized</title>
+        <pubTime>2018-08-26T04:00:00.000Z</pubTime>
+        
+        <tag>JMM，volatile，synchronized</tag>
+         
+         
+           
+             
+              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
+    <lastmod>2018-08-26T04:09:18.945Z</lastmod>
+    <data>
+        <display>
+        <title>线程池</title>
+        <pubTime>2018-08-19T01:00:00.000Z</pubTime>
         
         <tag>多线程</tag>
          
@@ -24,14 +44,14 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/08/24/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
-    <lastmod>2018-08-25T16:22:39.581Z</lastmod>
+    <loc>http://yoursite.com/2018/08/13/%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2018-08-26T04:07:32.627Z</lastmod>
     <data>
         <display>
-        <title>JMM和volatile与synchronized</title>
-        <pubTime>2018-08-24T01:00:00.000Z</pubTime>
+        <title>多线程</title>
+        <pubTime>2018-08-13T01:00:00.000Z</pubTime>
         
-        <tag>JMM，volatile，synchronized</tag>
+        <tag>多线程</tag>
          
          
            
@@ -97,26 +117,6 @@
            
              
               <breadCrumb title="设计模式" url="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/08/12/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
-    <lastmod>2018-08-12T11:07:42.446Z</lastmod>
-    <data>
-        <display>
-        <title>线程池</title>
-        <pubTime>2018-08-12T01:00:00.000Z</pubTime>
-        
-        <tag>线程</tag>
-         
-         
-           
-             
-              <breadCrumb title="线程池" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
           
         </display>
     </data>
