@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="多线程," />
+  <meta name="keywords" content="Jsch，SSH," />
 
 
 
@@ -89,21 +89,18 @@
 
 
 
-<meta name="description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
-<meta name="keywords" content="多线程">
+<meta name="description" content="概述">
+<meta name="keywords" content="Jsch，SSH">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多线程">
-<meta property="og:url" content="http://yoursite.com/2018/08/17/线程/index.html">
+<meta property="og:title" content="Jsch使用">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/Jsch的使用/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
+<meta property="og:description" content="概述">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535250738191.drawio.html">
-<meta property="og:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535212745961.drawio.html">
-<meta property="og:updated_time" content="2018-08-26T02:42:52.072Z">
+<meta property="og:updated_time" content="2018-11-13T10:06:23.205Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多线程">
-<meta name="twitter:description" content="概述首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下  深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述">
-<meta name="twitter:image" content="http://yoursite.com/2018/08/17/线程/attachments/1535250738191.drawio.html">
+<meta name="twitter:title" content="Jsch使用">
+<meta name="twitter:description" content="概述">
 
 
 
@@ -131,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/17/线程/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/10/Jsch的使用/"/>
 
 
 
 
 
-  <title> 多线程 | Foutin </title>
+  <title> Jsch使用 | Foutin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/线程/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Jsch的使用/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Foutlook">
@@ -307,7 +304,7 @@
             
             
               
-                多线程
+                Jsch使用
               
             
           </h1>
@@ -322,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T09:00:00+08:00">
-                2018-08-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-10T09:00:00+08:00">
+                2018-10-10
               </time>
             
 
@@ -345,8 +342,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
+                  <a href="/categories/SSH/" itemprop="url" rel="index">
+                    <span itemprop="name">SSH</span>
                   </a>
                 </span>
 
@@ -363,8 +360,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/17/线程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/08/17/线程/" itemprop="commentCount"></span>
+                <a href="/2018/10/10/Jsch的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/10/Jsch的使用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -395,55 +392,7 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>首先讲一下线程的基本概念，然后分析线程与进程的区别，解决多线程共享的加锁问题，ThreadLocal介绍一下</p>
-<blockquote>
-<p>深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句</p>
-</blockquote>
-<hr>
-<h2 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h2><p><strong>想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？</strong></p>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a><strong>进程</strong></h3><p>通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。</p>
-<h4 id="进程的衍生"><a href="#进程的衍生" class="headerlink" title="进程的衍生"></a><strong>进程的衍生</strong></h4><p>进程使用<code>fork</code>（）系统调用来创建。父进程调用<code>fork</code>创建子进程。每个子进程都是源自它的父进程的一个副本，它会获得父进程的数据段、堆和栈的副本，并与父进程共享代码段。每一份副本都是独立的，子进程对属于它的副本的修改对其父进程和兄弟进程（同父进程）都是不可见的，反之亦然。全盘复制父进程的数据是一种相当低效的做法。 Linux操作系统内核使用写时复制（Copy on Write,常简称为COW，<strong>也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容复制一份给子进程</strong>)等技术来提高进程创建的效率。当然，刚创建的子进程也可以通过系统调用exec把一个新的程序加载到自己的内存中，而原先在内存中的数据段、堆、栈以及代码段就会被替换掉，在这之后，子进程执行的就会是那个刚刚加载进来的新程序（意思就是当传入的参数或者变量不同的时候，子进程就相当于在做自己的事情）。</p>
-<p><strong>父进程被如果优先于子进程结束，那么子进程就会被原来父进程的父进程“收养”（也就是子进程的爷爷）。</strong></p>
-<p>为了管理进程，内核必须对每个进程的数据和行为进行详细的记录，包括进程的优先级、状态、虚拟地址范围以及各种访问权限等等。更具体地说，这些信息都会被记在每个进程的进程描述符中。进程描述符并不是一个简单的符号，而是一个非常复杂的数据结构。保存在进程描述符中的进程ID (常称为PID )是进程在操作系统中的唯一标识，其中<strong>进程ID为1的进程就是之前提到的内核启动进程</strong>。进程id是一个非负整数且总是顺序的编号，新创建的进程ID总是前一个进程ID递增的结果。此外，进程ID也可以重复使用。当进程ID达到其最大限值时，内核会从头开始查找闲置的进程ID并使用M先找到的那一个作为新进程的ID。另外，进程描述符中还会包含当前进程的父进程的ID (常称为PPID )。</p>
-<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><p>进程通信叫做IPC(Inter-Process Communication)，Linux中通信的方式大致可分成三种：</p>
-<ol>
-<li>基于通信的IPC</li>
-<li>基于信号的IPC</li>
-<li>基于同步的IPC</li>
-</ol>
-<p><strong>通信IPC</strong></p>
-<ul>
-<li>以数据为传送手段的IPC</li>
-</ul>
-<blockquote>
-<p>管道(pipe)：用于传输字节流<br>消息队列(message queue)：用来传输结构化的对象</p>
-</blockquote>
-<ul>
-<li>以共享内存为手段的IPC</li>
-</ul>
-<blockquote>
-<p>共享内存区（share memory)：最快的IPC方法</p>
-</blockquote>
-<p> <strong>信号IPC</strong></p>
-<blockquote>
-<p>操作系统的信号（signal）机制：唯一一种异步IPC方法。通过kill -l查看。</p>
-</blockquote>
-<p><strong>同步IPC</strong></p>
-<blockquote>
-<p>信号量（semaphore）</p>
-</blockquote>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程可以视为进程中的控制流。一个进程至少包含一个线程，因为其他至少会有一个控制流持续运行。因而，<strong>一个进程的第一个线程会随着这个进程的启动而创建</strong>，这个线程被称为该进程的主线程。当然，一个进程可以包含多个线程。这些线程都是由当前线程中已经存在的线程创建出来的，创建的方法就是系统调用（pthread_create）。<strong>拥有多个线程的进程可以并发执行多个任务，并且即时某个或某些任务被阻塞，也不会影响其他任务执行，这可以大大改善程序的响应时间和吞吐量</strong>。另一方面，线程不可能独立于进程存在。它的生命周期不可能逾越所属进程的生命周期。</p>
-<p>一个进程中的所有线程都拥有自己线程栈，并以此存储自己的私有数据。这些线程的线程栈都包含在其所属进程的虚拟内存地址中。不过要注意，一个进程中的很多资源都会被其中的所有线程共享，这些被线程共享的资源包含当前进程所持有文件描述符，等等。正因为如此，同一个进程的多个线程运行的一定是同一个程序，只不过具体的控制流程的执行函数可能有所不同。在同一个进程的多个线程之间共享数据也是一件非常轻松和自然的事情。另外，创建一个新线程，也不会像创建一个新进程那样耗时费力，因为在其所属进程的虚拟内存地址中存储的代码、数据和资源都不需要被复制。</p>
-<p>和进程一样，每个线程都有自己的ID（由内核分配），叫做线程ID或者TID。但是在操作系统范围内不唯一，在所属进程的范围内唯一。</p>
-<hr>
-<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p>在线程的生命周期中，它要经过<strong>新建(New)、就绪（Runnable）、运行（Running）、阻塞(Blocked)和死亡(Dead)5种状态</strong>。尤其是当线程启动以后，它不可能一直”霸占”着CPU独自运行，所以CPU需要在多条线程之间切换，于是线程状态也会多次在运行、阻塞之间切换</p>
-<p><img src="./attachments/1535250738191.drawio.html" alt="Diagram"></p>
-<hr>
-<h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><p>主线程在其所属进程启动时创建。其他线程可以通过别的线程用pthread_create来创建——要传入新线程将要执行的函数以及传入该函数的参数值。在创建成功的时候，该函数会返回线程的TID。</p>
-<hr>
-<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><hr>
-<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p><img src="./attachments/1535212745961.drawio.html" alt="Diagram"></p>
-
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2>
       
     </div>
 
@@ -492,7 +441,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+            <a href="/tags/Jsch，SSH/" rel="tag"># Jsch，SSH</a>
           
         </div>
       
@@ -501,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/数据库事务-原子性/" rel="next" title="数据库事务--原子性">
-                <i class="fa fa-chevron-left"></i> 数据库事务--原子性
+              <a href="/2018/09/15/java枚举/" rel="next" title="Java枚举">
+                <i class="fa fa-chevron-left"></i> Java枚举
               </a>
             
           </div>
@@ -510,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/24/JMM和volatile与synchronized/" rel="prev" title="JMM和volatile与synchronized">
-                JMM和volatile与synchronized <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +560,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -624,7 +569,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -633,7 +578,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -727,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程与进程的区别"><span class="nav-number">2.</span> <span class="nav-text">线程与进程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的衍生"><span class="nav-number">2.1.1.</span> <span class="nav-text">进程的衍生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程通信"><span class="nav-number">2.1.2.</span> <span class="nav-text">进程通信</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">2.2.</span> <span class="nav-text">线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的生命周期"><span class="nav-number">3.</span> <span class="nav-text">线程的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程"><span class="nav-number">4.</span> <span class="nav-text">创建线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">6.</span> <span class="nav-text">ThreadLocal</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li></ol></div>
             
 
           </div>
@@ -865,9 +810,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'foutlook';
-      var disqus_identifier = '2018/08/17/线程/';
+      var disqus_identifier = '2018/10/10/Jsch的使用/';
 
-      var disqus_title = "多线程";
+      var disqus_title = "Jsch使用";
 
 
       function run_disqus_script(disqus_script) {

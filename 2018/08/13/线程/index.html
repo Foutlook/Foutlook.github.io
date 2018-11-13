@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/13/线程/attachments/1535250738191.drawio.html">
 <meta property="og:image" content="http://yoursite.com/2018/08/13/线程/生命周期.jpg">
-<meta property="og:updated_time" content="2018-08-26T11:23:17.294Z">
+<meta property="og:updated_time" content="2018-11-13T10:04:26.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程">
 <meta name="twitter:description" content="概述 深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。 进程的衍生进程使用fork（">
@@ -470,12 +470,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如： </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>注： synchronized关键字也可以修饰静态方法，此时如果调用该静态方法，将会锁住整个类</p>
 <h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><p>使用volatile修饰共享变量可以实现线程同步。<strong>其中的原理与synchronized区别会在JMM文章中讲到。</strong><br>a.volatile关键字为域变量的访问提供了一种免锁机制，<br>b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，<br>c.因此每次使用该域就要重新计算，而不是使用寄存器中的值<br>d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量</p>
-<h4 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h4><p>ReentrantLock类是可重入、互斥、实现了Lock接口的锁， 它与使用synchronized方法和快具有相同的基本行为和语义，并且扩展了其能力</p>
+<h4 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h4><p>什么是重入呢？它是表示当一个线程试图获取一个它已经获取的锁时，这个获取动作就自动成功，这是对锁获取粒度的一个概念，也就是锁持有的是以线程为单位而不是基于调用次数。<br>再入锁可以设置公平性(fairness)，我们可以创建重入锁时选择是否是公平的。<br>ReentrantLock类是可重入、互斥、实现了Lock接口的锁， 它与使用synchronized方法和快具有相同的基本行为和语义，并且扩展了其能力。<br>ReentrantLock相比synchronize，因为可以像普通对象一样使用，所以可以利用其提供的各种便利方法，进行精细的同步操作。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bank</span> </span>&#123;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">int</span> account = <span class="number">100</span>;</span><br><span class="line">            <span class="comment">//需要声明这个锁</span></span><br><span class="line">            <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAccount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> account;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//这里不再需要synchronized </span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(<span class="keyword">int</span> money)</span> </span>&#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    account += money;</span><br><span class="line">                &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        ｝</span><br></pre></td></tr></table></figure>
 <p>ReenreantLock类的常用方法有：</p>
 <blockquote>
 <p> ReentrantLock() : 创建一个ReentrantLock实例<br> lock() : 获得锁<br> unlock() : 释放锁</p>
 </blockquote>
+<p>从性能的角度，synchronize早起的实现比较低效，对比ReentrantLock大多数场景性能都相差较大，但是在java6 中对其进行了非常多的改进，在高竞争情况下ReentrantLock仍然有一定优势。</p>
 <h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p>与互斥锁不同，条件变量是用来等待而不是用来上锁的。<strong>条件变量用来自动阻塞一个线程，直到某特殊情况发生为止。通常条件变量和互斥锁同时使用</strong>。条件变量分为两部分:<code>条件和变量</code>。条件本身是由互斥量保护的。线程在改变条件状态前先要锁住互斥量。条件变量使我们可以睡眠等待某种条件出现。条件变量是利用线程间共享的全局变量进行同步的一种机制，主要包括两个动作：一个线程等待”条件变量的条件成立”而挂起；另一个线程使”条件成立”（给出条件成立信号）。条件的检测是在<code>互斥锁</code>的保护下进行的。如果一个条件为假，一个线程自动阻塞，并释放等待状态改变的<code>互斥锁</code>。如果另一个线程改变了条件，它发信号给关联的条件变量，唤醒一个或多个等待它的线程，重新获得<code>互斥锁</code>，重新评价条件。<strong>如果两进程共享可读写的内存，条件变量可以被用来实现这两进程间的线程同步。</strong></p>
 <h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，<br>副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。<br>ThreadLocal 类的常用方法</p>
 <blockquote>
@@ -709,7 +710,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
