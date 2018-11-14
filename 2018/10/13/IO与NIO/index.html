@@ -89,13 +89,13 @@
 
 
 
-<meta name="description" content="概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io 包的好处是代码比较简单">
+<meta name="description" content="成功才是成功之母  概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io">
 <meta name="keywords" content="NIO，IO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IO与NIO">
 <meta property="og:url" content="http://yoursite.com/2018/10/13/IO与NIO/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io 包的好处是代码比较简单">
+<meta property="og:description" content="成功才是成功之母  概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/first.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/2.jpg">
@@ -106,10 +106,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/7.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/socket.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/selector.jpg">
-<meta property="og:updated_time" content="2018-11-13T13:09:26.670Z">
+<meta property="og:updated_time" content="2018-11-14T13:38:15.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO与NIO">
-<meta name="twitter:description" content="概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io 包的好处是代码比较简单">
+<meta name="twitter:description" content="成功才是成功之母  概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io">
 <meta name="twitter:image" content="http://yoursite.com/2018/10/13/IO与NIO/first.jpg">
 
 
@@ -402,7 +402,10 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。</p>
+        <blockquote>
+<p>成功才是成功之母</p>
+</blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。</p>
 <p>首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。</p>
 <p>java.io 包的好处是代码比较简单、直观，缺点则是 IO 效率和扩展性存在局限性，容易成为应用性能的瓶颈。</p>
 <p>第二，在 Java 1.4 中引入了 NIO 框架（java.nio 包），提供了 Channel、Selector、Buffer 等新的抽象，可以构建多路复用的、同步非阻塞 IO 程序，同时提供了更接近操作系统底层的高性能数据操作方式。</p>
