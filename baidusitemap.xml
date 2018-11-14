@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/11/01/zstack%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2018-11-14T15:15:34.920Z</lastmod>
+    <data>
+        <display>
+        <title>zstack的自动化测试</title>
+        <pubTime>2018-10-31T18:09:00.000Z</pubTime>
+        
+        <tag>zstack，自动化测试</tag>
+         
+         
+           
+             
+              <breadCrumb title="zstack" url="http://yoursite.com/categories/zstack/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/10/24/facade%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</loc>
-    <lastmod>2018-11-14T15:01:11.668Z</lastmod>
+    <lastmod>2018-11-14T15:14:22.119Z</lastmod>
     <data>
         <display>
         <title>facade设计模式和六大设计原则</title>
