@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/13/线程/attachments/1535250738191.drawio.html">
 <meta property="og:image" content="http://yoursite.com/2018/08/13/线程/生命周期.jpg">
-<meta property="og:updated_time" content="2018-11-14T13:38:20.362Z">
+<meta property="og:updated_time" content="2018-11-20T03:19:48.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程">
 <meta name="twitter:description" content="概述 深感自己的能力的不足，此处仅仅是对知识的记录和总结，许多地方都是借鉴他人的语句   线程与进程的区别想要了解线程，必须首先知道进程，并知道他与线程的区别是什么？ 进程通常，我们把一个程序的执行称为一个进程。反过来讲，进程用于描述程序的执行过程。因此，程序和进程是一对概念，它们分別描述了一个程序的静态和动态特征：除此之外，进程还操作系统进行资源分配的一个基本单位。 进程的衍生进程使用fork（">
@@ -493,7 +493,7 @@
 <hr>
 <h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>一句话概括：Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。所以ThreadLocal的应用场合，最适合的是按线程多实例（每个线程对应一个实例）的对象的访问，并且这个对象很多地方都要用到。</p>
 <p>数据隔离的秘诀其实是这样的，Thread有个TheadLocalMap类型的属性，叫做threadLocals，该属性用来保存该线程本地变量。这样每个线程都有自己的数据，就做到了不同线程间数据的隔离，保证了数据安全。</p>
-<p>有点累这部分暂时留着：有问题看这篇博客：<br><a href="https://blog.csdn.net/lufeng20/article/details/24314381" target="_blank" rel="noopener">https://blog.csdn.net/lufeng20/article/details/24314381</a></p>
+<p>具体看这篇博客：<br><a href="https://blog.csdn.net/lufeng20/article/details/24314381" target="_blank" rel="noopener">https://blog.csdn.net/lufeng20/article/details/24314381</a></p>
 <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p><strong>并发（Concurrency）和并行（Parallelism）</strong></p>
 <blockquote>
 <p>并发和并行往往被人所混淆。它们都可以表示两个或多个任务一起执行，但是偏重点有些不同。并发偏重于多个任务交替执行，而多个任务有可能还是串行。而并行则是真正意义上的“同时执行”。</p>
