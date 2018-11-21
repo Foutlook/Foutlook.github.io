@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
+    <lastmod>2018-11-21T09:24:30.892Z</lastmod>
+    <data>
+        <display>
+        <title>JMM和volatile与synchronized</title>
+        <pubTime>2018-08-26T04:00:00.000Z</pubTime>
+        
+        <tag>JMM，volatile，synchronized</tag>
+         
+         
+           
+             
+              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
     <lastmod>2018-11-20T03:21:08.893Z</lastmod>
     <data>
@@ -97,26 +117,6 @@
            
              
               <breadCrumb title="所思" url="http://yoursite.com/categories/%E6%89%80%E6%80%9D/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
-    <lastmod>2018-11-14T13:38:25.333Z</lastmod>
-    <data>
-        <display>
-        <title>JMM和volatile与synchronized</title>
-        <pubTime>2018-08-26T04:00:00.000Z</pubTime>
-        
-        <tag>JMM，volatile，synchronized</tag>
-         
-         
-           
-             
-              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
           
         </display>
     </data>

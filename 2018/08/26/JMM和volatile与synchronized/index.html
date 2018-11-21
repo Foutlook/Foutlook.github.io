@@ -98,7 +98,7 @@
 <meta property="og:description" content="好的习惯可以影响人一生  概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/JMM.jpg">
-<meta property="og:updated_time" content="2018-11-14T13:38:25.333Z">
+<meta property="og:updated_time" content="2018-11-21T09:24:30.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JMM和volatile与synchronized">
 <meta name="twitter:description" content="好的习惯可以影响人一生  概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字">
@@ -401,6 +401,19 @@
 <h2 id="JMM-Java-Memory-Model"><a href="#JMM-Java-Memory-Model" class="headerlink" title="JMM(Java Memory Model)"></a>JMM(Java Memory Model)</h2><p>Java内存区域就不在过多的介绍，有兴趣可以看我以前写的关于深入理解JVM的内容。<br>在执行程序时JVM运行程序的实体是<code>线程</code>，而每个线程创建时JVM都会为其创建一个<code>工作内存</code>(有些地方称为<code>栈空间</code>)，用于存储线程私有的数据，而Java内存模型中规定所有变量都存储在<code>主内存</code>，主内存是共享内存区域，所有线程都可以访问，但线程对变量的操作(读取赋值等)必须在工作内存中进行，<strong>首先要将变量从主内存拷贝的自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存，不能直接操作主内存中的变量，工作内存中存储着主内存中的变量副本拷贝，前面说过，工作内存是每个线程的私有数据区域，因此不同的线程间无法访问对方的工作内存</strong>，线程间的通信(传值)必须通过主内存来完成，其简要访问过程如下图:<br><img src="JMM.jpg" alt="1"><br>JMM与Java内存区域的划分是不同的概念层次，更恰当说JMM描述的是一组规则，通过这组规则控制程序中各个变量在共享数据区域和私有数据区域的访问方式，<strong>JMM是围绕原子性，有序性、可见性展开的</strong>。这也是我们在并发操作，或者使用多线程执行的时候围绕这三个原则来保证数据的同步。</p>
 <p>对于一个实例对象中的成员方法而言，如果<code>方法中</code>包含本地变量是<code>基本数据类型</code>（boolean,byte,short,char,int,long,float,double），将直接存储在工作内存的<code>帧栈</code>结构中，但倘若<code>本地变量是引用类型</code>，那么该变量的<code>引用</code>会存储在功能内存的帧栈中，而对象实例将存储在主内存(共享数据区域，堆)中。但对于<code>实例对象的成员变量</code>，不管它是<code>基本数据类型</code>或者<code>包装类型</code>(Integer、Double等)还是<code>引用类型</code>，都会被存储到堆区。至于static变量以及类本身相关信息将会存储在主内存中。需要注意的是，在主内存中的实例对象可以被多线程共享，倘若两个线程同时调用了同一个对象的同一个方法，那么两条线程会将要操作的数据拷贝一份到自己的工作内存中，执行完成操作后才刷新到主内存，</p>
 <p>总结来说一句话：<strong>方法中的局部变量是基本类型就直接操作个线程的栈中，引用变量值存在主内存中。而对象成员变量都存放在主内存中。</strong></p>
+<h3 id="为什么需要JMM，它试图解决什么问题"><a href="#为什么需要JMM，它试图解决什么问题" class="headerlink" title="为什么需要JMM，它试图解决什么问题"></a>为什么需要JMM，它试图解决什么问题</h3><p>Java 是最早尝试提供内存模型的语言，这是简化多线程编程、保证程序可移植性的一个飞跃。早期类似 C、C++ 等语言，并不存在内存模型的概念（C++ 11 中也引入了标准内存模型），其行为依赖于处理器本身的内存一致性模型，但不同的处理器可能差异很大，所以一段 C++ 程序在处理器 A 上运行正常，并不能保证其在处理器 B 上也是一致的。</p>
+<p>即使如此，最初的 Java 语言规范仍然是存在着缺陷的，当时的目标是，希望 Java 程序可以充分利用现代硬件的计算能力，同时保持“书写一次，到处执行”的能力。</p>
+<p>但是，显然问题的复杂度被低估了，随着 Java 被运行在越来越多的平台上，人们发现，过于泛泛的内存模型定义，存在很多模棱两可之处，对 synchronized 或 volatile 等，类似指令重排序时的行为，并没有提供清晰规范。这里说的指令重排序，既可以是编译器优化行为，也可能是源自于现代处理器的乱序执行等。</p>
+<p>换句话说：</p>
+<blockquote>
+<ul>
+<li><p>既不能保证一些多线程程序的正确性，例如最著名的就是双检锁（Double-Checked Locking，DCL）的失效问题，双检锁可能导致未完整初始化的对象被访问，理论上这叫并发编程中的安全发布（Safe Publication）失败。</p>
+</li>
+<li><p>也不能保证同一段程序在不同的处理器架构上表现一致，例如有的处理器支持缓存一致性，有的不支持，各自都有自己的内存排序模型。</p>
+</li>
+</ul>
+</blockquote>
+<p>所以，Java 迫切需要一个完善的 <code>JMM</code>，能够让普通 Java 开发者和编译器、JVM 工程师，能够清晰地达成共识。换句话说，可以<code>相对简单并准确地判断出，多线程程序什么样的执行序列是符合规范的</code>。</p>
 <h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>volatile在并发编程中很常见，但也容易被滥用，现在我们就进一步分析volatile关键字的语义。volatile是Java虚拟机提供的轻量级的同步机制。volatile关键字有如下两个作用</p>
 <blockquote>
 <ul>
@@ -420,7 +433,7 @@
 <h2 id="volatile和synchronized的区别"><a href="#volatile和synchronized的区别" class="headerlink" title="volatile和synchronized的区别"></a>volatile和synchronized的区别</h2><blockquote>
 <p>volatile本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取； synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。<br>volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、和类级别的<br>volatile仅能实现变量的修改可见性，不能保证原子性；而synchronized则可以保证变量的修改可见性和原子性<br>volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞。<br>volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化</p>
 </blockquote>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>在真正的开发中我还是很少会用volatile，感觉用起来挺苛刻的。不是特别的擅长使用它。相比volatile我对ThreadLocal更感兴趣。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>volatile无法保证原则性。可以使用并发包提供的Atomic* 。 </p>
 
       
     </div>
@@ -705,7 +718,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM-Java-Memory-Model"><span class="nav-number">2.</span> <span class="nav-text">JMM(Java Memory Model)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">3.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile和synchronized特点"><span class="nav-number">4.</span> <span class="nav-text">volatile和synchronized特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile和synchronized的区别"><span class="nav-number">5.</span> <span class="nav-text">volatile和synchronized的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM-Java-Memory-Model"><span class="nav-number">2.</span> <span class="nav-text">JMM(Java Memory Model)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要JMM，它试图解决什么问题"><span class="nav-number">2.1.</span> <span class="nav-text">为什么需要JMM，它试图解决什么问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">3.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile和synchronized特点"><span class="nav-number">4.</span> <span class="nav-text">volatile和synchronized特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile和synchronized的区别"><span class="nav-number">5.</span> <span class="nav-text">volatile和synchronized的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
