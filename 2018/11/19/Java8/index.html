@@ -98,7 +98,7 @@
 <meta property="og:description" content="没有工作的生活感觉真的无聊   概述自从毕业进入上家公司，感受到自己的无知和技术更新迭代速度是真的快。Java8中许多新特性都在ZStack中有所使用。故这里对Java8新特性进行总结一下。 近几年Java的发展的确挺快的，修改了许多令开发人员诟病的特性。正在逐渐吸收着其他语言的优点。我相信Java仍是许多项目中不可或缺的语言。前景仍然看好。  Lambda表达式官网表述：Lambda表达式是J">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/Java8/stream.jpg">
-<meta property="og:updated_time" content="2018-11-22T11:47:15.674Z">
+<meta property="og:updated_time" content="2018-11-22T11:51:09.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8新特性">
 <meta name="twitter:description" content="没有工作的生活感觉真的无聊   概述自从毕业进入上家公司，感受到自己的无知和技术更新迭代速度是真的快。Java8中许多新特性都在ZStack中有所使用。故这里对Java8新特性进行总结一下。 近几年Java的发展的确挺快的，修改了许多令开发人员诟病的特性。正在逐渐吸收着其他语言的优点。我相信Java仍是许多项目中不可或缺的语言。前景仍然看好。  Lambda表达式官网表述：Lambda表达式是J">
@@ -618,10 +618,129 @@
 <td>toList</td>
 <td><code>List&lt;T&gt;</code></td>
 <td>把流中所有项目收集到一个List</td>
-<td><figure class="highlight plain"><figcaption><span>dishes </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">|  toSet   | `Set&lt;T&gt;`   |  把流中所有项目收集到一个Set，删除重复项   |	``` Set&lt;Dish&gt; dishes = menuStream.collect(toSet()); ```	|</span><br><span class="line">|  toCollection   |   `Collection&lt;T&gt;`  |   把流中所有项目收集到给定的供应源创建的集合  |		``` Collection&lt;Dish&gt; dishes = menuStream.collect(toCollection(),ArrayList::new);```	|</span><br><span class="line">| counting    |  `Long`  |  计算流中元素的个数   |		```long howManyDishes = menuStream.collect(counting()); ```	|</span><br><span class="line">|  summingInt   | `Integer`  |   	对流中项目的一个整数属性求和  |		``` int totalCalories = menuStream.collect(summingInt(Dish::getCalories));```	|</span><br><span class="line">|   averagingInt  | ` Double`   |   计算流中项目Integer属性的平均值  |		```double avgCalories =menuStream.collect(averagingInt(Dish::getCalories)); ```	|</span><br><span class="line">|  summarizingInt   | `IntSummaryStatistics `   |   收集关于流中项目Integer属性的统计值，例如最大、最小、总和与平均值  |		``` IntSummaryStatistics menuStatistics = menuStream.collect(summarizingInt(Dish::getCalories)); ```	|</span><br><span class="line">|   joining  |  `Sring `  |   连接对流中每个项目调用toString方法所生成的字符串  |		```  String shortMenu = menuStream.map(Dish::getName).collect(joining(&quot;, &quot;)); ```	|</span><br><span class="line">|   groupingBy  |   `Map&lt;K, List&lt;T&gt;&gt;`  |  根据项目的一个属性的值对流中的项目作问组，并将属性值作为结果Map的键   |		```  Map&lt;Dish.Type,List&lt;Dish&gt;&gt; dishesByType = menuStream.collect(groupingBy(Dish::getType)); ```	|</span><br><span class="line">|  partitioningBy   |   `Map&lt;Boolean,List&lt;T&gt;&gt; ` |  根据对流中每个项目应用谓词的结果来对项目进行分区   |		``` Map&lt;Boolean,List&lt;Dish&gt;&gt; vegetarianDishes = menuStream.collect(partitioningBy(Dish::isVegetarian));  ```	|</span><br><span class="line"></span><br><span class="line">&gt; 在Java 7之前，并行处理数据集合非常麻烦。第一，你得明确地把包含数据的数据结构分成若干子部分。第二，你要给每个子部分分配一个独立的线程。第三，你需要在恰当的时候对它们进行同步来避免不希望出现的竞争条件，等待所有线程完成，最后把这些部分结果合并起来。Java 7引入了一个叫作分支/合并的框架，让这些操作更稳定、更不易出错。</span><br><span class="line">&gt; 我们简要地提到了Stream接口可以让你非常方便地处理它的元素：可以通过对收集源调用parallelStream方法来把集合转换为并行流。并行流就是一个把内容分成多个数据块，并用不同的线程分别处理每个数据块的流。这样一来，你就可以自动把给定操作的工作负荷分配给多核处理器的所有内核，让它们都忙起来。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Optional</span><br><span class="line">Java应用中最常见的bug就是空值异常。在Java 8之前，Google Guava引入了Optionals类来解决NullPointerException，从而避免源码被各种null检查污染，以便开发者写出更加整洁的代码。Java 8也将Optional加入了官方库。</span><br><span class="line">你现在可以通过一种数据类型表示显式缺失的值——使用空指针的问题在于你无法确切了解出现空指针的原因，它是预期的情况，还是说由于之前的某一次计算出错导致的一个偶然性的空值，有了Optional之后你就不需要再使用之前容易出错的空指针来表示缺失的值了。</span><br><span class="line"></span><br><span class="line">### 方法</span><br><span class="line"></span><br><span class="line">|  方法名   |  描述   |</span><br><span class="line">| --- | --- |</span><br><span class="line">|  empty   | 返回一个空的Optional实例    |</span><br><span class="line">|  filter   |  如果值存在并且满足提供的谓词，就返回包含该值的Optional对象；否则返回一个空的Optional对象   |</span><br><span class="line">|  flatMap   |  如果值存在，就对该值执行提供的mapping函数调用，返回一个Optional类型的值，否则就返回一个空的Optional对象   |</span><br><span class="line">|  get   |   如果该值存在，将该值用Optional封装返回，否则抛出一个NoSuchElementException异常  |</span><br><span class="line">|  ifPresent   |  如果值存在，就执行使用该值的方法调用，否则什么也不做   |</span><br><span class="line">|  isPresent   | 如果值存在就返回true，否则返回false    |</span><br><span class="line">|  map   |   如果值存在，就对该值执行提供的mapping函数调用  |</span><br><span class="line">|	of	|		将指定值用Optional封装之后返回，如果该值为null，则抛出一个NullPointerException异常	|</span><br><span class="line">|	ofNullable	|	将指定值用Optional封装之后返回，如果该值为null，则返回一个空的Optional对象		|</span><br><span class="line">|	orElse	|	如果有值则将其返回，否则返回一个默认值		|</span><br><span class="line">|	orElseGet	|	如果有值则将其返回，否则返回一个由指定的Supplier接口生成的值		|</span><br><span class="line">|	orElseThrow	|		如果有值则将其返回，否则抛出一个由指定的Supplier接口生成的异常	|</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line">Optional&lt; String &gt; fullName = Optional.ofNullable( null );</span><br><span class="line">System.out.println( &quot;Full Name is set? &quot; + fullName.isPresent() );        </span><br><span class="line">System.out.println( &quot;Full Name: &quot; + fullName.orElseGet( () -&gt; &quot;[none]&quot; ) ); </span><br><span class="line">System.out.println( fullName.map( s -&gt; &quot;Hey &quot; + s + &quot;!&quot; ).orElse( &quot;Hey Stranger!&quot; )</span><br></pre></td></tr></table></figure></td>
+<td><code>List&lt;Dish&gt; dishes = menuStream.collect(toList());</code></td>
+</tr>
+<tr>
+<td>toSet</td>
+<td><code>Set&lt;T&gt;</code></td>
+<td>把流中所有项目收集到一个Set，删除重复项</td>
+<td><code>Set&lt;Dish&gt; dishes = menuStream.collect(toSet());</code></td>
+</tr>
+<tr>
+<td>toCollection</td>
+<td><code>Collection&lt;T&gt;</code></td>
+<td>把流中所有项目收集到给定的供应源创建的集合</td>
+<td><code>Collection&lt;Dish&gt; dishes = menuStream.collect(toCollection(),ArrayList::new);</code></td>
+</tr>
+<tr>
+<td>counting</td>
+<td><code>Long</code></td>
+<td>计算流中元素的个数</td>
+<td><code>long howManyDishes = menuStream.collect(counting());</code></td>
+</tr>
+<tr>
+<td>summingInt</td>
+<td><code>Integer</code></td>
+<td>对流中项目的一个整数属性求和</td>
+<td><code>int totalCalories = menuStream.collect(summingInt(Dish::getCalories));</code></td>
+</tr>
+<tr>
+<td>averagingInt</td>
+<td><code>Double</code></td>
+<td>计算流中项目Integer属性的平均值</td>
+<td><code>double avgCalories =menuStream.collect(averagingInt(Dish::getCalories));</code></td>
+</tr>
+<tr>
+<td>summarizingInt</td>
+<td><code>IntSummaryStatistics</code></td>
+<td>收集关于流中项目Integer属性的统计值，例如最大、最小、总和与平均值</td>
+<td><code>IntSummaryStatistics menuStatistics = menuStream.collect(summarizingInt(Dish::getCalories));</code></td>
+</tr>
+<tr>
+<td>joining</td>
+<td><code>Sring</code></td>
+<td>连接对流中每个项目调用toString方法所生成的字符串</td>
+<td><code>String shortMenu = menuStream.map(Dish::getName).collect(joining(&quot;, &quot;));</code></td>
+</tr>
+<tr>
+<td>groupingBy</td>
+<td><code>Map&lt;K, List&lt;T&gt;&gt;</code></td>
+<td>根据项目的一个属性的值对流中的项目作问组，并将属性值作为结果Map的键</td>
+<td><code>Map&lt;Dish.Type,List&lt;Dish&gt;&gt; dishesByType = menuStream.collect(groupingBy(Dish::getType));</code></td>
+</tr>
+<tr>
+<td>partitioningBy</td>
+<td><code>Map&lt;Boolean,List&lt;T&gt;&gt;</code></td>
+<td>根据对流中每个项目应用谓词的结果来对项目进行分区</td>
+<td><code>Map&lt;Boolean,List&lt;Dish&gt;&gt; vegetarianDishes = menuStream.collect(partitioningBy(Dish::isVegetarian));</code></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>在Java 7之前，并行处理数据集合非常麻烦。第一，你得明确地把包含数据的数据结构分成若干子部分。第二，你要给每个子部分分配一个独立的线程。第三，你需要在恰当的时候对它们进行同步来避免不希望出现的竞争条件，等待所有线程完成，最后把这些部分结果合并起来。Java 7引入了一个叫作分支/合并的框架，让这些操作更稳定、更不易出错。<br>我们简要地提到了Stream接口可以让你非常方便地处理它的元素：可以通过对收集源调用parallelStream方法来把集合转换为并行流。并行流就是一个把内容分成多个数据块，并用不同的线程分别处理每个数据块的流。这样一来，你就可以自动把给定操作的工作负荷分配给多核处理器的所有内核，让它们都忙起来。</p>
+</blockquote>
+<hr>
+<h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><p>Java应用中最常见的bug就是空值异常。在Java 8之前，Google Guava引入了Optionals类来解决NullPointerException，从而避免源码被各种null检查污染，以便开发者写出更加整洁的代码。Java 8也将Optional加入了官方库。<br>你现在可以通过一种数据类型表示显式缺失的值——使用空指针的问题在于你无法确切了解出现空指针的原因，它是预期的情况，还是说由于之前的某一次计算出错导致的一个偶然性的空值，有了Optional之后你就不需要再使用之前容易出错的空指针来表示缺失的值了。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>empty</td>
+<td>返回一个空的Optional实例</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>如果值存在并且满足提供的谓词，就返回包含该值的Optional对象；否则返回一个空的Optional对象</td>
+</tr>
+<tr>
+<td>flatMap</td>
+<td>如果值存在，就对该值执行提供的mapping函数调用，返回一个Optional类型的值，否则就返回一个空的Optional对象</td>
+</tr>
+<tr>
+<td>get</td>
+<td>如果该值存在，将该值用Optional封装返回，否则抛出一个NoSuchElementException异常</td>
+</tr>
+<tr>
+<td>ifPresent</td>
+<td>如果值存在，就执行使用该值的方法调用，否则什么也不做</td>
+</tr>
+<tr>
+<td>isPresent</td>
+<td>如果值存在就返回true，否则返回false</td>
+</tr>
+<tr>
+<td>map</td>
+<td>如果值存在，就对该值执行提供的mapping函数调用</td>
+</tr>
+<tr>
+<td>of</td>
+<td>将指定值用Optional封装之后返回，如果该值为null，则抛出一个NullPointerException异常</td>
+</tr>
+<tr>
+<td>ofNullable</td>
+<td>将指定值用Optional封装之后返回，如果该值为null，则返回一个空的Optional对象</td>
+</tr>
+<tr>
+<td>orElse</td>
+<td>如果有值则将其返回，否则返回一个默认值</td>
+</tr>
+<tr>
+<td>orElseGet</td>
+<td>如果有值则将其返回，否则返回一个由指定的Supplier接口生成的值</td>
+</tr>
+<tr>
+<td>orElseThrow</td>
+<td>如果有值则将其返回，否则抛出一个由指定的Supplier接口生成的异常</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt; String &gt; fullName = Optional.ofNullable( <span class="keyword">null</span> );</span><br><span class="line">System.out.println( <span class="string">"Full Name is set? "</span> + fullName.isPresent() );        </span><br><span class="line">System.out.println( <span class="string">"Full Name: "</span> + fullName.orElseGet( () -&gt; <span class="string">"[none]"</span> ) ); </span><br><span class="line">System.out.println( fullName.map( s -&gt; <span class="string">"Hey "</span> + s + <span class="string">"!"</span> ).orElse( <span class="string">"Hey Stranger!"</span> )</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Full Name is set? <span class="keyword">false</span></span><br><span class="line">Full Name: [none]</span><br><span class="line">Hey Stranger!</span><br></pre></td></tr></table></figure>
 <hr>
@@ -941,7 +1060,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式"><span class="nav-number">2.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数接口"><span class="nav-number">3.</span> <span class="nav-text">函数接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口默认方法"><span class="nav-number">4.</span> <span class="nav-text">接口默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法引用"><span class="nav-number">5.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流"><span class="nav-number">6.</span> <span class="nav-text">流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是流"><span class="nav-number">6.1.</span> <span class="nav-text">什么是流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的构成"><span class="nav-number">6.2.</span> <span class="nav-text">流的构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的操作"><span class="nav-number">6.3.</span> <span class="nav-text">流的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收集器"><span class="nav-number">6.4.</span> <span class="nav-text">收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期和时间"><span class="nav-number">7.</span> <span class="nav-text">日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture"><span class="nav-number">8.</span> <span class="nav-text">CompletableFuture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式"><span class="nav-number">2.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数接口"><span class="nav-number">3.</span> <span class="nav-text">函数接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口默认方法"><span class="nav-number">4.</span> <span class="nav-text">接口默认方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法引用"><span class="nav-number">5.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流"><span class="nav-number">6.</span> <span class="nav-text">流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是流"><span class="nav-number">6.1.</span> <span class="nav-text">什么是流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的构成"><span class="nav-number">6.2.</span> <span class="nav-text">流的构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的操作"><span class="nav-number">6.3.</span> <span class="nav-text">流的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收集器"><span class="nav-number">6.4.</span> <span class="nav-text">收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional"><span class="nav-number">7.</span> <span class="nav-text">Optional</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">7.1.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期和时间"><span class="nav-number">8.</span> <span class="nav-text">日期和时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CompletableFuture"><span class="nav-number">9.</span> <span class="nav-text">CompletableFuture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
