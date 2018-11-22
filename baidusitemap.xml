@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/11/19/Java8/</loc>
+    <lastmod>2018-11-22T11:39:00.145Z</lastmod>
+    <data>
+        <display>
+        <title>Java8新特性</title>
+        <pubTime>2018-11-19T01:00:00.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
     <lastmod>2018-11-21T11:13:04.237Z</lastmod>
     <data>
@@ -18,21 +38,6 @@
              
               <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/11/21/Java8/</loc>
-    <lastmod>2018-11-21T10:54:29.990Z</lastmod>
-    <data>
-        <display>
-        <title></title>
-        <pubTime>2018-11-21T10:54:29.990Z</pubTime>
-        
-         
-           
         </display>
     </data>
     </url>
