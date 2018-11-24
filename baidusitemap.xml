@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/11/24/%E6%AD%A4%E5%88%BB%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2018-11-24T12:02:41.523Z</lastmod>
+    <data>
+        <display>
+        <title>此刻小记</title>
+        <pubTime>2018-11-24T01:00:00.000Z</pubTime>
+        
+        <tag>所思所想</tag>
+         
+         
+           
+             
+              <breadCrumb title="所思所想" url="http://yoursite.com/categories/%E6%89%80%E6%80%9D%E6%89%80%E6%83%B3/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/11/19/Java8/</loc>
     <lastmod>2018-11-23T07:33:25.991Z</lastmod>
     <data>
