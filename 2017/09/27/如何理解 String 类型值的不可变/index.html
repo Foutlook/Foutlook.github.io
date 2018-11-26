@@ -89,21 +89,21 @@
 
 
 
-<meta name="description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。 String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说明">
+<meta name="description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。  String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说">
 <meta name="keywords" content="Java，String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何理解 String 类型值的不可变？">
 <meta property="og:url" content="http://yoursite.com/2017/09/27/如何理解 String 类型值的不可变/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。 String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说明">
+<meta property="og:description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。  String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2017/09/27/如何理解%20String%20类型值的不可变/String1.png">
 <meta property="og:image" content="http://yoursite.com/2017/09/27/如何理解%20String%20类型值的不可变/Stringchar.png">
 <meta property="og:image" content="http://yoursite.com/2017/09/27/如何理解%20String%20类型值的不可变/String2.png">
-<meta property="og:updated_time" content="2018-07-09T04:19:15.268Z">
+<meta property="og:updated_time" content="2018-11-26T01:36:06.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何理解 String 类型值的不可变？">
-<meta name="twitter:description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。 String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说明">
+<meta name="twitter:description" content="概要我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。  String为什么不可变？翻开源码如下：首先String类是用final关键字修饰，这说">
 <meta name="twitter:image" content="http://yoursite.com/2017/09/27/如何理解%20String%20类型值的不可变/String1.png">
 
 
@@ -396,18 +396,25 @@
       
 
       
-        <h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。<br>如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。<br><img src="String1.png" alt="String"></p>
-<h3 id="String为什么不可变？"><a href="#String为什么不可变？" class="headerlink" title="String为什么不可变？"></a>String为什么不可变？</h3><p>翻开源码如下：<br><img src="Stringchar.png" alt="String"><br>首先String类是用final关键字修饰，这说明String不可继承。再看下面，String类的主力成员字段value是个char[ ]数组，而且是用final修饰的。final修饰的字段创建以后就不可改变。因为虽然value是不可变，也只是value这个引用地址不可变。挡不住Array数组是可变的事实。<br>数组的本体结构在heap堆。String类里的value用final修饰，只是说stack里的这个叫value的引用地址不可变。没有说堆里array本身数据不可变。<br>如下示例：</p>
+        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>我们都知道String类的对象是一个典型的不可变对象，我们调用它的subString（），replace（），concat（）这些方法都不会影响它原来的值，只会返回一个新构建的对象。<br>如下图，给一个已有字符串”abc”第二次赋值成”abcde”，不是在原内存地址上修改数据，而是重新指向一个新对象，新地址。<br><img src="String1.png" alt="String"></p>
+<hr>
+<h2 id="String为什么不可变？"><a href="#String为什么不可变？" class="headerlink" title="String为什么不可变？"></a>String为什么不可变？</h2><p>翻开源码如下：<br><img src="Stringchar.png" alt="String"><br>首先String类是用final关键字修饰，这说明String不可继承。再看下面，String类的主力成员字段value是个char[ ]数组，而且是用final修饰的。final修饰的字段创建以后就不可改变。因为虽然value是不可变，也只是value这个引用地址不可变。挡不住Array数组是可变的事实。<br>数组的本体结构在heap堆。String类里的value用final修饰，只是说stack里的这个叫value的引用地址不可变。没有说堆里array本身数据不可变。<br>如下示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">final int[] value=&#123;1,2,3&#125;</span><br><span class="line">int[] another=&#123;4,5,6&#125;;</span><br><span class="line">value=another;    //编译器报错，final不可变</span><br></pre></td></tr></table></figure>
 <p>value用final修饰，编译器不允许我把value指向堆区另一个地址。但如果我直接对数组元素动手，情况就会发生变化。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final int[] value=&#123;1,2,3&#125;;</span><br><span class="line">value[2]=100;  //这时候数组里已经是&#123;1,2,100&#125;</span><br></pre></td></tr></table></figure>
 <p>所以为了保证String不可变，String类中把char类型的数组设置成private的，外界不允许访问，而且设计者把整个String类设计成final禁止继承，避免了String被改变。所以String是不可变的关键都在底层的实现，而不是一个final。</p>
-<h3 id="String-不可变的好处"><a href="#String-不可变的好处" class="headerlink" title="String 不可变的好处"></a>String 不可变的好处</h3><p>1、不可变的好处，就要牵扯到字符串常量池了，只有当字符串是不可变的，字符串池才有可能实现。<strong>字符串池的实现可以在运行时节约很多heap空间</strong>，因为不同的字符串变量都指向池中的同一个字符串。但如果字符串是可变的，那么String interning将不能实现(译者注：String interning是指对不同的字符串仅仅只保存一个，即不会保存多个相同的字符串。)，因为这样的话，如果变量改变了它的值，那么其它指向这个值的变量的值也会一起改变。</p>
+<hr>
+<h2 id="String-不可变的好处"><a href="#String-不可变的好处" class="headerlink" title="String 不可变的好处"></a>String 不可变的好处</h2><p>1、不可变的好处，就要牵扯到字符串常量池了，只有当字符串是不可变的，字符串池才有可能实现。<strong>字符串池的实现可以在运行时节约很多heap空间</strong>，因为不同的字符串变量都指向池中的同一个字符串。但如果字符串是可变的，那么String interning将不能实现(译者注：String interning是指对不同的字符串仅仅只保存一个，即不会保存多个相同的字符串。)，因为这样的话，如果变量改变了它的值，那么其它指向这个值的变量的值也会一起改变。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s1 = "aaddcc";</span><br><span class="line">String s2 = "aaddcc";</span><br></pre></td></tr></table></figure>
 <p><img src="String2.png" alt="String"><br>这样在大量使用字符串的情况下，可以节省内存空间，提高效率。但之所以能实现这个特性，String的不可变性是最基本的一个必要条件。要是内存里字符串内容能改来改去，这么做就完全没有意义了。</p>
 <p>2、因为字符串是不可变的，所以是多线程安全的，同一个字符串实例可以被多个线程共享。这样便不用因为线程安全问题而使用同步。字符串自己便是线程安全的。<br>3、因为字符串是不可变的，所以在它创建的时候hashcode就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。<br>4、如果字符串是可变的，那么会引起很严重的安全问题。譬如，数据库的用户名、密码都是以字符串的形式传入来获得数据库的连接，或者在socket编程中，主机名和端口都是以字符串的形式传入。因为字符串是不可变的，所以它的值是不可改变的，否则黑客们可以钻到空子，改变字符串指向的对象的值，造成安全漏洞。</p>
 <p>除了上面提到的String之外，常用的还有枚举类，以及java.lang.Number的部分子类，如Long和Double等数值包装类，BigInteger和BigDecimal等大数据类型。</p>
-<h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><p><strong>String的特性》</strong><br>1、String类是final的，不可被继承。<br>2、String类是的本质是字符数组char[], 并且其值不可改变。<br>3、String类对象有个特殊的创建的方式，就是直接指定比如String x = “abc”，”abc”就表示一个字符串对象。而x是”abc”对象的地址，也叫做”abc”对象的引用。<br>4、String对象可以通过“+”串联。串联后会生成新的字符串。<br>5、Java运行时会维护一个String Pool（String池），JavaDoc翻译很模糊“字符串缓冲区”。String池用来存放运行时中产生的各种字符串，并且池中的字符串的内容不重复。而一般对象不存在这个缓冲池，并且创建的对象仅仅存在于方法的堆栈区。<br>6、创建字符串的方式很多，归纳起来有三类：<br>其一，使用new关键字创建字符串，比如String s1 = new String(“abc”);<br>其二，直接指定。比如String s2 = “abc”;<br>其三，使用串联生成新的字符串。比如String s3 = “ab” + “c”;</p>
+<h2 id="StringBuilder和StringBuffer"><a href="#StringBuilder和StringBuffer" class="headerlink" title="StringBuilder和StringBuffer"></a>StringBuilder和StringBuffer</h2><p>String 覆盖了 equals 方法和 hashCode 方法，而 StringBuffer和StringBuilder没有覆盖 equals 方法和 hashCode 方法，所以，<strong>将 StringBuffer对象存储进 Java集合类中时会出现问题。</strong></p>
+<blockquote>
+<p>StringBuffer（线程安全） 和 StringBuilder都是继承自AbstractStringBuilder，底层都是数组，java9之前使用char，之后是byte，这个内部数组应该创建多大呢？目前的实现时，构建时初始字符串长度16。</p>
+</blockquote>
+<hr>
+<h2 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h2><p><strong>String的特性》</strong><br>1、String类是final的，不可被继承。<br>2、String类是的本质是字符数组char[], 并且其值不可改变。<br>3、String类对象有个特殊的创建的方式，就是直接指定比如String x = “abc”，”abc”就表示一个字符串对象。而x是”abc”对象的地址，也叫做”abc”对象的引用。<br>4、String对象可以通过“+”串联。串联后会生成新的字符串。<br>5、Java运行时会维护一个String Pool（String池），JavaDoc翻译很模糊“字符串缓冲区”。String池用来存放运行时中产生的各种字符串，并且池中的字符串的内容不重复。而一般对象不存在这个缓冲池，并且创建的对象仅仅存在于方法的堆栈区。<br>6、创建字符串的方式很多，归纳起来有三类：<br>其一，使用new关键字创建字符串，比如String s1 = new String(“abc”);<br>其二，直接指定。比如String s2 = “abc”;<br>其三，使用串联生成新的字符串。比如String s3 = “ab” + “c”;</p>
 <p><strong>《String对象的创建》</strong><br>String对象的创建也有很多门道，关键是要明白其原理。</p>
 <p>原理1：当使用任何方式来创建一个字符串对象s=X时，Java运行时（运行中JVM）会拿着这个X在String池中找是否存在内容相同的字符串对象，如果不存在，则在池中创建一个字符串s，否则，不在池中添加。<br>原理2：Java中，只要使用new关键字来创建对象，则一定会（在堆区或栈区）创建一个新的对象。<br>原理3：使用直接指定或者使用纯字符串串联来创建String对象，则仅仅会检查维护String池中的字符串，池中没有就在池中创建一个，有则罢了！但绝不会在堆栈区再去创建该String对象。<br>原理4：使用包含变量的表达式来创建String对象，则不仅会检查维护String池，而且还会在堆栈区创建一个String对象。</p>
 <p><strong>《不可变类》</strong><br>JAVA为了提高效率，对String类型进行了特别的处理－－－为string类型提供了串池<br>定义一个string类型的变量有两种方式：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> <span class="built_in">name</span>= <span class="string">"tom "</span>;(String <span class="built_in">name</span>=<span class="string">"t"</span>+<span class="string">"o"</span>+<span class="string">"m"</span>的效果和此处是相同的)</span><br><span class="line"><span class="built_in">string</span> <span class="built_in">name</span> =new <span class="built_in">string</span>( <span class="string">"tom "</span>)</span><br></pre></td></tr></table></figure></p>
@@ -708,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String为什么不可变？"><span class="nav-number">2.</span> <span class="nav-text">String为什么不可变？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-不可变的好处"><span class="nav-number">3.</span> <span class="nav-text">String 不可变的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸"><span class="nav-number">4.</span> <span class="nav-text">延伸</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String为什么不可变？"><span class="nav-number">2.</span> <span class="nav-text">String为什么不可变？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-不可变的好处"><span class="nav-number">3.</span> <span class="nav-text">String 不可变的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringBuilder和StringBuffer"><span class="nav-number">4.</span> <span class="nav-text">StringBuilder和StringBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸"><span class="nav-number">5.</span> <span class="nav-text">延伸</span></a></li></ol></div>
             
 
           </div>
