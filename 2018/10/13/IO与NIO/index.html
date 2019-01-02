@@ -106,7 +106,9 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/7.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/socket.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/selector.jpg">
-<meta property="og:updated_time" content="2018-11-14T13:38:15.175Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/user.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/10/13/IO与NIO/kernel.jpg">
+<meta property="og:updated_time" content="2018-12-05T08:12:01.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO与NIO">
 <meta name="twitter:description" content="成功才是成功之母  概述Java IO 方式有很多种，基于不同的 IO 抽象模型和交互方式，可以进行简单区分。 首先，传统的 java.io 包，它基于流模型实现，提供了我们最熟知的一些 IO 功能，比如 File 抽象、输入输出流等。交互方式是同步、阻塞的方式，也就是说，在读取输入流或者写入输出流时，在读、写动作完成之前，线程会一直阻塞在那里，它们之间的调用是可靠的线性顺序。 java.io">
@@ -500,6 +502,23 @@
 <blockquote>
 <p>NIO还有很多新的功能，比如文件的拷贝，零拷贝的特性等。这些功能放在下篇介绍。</p>
 </blockquote>
+<hr>
+<h2 id="补充-文件拷贝"><a href="#补充-文件拷贝" class="headerlink" title="补充-文件拷贝"></a>补充-文件拷贝</h2><p>Java有多种比较典型的文件拷贝实现方式，比如：</p>
+<blockquote>
+<ol>
+<li>利用java.io类库，比如：FileInputStream读取</li>
+<li>利用java.nio类库提供的transferTo或transferFrom方法实现（零拷贝：zero-copy）</li>
+<li>java标准类库本身已经提供了几种Files.copy的实现</li>
+</ol>
+</blockquote>
+<p>对于Copy的效率，这个其实与操作系统和配置等情况相关，总体上来说，<strong>NIO transferTo/From的方式更快</strong>，因为它更能利用现在操作系统底层机制，避免不必要拷贝和上下文切换。</p>
+<h3 id="拷贝实现机制分析"><a href="#拷贝实现机制分析" class="headerlink" title="拷贝实现机制分析"></a>拷贝实现机制分析</h3><p>先来理解一下，前面实现的不同拷贝方法，本质上有什么明显的区别。</p>
+<p>首先，你需要理解<code>用户态空间（User Space）</code>和<code>内核态空间（Kernel Space）</code>，这是操作系统层面的基本概念，操作系统内核，硬件驱动等运行在<code>内核态空间</code>，具有相对高的特权；而<code>用户态空间</code>，则是给普通应用和服务使用。</p>
+<p>当我们使用输入输出流进行读写时，实际上是进行了多少上下文切换，比如应用读取数据时，先在内核态将数据从磁盘读取到内核缓存，再切换到用户态将数据从内核缓存读取到用户缓存。<br>写入操作也是类似，仅仅是步骤相反，你可以参考下面这张图：<br><img src="user.jpg" alt="user space"><br>所以，这种方式会带来一定的额外开销，可能会降低IO效率。</p>
+<p>而基于NIO transferTo的实现方式，在Linux和Unix上，则会使用到零拷贝技术，数据传输并不需要用户态参与，省去了上下文切换的开销和不必要的内存拷贝，进而可能提高应用拷贝性能。注意，transferTo不仅仅是可以用在文件拷贝中，与其类似的，例如读取磁盘文件，然后进行Socket发送，同样可以享受这种机制带来的性能和扩展性提高。</p>
+<p>transferTo 的传输过程是：<br><img src="kernel.jpg" alt="kernel space"></p>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFileByChannel</span><span class="params">(File source, File dest)</span> <span class="keyword">throws</span></span></span><br><span class="line"><span class="function">        IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (FileChannel sourceChannel = <span class="keyword">new</span> FileInputStream(source)</span><br><span class="line">            .getChannel();</span><br><span class="line">         FileChannel targetChannel = <span class="keyword">new</span> FileOutputStream(dest).getChannel</span><br><span class="line">                 ();)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> count = sourceChannel.size() ;count&gt;<span class="number">0</span> ;) &#123;</span><br><span class="line">	</span><br><span class="line">            <span class="keyword">long</span> transferred = sourceChannel.transferTo(sourceChannel.position(), </span><br><span class="line">			count, targetChannel);     </span><br><span class="line">			</span><br><span class="line">			sourceChannel.position(sourceChannel.position() + transferred);</span><br><span class="line">            count -= transferred;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -672,7 +691,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -681,7 +700,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -690,7 +709,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -784,7 +803,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-NIO组成"><span class="nav-number">2.</span> <span class="nav-text">java NIO组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是缓冲区"><span class="nav-number">2.1.</span> <span class="nav-text">什么是缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓冲区类型"><span class="nav-number">2.2.</span> <span class="nav-text">缓冲区类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是通道"><span class="nav-number">2.3.</span> <span class="nav-text">什么是通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO中的读写"><span class="nav-number">3.</span> <span class="nav-text">NIO中的读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓冲区详解"><span class="nav-number">4.</span> <span class="nav-text">缓冲区详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态变量"><span class="nav-number">4.1.</span> <span class="nav-text">状态变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Position"><span class="nav-number">4.1.1.</span> <span class="nav-text">Position</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Limit"><span class="nav-number">4.1.2.</span> <span class="nav-text">Limit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Capacity"><span class="nav-number">4.1.3.</span> <span class="nav-text">Capacity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态变量的变化"><span class="nav-number">4.2.</span> <span class="nav-text">状态变量的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问方法"><span class="nav-number">4.3.</span> <span class="nav-text">访问方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-方法"><span class="nav-number">4.3.1.</span> <span class="nav-text">get()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#put-方法"><span class="nav-number">4.3.2.</span> <span class="nav-text">put()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用NIO进行网络连接"><span class="nav-number">5.</span> <span class="nav-text">使用NIO进行网络连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用NIO连网"><span class="nav-number">5.1.</span> <span class="nav-text">为什么使用NIO连网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Selectors"><span class="nav-number">5.1.1.</span> <span class="nav-text">Selectors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServerSocketChannel"><span class="nav-number">5.1.2.</span> <span class="nav-text">ServerSocketChannel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择键"><span class="nav-number">5.1.3.</span> <span class="nav-text">选择键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整示例"><span class="nav-number">5.1.4.</span> <span class="nav-text">完整示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO与IO相比有什么优点"><span class="nav-number">6.</span> <span class="nav-text">NIO与IO相比有什么优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-NIO组成"><span class="nav-number">2.</span> <span class="nav-text">java NIO组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是缓冲区"><span class="nav-number">2.1.</span> <span class="nav-text">什么是缓冲区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓冲区类型"><span class="nav-number">2.2.</span> <span class="nav-text">缓冲区类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是通道"><span class="nav-number">2.3.</span> <span class="nav-text">什么是通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO中的读写"><span class="nav-number">3.</span> <span class="nav-text">NIO中的读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓冲区详解"><span class="nav-number">4.</span> <span class="nav-text">缓冲区详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态变量"><span class="nav-number">4.1.</span> <span class="nav-text">状态变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Position"><span class="nav-number">4.1.1.</span> <span class="nav-text">Position</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Limit"><span class="nav-number">4.1.2.</span> <span class="nav-text">Limit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Capacity"><span class="nav-number">4.1.3.</span> <span class="nav-text">Capacity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态变量的变化"><span class="nav-number">4.2.</span> <span class="nav-text">状态变量的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问方法"><span class="nav-number">4.3.</span> <span class="nav-text">访问方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-方法"><span class="nav-number">4.3.1.</span> <span class="nav-text">get()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#put-方法"><span class="nav-number">4.3.2.</span> <span class="nav-text">put()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用NIO进行网络连接"><span class="nav-number">5.</span> <span class="nav-text">使用NIO进行网络连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用NIO连网"><span class="nav-number">5.1.</span> <span class="nav-text">为什么使用NIO连网</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Selectors"><span class="nav-number">5.1.1.</span> <span class="nav-text">Selectors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServerSocketChannel"><span class="nav-number">5.1.2.</span> <span class="nav-text">ServerSocketChannel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择键"><span class="nav-number">5.1.3.</span> <span class="nav-text">选择键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整示例"><span class="nav-number">5.1.4.</span> <span class="nav-text">完整示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO与IO相比有什么优点"><span class="nav-number">6.</span> <span class="nav-text">NIO与IO相比有什么优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充-文件拷贝"><span class="nav-number">8.</span> <span class="nav-text">补充-文件拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝实现机制分析"><span class="nav-number">8.1.</span> <span class="nav-text">拷贝实现机制分析</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -805,7 +824,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
