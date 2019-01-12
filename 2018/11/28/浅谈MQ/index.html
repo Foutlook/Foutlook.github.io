@@ -89,13 +89,13 @@
 
 
 
-<meta name="description" content="达到沟通目的才算有效沟通  什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queue 是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。消息队列管理器在将消息从它的源中继到它的目标时充当中间人。队列的主要目的是">
+<meta name="description" content="达到沟通目的才算有效沟通  概述在上家公司工作的时候，ZStack架构的设计中用到RabbitMQ，让一个服务混乱的项目，变得简洁而清晰。所以对MQ又进一步进行研究。 什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queu">
 <meta name="keywords" content="MQ，Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈MQ">
 <meta property="og:url" content="http://yoursite.com/2018/11/28/浅谈MQ/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="达到沟通目的才算有效沟通  什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queue 是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。消息队列管理器在将消息从它的源中继到它的目标时充当中间人。队列的主要目的是">
+<meta property="og:description" content="达到沟通目的才算有效沟通  概述在上家公司工作的时候，ZStack架构的设计中用到RabbitMQ，让一个服务混乱的项目，变得简洁而清晰。所以对MQ又进一步进行研究。 什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queu">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/MQ1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/MQ2.jpg">
@@ -106,10 +106,12 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/mq8.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/mq9.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/mq10.jpg">
-<meta property="og:updated_time" content="2019-01-11T14:08:30.427Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/浅谈MQ/mq11.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4207742-fbd92febdf7d5738.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/676/format/webp">
+<meta property="og:updated_time" content="2019-01-12T02:00:55.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈MQ">
-<meta name="twitter:description" content="达到沟通目的才算有效沟通  什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queue 是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。消息队列管理器在将消息从它的源中继到它的目标时充当中间人。队列的主要目的是">
+<meta name="twitter:description" content="达到沟通目的才算有效沟通  概述在上家公司工作的时候，ZStack架构的设计中用到RabbitMQ，让一个服务混乱的项目，变得简洁而清晰。所以对MQ又进一步进行研究。 什么是消息队列我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。因为队列 Queu">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/28/浅谈MQ/MQ1.jpg">
 
 
@@ -406,6 +408,7 @@
 <blockquote>
 <p>达到沟通目的才算有效沟通</p>
 </blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在上家公司工作的时候，ZStack架构的设计中用到RabbitMQ，让一个服务混乱的项目，变得简洁而清晰。所以对MQ又进一步进行研究。</p>
 <h2 id="什么是消息队列"><a href="#什么是消息队列" class="headerlink" title="什么是消息队列"></a>什么是消息队列</h2><p>我们可以把消息队列比作是一个存放消息的容器，当我们需要使用消息的时候可以取出消息供自己使用。消息队列是分布式系统中重要的组件，<strong>使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。</strong><br>因为队列 Queue 是一种先进先出的数据结构，所以消费消息时也是按照顺序来消费的。消息队列管理器在将消息从它的源中继到它的目标时充当中间人。队列的主要目的是提供路由并保证消息的传递；如果发送消息时接收者不可用，消息队列会保留消息，直到可以成功地传递它。</p>
 <hr>
 <h2 id="为什么要用消息队列"><a href="#为什么要用消息队列" class="headerlink" title="为什么要用消息队列"></a>为什么要用消息队列</h2><p>使用消息队列主要有两点好处：<strong>1.通过异步处理提高系统性能（削峰、减少响应所需时间）;   2.降低系统耦合性。</strong></p>
@@ -487,6 +490,32 @@
 </blockquote>
 <hr>
 <h2 id="常见消息队列"><a href="#常见消息队列" class="headerlink" title="常见消息队列"></a>常见消息队列</h2><p><img src="mq10.jpg" alt="MQ"></p>
+<h2 id="MQ在实际项目中的使用"><a href="#MQ在实际项目中的使用" class="headerlink" title="MQ在实际项目中的使用"></a>MQ在实际项目中的使用</h2><h3 id="openStack中的MQ"><a href="#openStack中的MQ" class="headerlink" title="openStack中的MQ"></a>openStack中的MQ</h3><p>OpenStack遵循这样的设计原则：项目之间通过RESTful API进行通信；项目内部，不同服务进程之间的通信，则必须要通过消息总线。这种设计思想保证了各个项目对外提供服务的接口可以被不同类型的客户端高效支持，同时也保证了项目内部通信接口的可扩展性和可靠性，以支持大规模的部署。<br>软件从最初的面向过程，面向对象，再到面向服务（SOA），要求我们去考虑各个服务之间如何传递消息。借鉴硬件总线的概念，消息总线的模式被引入，顾名思义，一些服务向总线发送消息，其他服务从总线上获取消息。</p>
+<p><strong>OpenStack oslo.messageing库实现了以下两种方式来完成项目内部各服务进程之间的通信：</strong></p>
+<blockquote>
+<ul>
+<li>远程过程调用（RPC，Remote Procedure Call）</li>
+</ul>
+<p>通过远程过程调用，一个服务进程可以调用其他远程服务进程方法，并且有两种调用方式：call和cast。call 则是同步执行的，调用者会被阻塞直到结果返回；cast 则是异步执行，结果不会立刻被返回，调用者也不会被阻塞，但是调用者需要利用其他方式查询这次远程调用的结果。</p>
+<ul>
+<li>事件通知（Event Notification）</li>
+</ul>
+<p>某个服务进程可以把事件通知发送到消息总线上，该消息总线上所有对此类事件感兴趣的服务进程，都可以获得此事件通知并进行一步的处理，处理的结果并不会返回给事件发送者。这种通信方式，不但可以在同一个项目内部的各个服务进程之间发送通知，也可以实现跨项目之间的通知发送。Ceilometer就通过这种方式大量获取其他OpenStack项目的事件通知，从而进行计量和监控。</p>
+</blockquote>
+<p>事件通知的方式在ZStack中也有体现：如下图所示：<br><img src="mq11.jpg" alt="MQ"></p>
+<h3 id="OpenStack中的通信方式"><a href="#OpenStack中的通信方式" class="headerlink" title="OpenStack中的通信方式"></a>OpenStack中的通信方式</h3><p>OpenStack中所支持的消息总线类型中，大部分都是基于AMQP的。前面已经提到过了。</p>
+<p><strong>基于AMPQ实现RPC</strong></p>
+<p>这里引用别人画好的图：如下图</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4207742-fbd92febdf7d5738.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/676/format/webp" alt="基于AMPQ的RPC实现"></p>
+<blockquote>
+<ul>
+<li>客户端发送一个请求消息给Exchange，指定routing key为”op_queue”，同时指明一个消息队列名用来获取响应，图中为”res_queue”，同时指明一个消息队列名用来获取响应。在图中为”res_queue”</li>
+<li>Exchange把此消息转发到消息队列op_queue</li>
+<li>消息队列op_queue把消息推送给服务端，服务端执行此RPC调用对应的任务。执行结束后，服务端把相应结果发送给消息队列，指明routing key为”res_queue”</li>
+<li>Exchange 把此消息转发到消息队列res_queue</li>
+<li>客户端从消息队列res_queue中获取响应。</li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -771,7 +800,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是消息队列"><span class="nav-number">1.</span> <span class="nav-text">什么是消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用消息队列"><span class="nav-number">2.</span> <span class="nav-text">为什么要用消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列带来的问题"><span class="nav-number">3.</span> <span class="nav-text">消息队列带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMS-和AMQP比较"><span class="nav-number">4.</span> <span class="nav-text">JMS 和AMQP比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS"><span class="nav-number">4.1.</span> <span class="nav-text">JMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JMS两种消息模型"><span class="nav-number">4.1.1.</span> <span class="nav-text">JMS两种消息模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JMS-五种不同的消息正文格式"><span class="nav-number">4.1.2.</span> <span class="nav-text">JMS 五种不同的消息正文格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMQP"><span class="nav-number">4.2.</span> <span class="nav-text">AMQP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS-vs-AMQP"><span class="nav-number">4.3.</span> <span class="nav-text">JMS vs AMQP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见消息队列"><span class="nav-number">6.</span> <span class="nav-text">常见消息队列</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是消息队列"><span class="nav-number">2.</span> <span class="nav-text">什么是消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用消息队列"><span class="nav-number">3.</span> <span class="nav-text">为什么要用消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列带来的问题"><span class="nav-number">4.</span> <span class="nav-text">消息队列带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMS-和AMQP比较"><span class="nav-number">5.</span> <span class="nav-text">JMS 和AMQP比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS"><span class="nav-number">5.1.</span> <span class="nav-text">JMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JMS两种消息模型"><span class="nav-number">5.1.1.</span> <span class="nav-text">JMS两种消息模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JMS-五种不同的消息正文格式"><span class="nav-number">5.1.2.</span> <span class="nav-text">JMS 五种不同的消息正文格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMQP"><span class="nav-number">5.2.</span> <span class="nav-text">AMQP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS-vs-AMQP"><span class="nav-number">5.3.</span> <span class="nav-text">JMS vs AMQP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见消息队列"><span class="nav-number">7.</span> <span class="nav-text">常见消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MQ在实际项目中的使用"><span class="nav-number">8.</span> <span class="nav-text">MQ在实际项目中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openStack中的MQ"><span class="nav-number">8.1.</span> <span class="nav-text">openStack中的MQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenStack中的通信方式"><span class="nav-number">8.2.</span> <span class="nav-text">OpenStack中的通信方式</span></a></li></ol></li></ol></div>
             
 
           </div>
