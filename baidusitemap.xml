@@ -5,18 +5,18 @@
     
   <url>
     <loc>http://yoursite.com/2018/12/20/Dubbo%E4%B8%8EZookeeper/</loc>
-    <lastmod>2019-01-16T09:27:57.317Z</lastmod>
+    <lastmod>2019-01-17T07:22:48.025Z</lastmod>
     <data>
         <display>
         <title>Dubbo与Zookeeper</title>
         <pubTime>2018-12-20T01:00:00.000Z</pubTime>
         
-        <tag>Java，分布式</tag>
+        <tag>Dubbo，Zookeeper，分布式</tag>
          
          
            
              
-              <breadCrumb title="分布式" url="http://yoursite.com/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+              <breadCrumb title="分布式，Dubbo，Zookeeper" url="http://yoursite.com/categories/%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8CDubbo%EF%BC%8CZookeeper/"/>
           
         </display>
     </data>
