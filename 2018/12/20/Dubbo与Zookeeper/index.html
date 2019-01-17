@@ -98,7 +98,7 @@
 <meta property="og:description" content="概述目前进入一家，做仓库存储的公司，公司使用的技术也都是现在使用比较多的。以下只是个人记录，不做任何商业用途。 Dubbo关于Dubbo，网上的资料很多，我也都看了很多，林林丛丛的都是对Dubbo技术的介绍，Dubbo用起来很简单，基本上就是配置配置xml文件。这里就不在介绍Dubbo怎么使用了。 我对Dubbo主要的疑虑主要有以下几点：   RPC原理是什么? 为什么Dubbo可以达到调用远程服">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/strategy流程图.jpg">
-<meta property="og:updated_time" content="2019-01-17T07:31:09.936Z">
+<meta property="og:updated_time" content="2019-01-17T07:45:45.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dubbo与Zookeeper">
 <meta name="twitter:description" content="概述目前进入一家，做仓库存储的公司，公司使用的技术也都是现在使用比较多的。以下只是个人记录，不做任何商业用途。 Dubbo关于Dubbo，网上的资料很多，我也都看了很多，林林丛丛的都是对Dubbo技术的介绍，Dubbo用起来很简单，基本上就是配置配置xml文件。这里就不在介绍Dubbo怎么使用了。 我对Dubbo主要的疑虑主要有以下几点：   RPC原理是什么? 为什么Dubbo可以达到调用远程服">
@@ -392,7 +392,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">7,046(字)</span>
+           <span class="post-count">7,028(字)</span>
            
         </span>
 	  
@@ -619,7 +619,74 @@
 <h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p>CuratorFramework的实例包含inTransaction( )接口方法，调用此方法开启一个ZooKeeper事务. 可以复合create, setData, check, and/or delete 等操作然后调用commit()作为一个原子操作提交。</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">client</span><span class="selector-class">.inTransaction</span>()<span class="selector-class">.check</span>()<span class="selector-class">.forPath</span>(<span class="string">"path"</span>)</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.create</span>()<span class="selector-class">.withMode</span>(CreateMode.EPHEMERAL)<span class="selector-class">.forPath</span>(<span class="string">"path"</span>,<span class="string">"data"</span>.getBytes())</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.setData</span>()<span class="selector-class">.withVersion</span>(<span class="number">10086</span>)<span class="selector-class">.forPath</span>(<span class="string">"path"</span>,<span class="string">"data2"</span>.getBytes())</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.commit</span>();</span><br></pre></td></tr></table></figure>
 <h4 id="异步接口"><a href="#异步接口" class="headerlink" title="异步接口"></a>异步接口</h4><p>上面提到的创建、删除、更新、读取等方法都是同步的，Curator提供异步接口，引入了<strong>BackgroundCallback</strong>接口用于处理异步接口调用之后服务端返回的结果信息。<strong>BackgroundCallback</strong>接口中一个重要的回调值为<strong>CuratorEvent</strong>，里面包含事件类型、响应吗和节点的详细信息。</p>
-<p><strong>CuratorEventType</strong><br>事件类型 |    对应CuratorFramework实例的方法<br>— | —<br>CREATE  |    create()<br>DELETE    | delete()<br>EXISTS |    checkExists()<br>GET_DATA|    getData()<br>SET_DATA|    setData()<br>CHILDREN|    getChildren()<br>SYNC    |sync(String,Object)<br>GET_ACL    |getACL()<br>SET_ACL    |setACL()<br>WATCHED    |Watcher(Watcher)<br>CLOSING    |close()</p>
+<p><strong>CuratorEventType</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>对应CuratorFramework实例的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CREATE</td>
+<td>create()</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>delete()</td>
+</tr>
+<tr>
+<td>EXISTS</td>
+<td>checkExists()</td>
+</tr>
+<tr>
+<td>GET_DATA</td>
+<td>getData()</td>
+</tr>
+<tr>
+<td>SET_DATA</td>
+<td>setData()</td>
+</tr>
+<tr>
+<td>CHILDREN</td>
+<td>getChildren()</td>
+</tr>
+<tr>
+<td>SYNC</td>
+<td>sync(String,Object)</td>
+</tr>
+<tr>
+<td>GET_ACL</td>
+<td>getACL()</td>
+</tr>
+<tr>
+<td>SET_ACL</td>
+<td>setACL()</td>
+</tr>
+<tr>
+<td>WATCHED</td>
+<td>Watcher(Watcher)</td>
+</tr>
+<tr>
+<td>CLOSING</td>
+<td>close()</td>
+</tr>
+</tbody>
+</table>
 <p><strong>响应码(#getResultCode())</strong></p>
 <table>
 <thead>
@@ -706,7 +773,7 @@
 <p>工作中主要使用了<strong>Path Cache</strong> 和<strong>Node Cache</strong>,一个监控子节点，一个监控节点。<br>系统中会有很多种策略，每种策略都会在根节点上创建一个ZKNode，当另一个系统启动的时候，也会检测这个策略节点，当这个策略节点信息改变的时候，监控客户端和服务端就回收到改变的通知。然后做出相应的处理。</p>
 <p>大致如流程图所示：</p>
 <p><img src="strategy流程图.jpg" alt="ZK"></p>
-<h3 id="其他使用示例"><a href="#其他使用示例" class="headerlink" title="其他使用示例"></a>其他使用示例</h3><hr>
+<hr>
 <h1 id="end"><a href="#end" class="headerlink" title="end"></a>end</h1><p>参考：</p>
 
       
@@ -999,7 +1066,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo"><span class="nav-number">2.</span> <span class="nav-text">Dubbo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的简介"><span class="nav-number">3.1.</span> <span class="nav-text">Zookeeper的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的结构"><span class="nav-number">3.2.</span> <span class="nav-text">Zookeeper的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的典型应用场景"><span class="nav-number">3.3.</span> <span class="nav-text">Zookeeper的典型应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发布与订阅（配置中心）"><span class="nav-number">3.3.1.</span> <span class="nav-text">数据发布与订阅（配置中心）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.3.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名服务-Naming-Service"><span class="nav-number">3.3.3.</span> <span class="nav-text">命名服务(Naming Service)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式通知-协调"><span class="nav-number">3.3.4.</span> <span class="nav-text">分布式通知/协调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群管理与Master选举"><span class="nav-number">3.3.5.</span> <span class="nav-text">集群管理与Master选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁"><span class="nav-number">3.3.6.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式队列"><span class="nav-number">3.3.7.</span> <span class="nav-text">分布式队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper应用"><span class="nav-number">3.4.</span> <span class="nav-text">Zookeeper应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper客户端Curator的使用"><span class="nav-number">3.4.1.</span> <span class="nav-text">Zookeeper客户端Curator的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator的基本Api"><span class="nav-number">3.4.2.</span> <span class="nav-text">Curator的基本Api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建会话"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">创建会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.4.3.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuratorFramework的方法"><span class="nav-number">3.4.4.</span> <span class="nav-text">CuratorFramework的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据节点操作"><span class="nav-number">3.4.5.</span> <span class="nav-text">数据节点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据节点"><span class="nav-number">3.4.5.1.</span> <span class="nav-text">创建数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除数据节点"><span class="nav-number">3.4.5.2.</span> <span class="nav-text">删除数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据节点数据"><span class="nav-number">3.4.5.3.</span> <span class="nav-text">读取数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新数据节点数据"><span class="nav-number">3.4.5.4.</span> <span class="nav-text">更新数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查节点是否存在"><span class="nav-number">3.4.5.5.</span> <span class="nav-text">检查节点是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取某个节点的所有子节点路径"><span class="nav-number">3.4.5.6.</span> <span class="nav-text">获取某个节点的所有子节点路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务"><span class="nav-number">3.4.5.7.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步接口"><span class="nav-number">3.4.5.8.</span> <span class="nav-text">异步接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator高级特性"><span class="nav-number">3.4.6.</span> <span class="nav-text">Curator高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">3.4.6.1.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Path-Cache"><span class="nav-number">3.4.6.1.1.</span> <span class="nav-text">Path Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-Cache"><span class="nav-number">3.4.6.1.2.</span> <span class="nav-text">Node Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tree-Cache"><span class="nav-number">3.4.6.1.3.</span> <span class="nav-text">Tree Cache</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他使用示例"><span class="nav-number">3.4.7.</span> <span class="nav-text">其他使用示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#end"><span class="nav-number">4.</span> <span class="nav-text">end</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo"><span class="nav-number">2.</span> <span class="nav-text">Dubbo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的简介"><span class="nav-number">3.1.</span> <span class="nav-text">Zookeeper的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的结构"><span class="nav-number">3.2.</span> <span class="nav-text">Zookeeper的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的典型应用场景"><span class="nav-number">3.3.</span> <span class="nav-text">Zookeeper的典型应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发布与订阅（配置中心）"><span class="nav-number">3.3.1.</span> <span class="nav-text">数据发布与订阅（配置中心）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.3.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名服务-Naming-Service"><span class="nav-number">3.3.3.</span> <span class="nav-text">命名服务(Naming Service)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式通知-协调"><span class="nav-number">3.3.4.</span> <span class="nav-text">分布式通知/协调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群管理与Master选举"><span class="nav-number">3.3.5.</span> <span class="nav-text">集群管理与Master选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁"><span class="nav-number">3.3.6.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式队列"><span class="nav-number">3.3.7.</span> <span class="nav-text">分布式队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper应用"><span class="nav-number">3.4.</span> <span class="nav-text">Zookeeper应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper客户端Curator的使用"><span class="nav-number">3.4.1.</span> <span class="nav-text">Zookeeper客户端Curator的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator的基本Api"><span class="nav-number">3.4.2.</span> <span class="nav-text">Curator的基本Api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建会话"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">创建会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.4.3.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuratorFramework的方法"><span class="nav-number">3.4.4.</span> <span class="nav-text">CuratorFramework的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据节点操作"><span class="nav-number">3.4.5.</span> <span class="nav-text">数据节点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据节点"><span class="nav-number">3.4.5.1.</span> <span class="nav-text">创建数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除数据节点"><span class="nav-number">3.4.5.2.</span> <span class="nav-text">删除数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据节点数据"><span class="nav-number">3.4.5.3.</span> <span class="nav-text">读取数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新数据节点数据"><span class="nav-number">3.4.5.4.</span> <span class="nav-text">更新数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查节点是否存在"><span class="nav-number">3.4.5.5.</span> <span class="nav-text">检查节点是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取某个节点的所有子节点路径"><span class="nav-number">3.4.5.6.</span> <span class="nav-text">获取某个节点的所有子节点路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务"><span class="nav-number">3.4.5.7.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步接口"><span class="nav-number">3.4.5.8.</span> <span class="nav-text">异步接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator高级特性"><span class="nav-number">3.4.6.</span> <span class="nav-text">Curator高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">3.4.6.1.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Path-Cache"><span class="nav-number">3.4.6.1.1.</span> <span class="nav-text">Path Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-Cache"><span class="nav-number">3.4.6.1.2.</span> <span class="nav-text">Node Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tree-Cache"><span class="nav-number">3.4.6.1.3.</span> <span class="nav-text">Tree Cache</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#end"><span class="nav-number">4.</span> <span class="nav-text">end</span></a></li></ol></div>
             
 
           </div>
