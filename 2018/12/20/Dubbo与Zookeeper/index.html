@@ -97,12 +97,15 @@
 <meta property="og:site_name" content="Foutin">
 <meta property="og:description" content="概述目前进入一家，做仓库存储的公司，公司使用的技术也都是现在使用比较多的。以下只是个人记录，不做任何商业用途。 Dubbo关于Dubbo，网上的资料很多，我也都看了很多，林林丛丛的都是对Dubbo技术的介绍，Dubbo用起来很简单，基本上就是配置配置xml文件。这里就不在介绍Dubbo怎么使用了。 我对Dubbo主要的疑虑主要有以下几点：   RPC原理是什么? 为什么Dubbo可以达到调用远程服">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/zk2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/zk3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/zk1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/strategy流程图.jpg">
-<meta property="og:updated_time" content="2019-01-17T07:45:45.174Z">
+<meta property="og:updated_time" content="2019-01-17T08:21:12.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dubbo与Zookeeper">
 <meta name="twitter:description" content="概述目前进入一家，做仓库存储的公司，公司使用的技术也都是现在使用比较多的。以下只是个人记录，不做任何商业用途。 Dubbo关于Dubbo，网上的资料很多，我也都看了很多，林林丛丛的都是对Dubbo技术的介绍，Dubbo用起来很简单，基本上就是配置配置xml文件。这里就不在介绍Dubbo怎么使用了。 我对Dubbo主要的疑虑主要有以下几点：   RPC原理是什么? 为什么Dubbo可以达到调用远程服">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/strategy流程图.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/20/Dubbo与Zookeeper/zk2.jpg">
 
 
 
@@ -392,7 +395,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">7,028(字)</span>
+           <span class="post-count">9,204(字)</span>
            
         </span>
 	  
@@ -402,7 +405,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">27(分)</span>
+           <span class="post-count">35(分)</span>
            
         </span>
 		<!-- 以上部分为: 字数统计、阅读时长插入代码 -->
@@ -430,7 +433,65 @@
 </blockquote>
 <p>不过想要解决这些疑问，需要研究源码。因为对Dubbo涉及到的部分技术还有很多不是特别懂，暂时没有看源码。这部分技术分享暂时不做，等我看完源码再好好分享。</p>
 <p><a href="http://dubbo.apache.org/zh-cn/docs/user/quick-start.html" target="_blank" rel="noopener">Dubbo官方文档</a></p>
-<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="Zookeeper的简介"><a href="#Zookeeper的简介" class="headerlink" title="Zookeeper的简介"></a>Zookeeper的简介</h2><h2 id="Zookeeper的结构"><a href="#Zookeeper的结构" class="headerlink" title="Zookeeper的结构"></a>Zookeeper的结构</h2><h2 id="Zookeeper的典型应用场景"><a href="#Zookeeper的典型应用场景" class="headerlink" title="Zookeeper的典型应用场景"></a>Zookeeper的典型应用场景</h2><p>参考：<a href="http://jm.taobao.org/2011/10/08/1232/" target="_blank" rel="noopener">阿里中间件博客</a></p>
+<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="Zookeeper的简介"><a href="#Zookeeper的简介" class="headerlink" title="Zookeeper的简介"></a>Zookeeper的简介</h2><p>ZooKeeper数据模型的结构与Unix文件系统很类似，整体上可以看作是一棵树，每个节点称做一个ZNode。每个ZNode都可以通过其路径唯一标识，<strong>在每个ZNode上可存储少量数据(默认是1M</strong>, 可以通过配置修改,通常不建议在ZNode上存储大量的数据)。另外，每个ZNode上还存储了其Acl信息，这里需要注意，虽说ZNode的树形结构跟Unix文件系统很类似，但是其Acl与Unix文件系统是完全不同的，每个ZNode的Acl是独立的，子结点不会继承父结点的。</p>
+<p><img src="zk2.jpg" alt="ZK"></p>
+<p>ZNode根据其本身的特性，可以分为下面两类：</p>
+<blockquote>
+<ul>
+<li>Regular ZNode: 常规型ZNode, 用户需要显式的创建、删除</li>
+<li>Ephemeral ZNode: 临时型ZNode,用户创建它之后，可以显式的删除，也可以在创建它的Session结束后，由ZooKeeper Server自动删除</li>
+</ul>
+</blockquote>
+<p><strong>Zookeeper这种数据结构有如下这些特点：</strong></p>
+<blockquote>
+<ul>
+<li><p>1）<strong>每个子目录项如NameService都被称作为znode</strong>，这个znode是被它所在的路径唯一标识，如Server1这个znode的标识为/NameService/Server1。</p>
+</li>
+<li><p>2）<strong>znode可以有子节点目录</strong>，并且每个znode可以存储数据，注意EPHEMERAL（临时的）类型的目录节点不能有子节点目录。ZNode一个Sequential的特性，如果创建的时候指定的话，该ZNode的名字后面会自动Append一个不断增加的SequenceNo。</p>
+</li>
+<li><p>3）<strong>znode是有版本的</strong>（version），每个znode中存储的数据可以有多个版本，也就是一个访问路径中可以存储多份数据，version号自动增加。</p>
+</li>
+<li><p>4）<strong>znode可以是临时节点（EPHEMERAL），可以是持久节点（PERSISTENT）</strong>。如果创建的是临时节点，一旦创建这个EPHEMERALznode的客户端与服务器失去联系，这个znode也将自动删除，Zookeeper的客户端和服务器通信采用长连接方式，每个客户端和服务器通过心跳来保持连接，这个连接状态称为session，如果znode是临时节点，这个session失效，znode也就删除了。</p>
+</li>
+<li><p>5）<strong>znode的目录名可以自动编号</strong>，如App1已经存在，再创建的话，将会自动命名为App2。</p>
+</li>
+<li><p>6）<strong>znode可以被监控</strong>，包括这个目录节点中存储的数据的修改，子节点目录的变化等，一旦变化可以通知设置监控的客户端，这个是Zookeeper的核心特性，Zookeeper的很多功能都是基于这个特性实现的。Watcher ZooKeeper支持一种Watch操作，Client可以在某个ZNode上设置一个Watcher，来Watch该ZNode上的变化。如果该ZNode上有相应的变化，就会触发这个Watcher，把相应的事件通知给设置Watcher的Client。需要注意的是，ZooKeeper中的Watcher是一次性的，即触发一次就会被取消，如果想继续Watch的话，需要客户端重新设置Watcher。这个跟epoll里的oneshot模式有点类似。</p>
+</li>
+<li><p>7）<strong>ZXID</strong>：每次对Zookeeper的状态的改变都会产生一个zxid（ZooKeeper Transaction Id），zxid是全局有序的，如果zxid1小于zxid2，则zxid1在zxid2之前发生。</p>
+</li>
+<li><p>8)<strong>Session</strong>: Client与ZooKeeper之间的通信，需要创建一个Session，这个Session会有一个超时时间。因为ZooKeeper集群会把Client的Session信息持久化，所以在Session没超时之前，Client与ZooKeeper Server的连接可以在各个ZooKeeper Server之间透明地移动。在实际的应用中，如果Client与Server之间的通信足够频繁，Session的维护就不需要其它额外的消息了。否则，ZooKeeper Client会每t/3 ms发一次心跳给Server，如果Client 2t/3 ms没收到来自Server的心跳回应，就会换到一个新的ZooKeeper Server上。这里t是用户配置的Session的超时时间。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="Zookeeper的结构"><a href="#Zookeeper的结构" class="headerlink" title="Zookeeper的结构"></a>Zookeeper的结构</h2><p>如下图：</p>
+<p><img src="zk3.jpg" alt="ZK"></p>
+<p><img src="zk1.jpg" alt="ZK"></p>
+<p>client不论连接到哪个Server，展示给它都是同一个视图，这是zookeeper最重要的性能。</p>
+<h3 id="ZooKeeper-Watch"><a href="#ZooKeeper-Watch" class="headerlink" title="ZooKeeper Watch"></a>ZooKeeper Watch</h3><p><strong>Zookeeper watch是一种监听通知机制</strong>。Zookeeper所有的读操作getData(), getChildren()和 exists()都可以设置监视(watch)，监视事件可以理解为一次性的触发器，官方定义如下：<code>a watch event is one-time trigger, sent to the client that set the watch, whichoccurs when the data for which the watch was set changes。</code></p>
+<p><strong>Watch的三个关键点：</strong></p>
+<h4 id="（一次性触发）One-time-trigger"><a href="#（一次性触发）One-time-trigger" class="headerlink" title="（一次性触发）One-time trigger"></a>（一次性触发）One-time trigger</h4><p>当设置监视的数据发生改变时，该监视事件会被发送到客户端，例如，如果客户端调用了getData(“/znode1”, true) 并且稍后 /znode1 节点上的数据发生了改变或者被删除了，客户端将会获取到 /znode1 发生变化的监视事件<strong>，而如果 /znode1 再一次发生了变化，除非客户端再次对/znode1 设置监视，否则客户端不会收到事件通知。</strong></p>
+<h4 id="（发送至客户端）Sent-to-the-client"><a href="#（发送至客户端）Sent-to-the-client" class="headerlink" title="（发送至客户端）Sent to the client"></a>（发送至客户端）Sent to the client</h4><p><strong>Zookeeper客户端和服务端是通过 socket 进行通信的</strong>，由于网络存在故障， 所以监视事件很有可能不会成功地到达客户端，监视事件是异步发送至监视者的，Zookeeper 本身提供了顺序保证(ordering guarantee)：<strong>即客户端只有首先看到了监视事件后，才会感知到它所设置监视的znode发生了变化</strong>。网络延迟或者其他因素可能导致不同的客户端在不同的时刻感知某一监视事件，但是不同的客户端所看到的一切具有一致的顺序。</p>
+<h4 id="（被设置-watch-的数据）The-data-for-which-the-watch-was-set"><a href="#（被设置-watch-的数据）The-data-for-which-the-watch-was-set" class="headerlink" title="（被设置 watch 的数据）The data for which the watch was set"></a>（被设置 watch 的数据）The data for which the watch was set</h4><p><strong>这意味着znode节点本身具有不同的改变方式。你也可以想象 Zookeeper 维护了两条监视链表</strong>：<strong>数据监视和子节点监视</strong>(data watches and child watches) <code>getData() 和exists()</code>设置数据监视，<code>getChildren()</code>设置子节点监视。或者你也可以想象 Zookeeper 设置的不同监视返回不同的数据，<code>getData() 和 exists()</code> 返回znode节点的相关信息，而<code>getChildren()</code> 返回子节点列表。因此，<code>setData()</code> 会触发设置在某一节点上所设置的数据监视（假定数据设置成功），而一次成功的<code>create()</code> 操作则会出发当前节点上所设置的数据监视以及父节点的子节点监视。一次成功的 delete操作将会触发当前节点的数据监视和子节点监视事件，同时也会触发该节点父节点的child watch。</p>
+<p><strong>Zookeeper 中的监视是轻量级的，因此容易设置、维护和分发</strong>。当客户端与 Zookeeper 服务器失去联系时，客户端并不会收到监视事件的通知，只有当客户端重新连接后，若在必要的情况下，以前注册的监视会重新被注册并触发，对于开发人员来说这通常是透明的。只有一种情况会导致监视事件的丢失，<strong>即：通过exists()设置了某个znode节点的监视，但是如果某个客户端在此znode节点被创建和删除的时间间隔内与zookeeper服务器失去了联系，该客户端即使稍后重新连接 zookeeper服务器后也得不到事件通知。</strong></p>
+<h2 id="ZooKeeper的工作原理"><a href="#ZooKeeper的工作原理" class="headerlink" title="ZooKeeper的工作原理"></a>ZooKeeper的工作原理</h2><p>在zookeeper的集群中，各个节点共有下面3种角色和4种状态：</p>
+<blockquote>
+<ul>
+<li>角色：leader,follower,observer</li>
+<li>状态：leading,following,observing,looking</li>
+</ul>
+</blockquote>
+<p><strong>Zookeeper的核心是原子广播</strong>，这个机制保证了各个<code>Server</code>之间的同步。实现这个机制的协议叫做<code>Zab协议（ZooKeeper Atomic Broadcast protocol）</code>。Zab协议有<code>两种</code>模式，它们分别是<code>恢复模式（Recovery选主）和广播模式（Broadcast同步）</code>。当服务启动或者在领导者崩溃后，<strong>Zab就进入了恢复模式，当领导者被选举出来，且大多数Server完成了和leader的状态同步以后，恢复模式就结束了</strong>。状态同步保证了leader和Server具有相同的系统状态。</p>
+<p>为了<code>保证事务的顺序一致性</code>，zookeeper采用了递增的事务<code>id号（zxid）</code>来标识事务。所有的提议（proposal）都在被提出的时候加上了zxid。实现中zxid是一个64位的数字，它高32位是epoch用来标识leader关系是否改变，每次一个leader被选出来，它都会有一个新的epoch，标识当前属于那个leader的统治时期。低32位用于递增计数。</p>
+<p>每个Server在工作过程中有4种状态：</p>
+<blockquote>
+<ul>
+<li>LOOKING：当前Server不知道leader是谁，正在搜寻。</li>
+<li>LEADING：当前Server即为选举出来的leader。</li>
+<li>FOLLOWING：leader已经选举出来，当前Server与之同步。</li>
+<li>OBSERVING：observer的行为在大多数情况下与follower完全一致，但是他们不参加选举和投票，而仅仅接受(observing)选举和投票的结果。</li>
+</ul>
+</blockquote>
+<h2 id="Zookeeper的典型应用场景"><a href="#Zookeeper的典型应用场景" class="headerlink" title="Zookeeper的典型应用场景"></a>Zookeeper的典型应用场景</h2><p>参考：<a href="http://jm.taobao.org/2011/10/08/1232/" target="_blank" rel="noopener">阿里中间件博客</a></p>
 <h3 id="数据发布与订阅（配置中心）"><a href="#数据发布与订阅（配置中心）" class="headerlink" title="数据发布与订阅（配置中心）"></a>数据发布与订阅（配置中心）</h3><p>发布与订阅模型，即所谓的配置中心，顾名思义就是发布者将数据发布到ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。例如全局的配置信息，服务式服务框架的服务地址列表等就非常适合使用。</p>
 <blockquote>
 <p><strong>应用中用到的一些配置信息放到ZK上进行集中管理。这类场景通常是这样</strong>：应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。 分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用。</p>
@@ -620,19 +681,6 @@
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">client</span><span class="selector-class">.inTransaction</span>()<span class="selector-class">.check</span>()<span class="selector-class">.forPath</span>(<span class="string">"path"</span>)</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.create</span>()<span class="selector-class">.withMode</span>(CreateMode.EPHEMERAL)<span class="selector-class">.forPath</span>(<span class="string">"path"</span>,<span class="string">"data"</span>.getBytes())</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.setData</span>()<span class="selector-class">.withVersion</span>(<span class="number">10086</span>)<span class="selector-class">.forPath</span>(<span class="string">"path"</span>,<span class="string">"data2"</span>.getBytes())</span><br><span class="line">      <span class="selector-class">.and</span>()</span><br><span class="line">      <span class="selector-class">.commit</span>();</span><br></pre></td></tr></table></figure>
 <h4 id="异步接口"><a href="#异步接口" class="headerlink" title="异步接口"></a>异步接口</h4><p>上面提到的创建、删除、更新、读取等方法都是同步的，Curator提供异步接口，引入了<strong>BackgroundCallback</strong>接口用于处理异步接口调用之后服务端返回的结果信息。<strong>BackgroundCallback</strong>接口中一个重要的回调值为<strong>CuratorEvent</strong>，里面包含事件类型、响应吗和节点的详细信息。</p>
 <p><strong>CuratorEventType</strong></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
 <table>
 <thead>
 <tr>
@@ -1066,7 +1114,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo"><span class="nav-number">2.</span> <span class="nav-text">Dubbo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的简介"><span class="nav-number">3.1.</span> <span class="nav-text">Zookeeper的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的结构"><span class="nav-number">3.2.</span> <span class="nav-text">Zookeeper的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的典型应用场景"><span class="nav-number">3.3.</span> <span class="nav-text">Zookeeper的典型应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发布与订阅（配置中心）"><span class="nav-number">3.3.1.</span> <span class="nav-text">数据发布与订阅（配置中心）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.3.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名服务-Naming-Service"><span class="nav-number">3.3.3.</span> <span class="nav-text">命名服务(Naming Service)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式通知-协调"><span class="nav-number">3.3.4.</span> <span class="nav-text">分布式通知/协调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群管理与Master选举"><span class="nav-number">3.3.5.</span> <span class="nav-text">集群管理与Master选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁"><span class="nav-number">3.3.6.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式队列"><span class="nav-number">3.3.7.</span> <span class="nav-text">分布式队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper应用"><span class="nav-number">3.4.</span> <span class="nav-text">Zookeeper应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper客户端Curator的使用"><span class="nav-number">3.4.1.</span> <span class="nav-text">Zookeeper客户端Curator的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator的基本Api"><span class="nav-number">3.4.2.</span> <span class="nav-text">Curator的基本Api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建会话"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">创建会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.4.3.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuratorFramework的方法"><span class="nav-number">3.4.4.</span> <span class="nav-text">CuratorFramework的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据节点操作"><span class="nav-number">3.4.5.</span> <span class="nav-text">数据节点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据节点"><span class="nav-number">3.4.5.1.</span> <span class="nav-text">创建数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除数据节点"><span class="nav-number">3.4.5.2.</span> <span class="nav-text">删除数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据节点数据"><span class="nav-number">3.4.5.3.</span> <span class="nav-text">读取数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新数据节点数据"><span class="nav-number">3.4.5.4.</span> <span class="nav-text">更新数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查节点是否存在"><span class="nav-number">3.4.5.5.</span> <span class="nav-text">检查节点是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取某个节点的所有子节点路径"><span class="nav-number">3.4.5.6.</span> <span class="nav-text">获取某个节点的所有子节点路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务"><span class="nav-number">3.4.5.7.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步接口"><span class="nav-number">3.4.5.8.</span> <span class="nav-text">异步接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator高级特性"><span class="nav-number">3.4.6.</span> <span class="nav-text">Curator高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">3.4.6.1.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Path-Cache"><span class="nav-number">3.4.6.1.1.</span> <span class="nav-text">Path Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-Cache"><span class="nav-number">3.4.6.1.2.</span> <span class="nav-text">Node Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tree-Cache"><span class="nav-number">3.4.6.1.3.</span> <span class="nav-text">Tree Cache</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#end"><span class="nav-number">4.</span> <span class="nav-text">end</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo"><span class="nav-number">2.</span> <span class="nav-text">Dubbo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的简介"><span class="nav-number">3.1.</span> <span class="nav-text">Zookeeper的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的结构"><span class="nav-number">3.2.</span> <span class="nav-text">Zookeeper的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper-Watch"><span class="nav-number">3.2.1.</span> <span class="nav-text">ZooKeeper Watch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一次性触发）One-time-trigger"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">（一次性触发）One-time trigger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（发送至客户端）Sent-to-the-client"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">（发送至客户端）Sent to the client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（被设置-watch-的数据）The-data-for-which-the-watch-was-set"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">（被设置 watch 的数据）The data for which the watch was set</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper的工作原理"><span class="nav-number">3.3.</span> <span class="nav-text">ZooKeeper的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper的典型应用场景"><span class="nav-number">3.4.</span> <span class="nav-text">Zookeeper的典型应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据发布与订阅（配置中心）"><span class="nav-number">3.4.1.</span> <span class="nav-text">数据发布与订阅（配置中心）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.4.2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名服务-Naming-Service"><span class="nav-number">3.4.3.</span> <span class="nav-text">命名服务(Naming Service)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式通知-协调"><span class="nav-number">3.4.4.</span> <span class="nav-text">分布式通知/协调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群管理与Master选举"><span class="nav-number">3.4.5.</span> <span class="nav-text">集群管理与Master选举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁"><span class="nav-number">3.4.6.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式队列"><span class="nav-number">3.4.7.</span> <span class="nav-text">分布式队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper应用"><span class="nav-number">3.5.</span> <span class="nav-text">Zookeeper应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper客户端Curator的使用"><span class="nav-number">3.5.1.</span> <span class="nav-text">Zookeeper客户端Curator的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator的基本Api"><span class="nav-number">3.5.2.</span> <span class="nav-text">Curator的基本Api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建会话"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">创建会话</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动客户端"><span class="nav-number">3.5.3.</span> <span class="nav-text">启动客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CuratorFramework的方法"><span class="nav-number">3.5.4.</span> <span class="nav-text">CuratorFramework的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据节点操作"><span class="nav-number">3.5.5.</span> <span class="nav-text">数据节点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据节点"><span class="nav-number">3.5.5.1.</span> <span class="nav-text">创建数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除数据节点"><span class="nav-number">3.5.5.2.</span> <span class="nav-text">删除数据节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据节点数据"><span class="nav-number">3.5.5.3.</span> <span class="nav-text">读取数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新数据节点数据"><span class="nav-number">3.5.5.4.</span> <span class="nav-text">更新数据节点数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查节点是否存在"><span class="nav-number">3.5.5.5.</span> <span class="nav-text">检查节点是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取某个节点的所有子节点路径"><span class="nav-number">3.5.5.6.</span> <span class="nav-text">获取某个节点的所有子节点路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务"><span class="nav-number">3.5.5.7.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步接口"><span class="nav-number">3.5.5.8.</span> <span class="nav-text">异步接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curator高级特性"><span class="nav-number">3.5.6.</span> <span class="nav-text">Curator高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache"><span class="nav-number">3.5.6.1.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Path-Cache"><span class="nav-number">3.5.6.1.1.</span> <span class="nav-text">Path Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-Cache"><span class="nav-number">3.5.6.1.2.</span> <span class="nav-text">Node Cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tree-Cache"><span class="nav-number">3.5.6.1.3.</span> <span class="nav-text">Tree Cache</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#end"><span class="nav-number">4.</span> <span class="nav-text">end</span></a></li></ol></div>
             
 
           </div>
@@ -1106,7 +1154,7 @@
 </div>
 
 <div class="powered-by">
-  <span class="post-count">博客全站共101.3k字</span>
+  <span class="post-count">博客全站共103.5k字</span>
 </div>
 
 <!--
