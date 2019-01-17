@@ -1,0 +1,1083 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="true" />
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux，vim，Vundle," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Foutin" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="概述我在学习Linux这段时间里，使用vim编程，为了提高自己的逼格，也为了提高自己的效率，就尝试着安装了2个插件。感觉逼格高了很多。 安装安装其他插件之前，我们首先需要安装一个管理插件的插件，它就是Vundle，Vundle可以帮助我们管理和安装其他的插件，非常好用。 安装Vundle插件Vundle可以在GitHub上找到，地址：https://github.com/VundleVim/Vun">
+<meta name="keywords" content="Linux，vim，Vundle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu安装Vundle管理vim插件">
+<meta property="og:url" content="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/index.html">
+<meta property="og:site_name" content="Foutin">
+<meta property="og:description" content="概述我在学习Linux这段时间里，使用vim编程，为了提高自己的逼格，也为了提高自己的效率，就尝试着安装了2个插件。感觉逼格高了很多。 安装安装其他插件之前，我们首先需要安装一个管理插件的插件，它就是Vundle，Vundle可以帮助我们管理和安装其他的插件，非常好用。 安装Vundle插件Vundle可以在GitHub上找到，地址：https://github.com/VundleVim/Vun">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/安装语句.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/vim-tagbar.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/字体.png">
+<meta property="og:updated_time" content="2017-12-09T08:50:51.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu安装Vundle管理vim插件">
+<meta name="twitter:description" content="概述我在学习Linux这段时间里，使用vim编程，为了提高自己的逼格，也为了提高自己的效率，就尝试着安装了2个插件。感觉逼格高了很多。 安装安装其他插件之前，我们首先需要安装一个管理插件的插件，它就是Vundle，Vundle可以帮助我们管理和安装其他的插件，非常好用。 安装Vundle插件Vundle可以在GitHub上找到，地址：https://github.com/VundleVim/Vun">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/安装语句.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '5a8e9aeb6aad13d9f3471d44095328f5',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/"/>
+
+
+
+
+
+  <title> Ubuntu安装Vundle管理vim插件 | Foutin </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Foutin</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/Ubuntu安装Vundle/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Foutlook">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/head.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Foutin">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Foutin" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ubuntu安装Vundle管理vim插件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-20T17:33:00+08:00">
+                2017-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/20/Ubuntu安装Vundle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/11/20/Ubuntu安装Vundle/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+		  
+		  
+		  <!--以下部分为: 字数统计、阅读时长插入代码-->
+		
+        <span class="post-time">
+			&nbsp; | &nbsp;
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">1,433(字)</span>
+           
+        </span>
+	  
+		<span class="post-time">
+			&nbsp; | &nbsp;
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">7(分)</span>
+           
+        </span>
+		<!-- 以上部分为: 字数统计、阅读时长插入代码 -->
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>我在学习Linux这段时间里，使用vim编程，为了提高自己的逼格，也为了提高自己的效率，就尝试着安装了2个插件。感觉逼格高了很多。</strong></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装其他插件之前，我们首先需要安装一个管理插件的插件，它就是Vundle，Vundle可以帮助我们管理和安装其他的插件，非常好用。</p>
+<h3 id="安装Vundle插件"><a href="#安装Vundle插件" class="headerlink" title="安装Vundle插件"></a>安装Vundle插件</h3><p>Vundle可以在GitHub上找到，地址：<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="noopener">https://github.com/VundleVim/Vundle.vim</a> </p>
+<p>1、  如果在你的Linux或者Ubuntu中没有暗转git，首先请先安装git</p>
+<blockquote>
+<p>sudo apt-get install git</p>
+</blockquote>
+<p>2、 使用git安装Vundle ，可以安装到~/.vim/bundle/Vundle.vim下</p>
+<blockquote>
+<p>git clone <a href="https://github.com/VundleVim/Vundle.vim.git" target="_blank" rel="noopener">https://github.com/VundleVim/Vundle.vim.git</a> ~/.vim/bundle/Vundle.vim</p>
+</blockquote>
+<p>3、 添加官方文档提供的配置信息到  ~/.vimrc 中(.vimrc 如果不存在就创建一个【vi  ~/.vimrc】)：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">set nocompatible              <span class="string">" be iMproved, required</span></span><br><span class="line"><span class="string">filetype off                 	     "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="string">set rtp+=~/.vim/bundle/Vundle.vim</span></span><br><span class="line"><span class="string">call vundle#begin()</span></span><br><span class="line"><span class="string">"</span> alternatively, pass <span class="selector-tag">a</span> path where Vundle should install plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> let Vundle manage Vundle, required</span><br><span class="line">Plugin <span class="string">'VundleVim/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span></span><br><span class="line">" Keep Plugin commands between vundle#begin/end.</span><br><span class="line"><span class="string">" plugin on GitHub repo</span></span><br><span class="line"><span class="string">Plugin 'tpope/vim-fugitive'</span></span><br><span class="line"><span class="string">"</span> plugin from http:<span class="comment">//vim-scripts.org/vim/scripts.html</span></span><br><span class="line"><span class="string">" Plugin 'L9'</span></span><br><span class="line"><span class="string">"</span> Git plugin not hosted on GitHub</span><br><span class="line">Plugin <span class="string">'git://git.wincent.com/command-t.git'</span></span><br><span class="line"><span class="string">" git repos on your local machine (i.e. when working on your own plugin)</span></span><br><span class="line"><span class="string">Plugin 'file:///home/gmarik/path/to/plugin'</span></span><br><span class="line"><span class="string">"</span> The sparkup vim script is <span class="keyword">in</span> <span class="selector-tag">a</span> subdirectory of this repo called vim.</span><br><span class="line"><span class="string">" Pass the path to set the runtimepath properly.</span></span><br><span class="line"><span class="string">Plugin 'rstacruz/sparkup', &#123;'rtp': 'vim/'&#125;</span></span><br><span class="line"><span class="string">"</span> Install L9 and avoid <span class="selector-tag">a</span> Naming conflict <span class="keyword">if</span> you<span class="string">'ve already installed a</span></span><br><span class="line"><span class="string">" different version somewhere else.</span></span><br><span class="line"><span class="string">" Plugin '</span>ascenator/L9<span class="string">', &#123;'</span>name<span class="string">': '</span>newL9<span class="string">'&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">" All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="string">call vundle#end()            " required</span></span><br><span class="line"><span class="string">filetype plugin indent on    " required</span></span><br><span class="line"><span class="string">" To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="string">"filetype plugin on</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"><span class="string">" Brief help</span></span><br><span class="line"><span class="string">" :PluginList       - lists configured plugins</span></span><br><span class="line"><span class="string">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span></span><br><span class="line"><span class="string">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span></span><br><span class="line"><span class="string">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"><span class="string">" see :h vundle for more details or wiki for FAQ</span></span><br><span class="line"><span class="string">" Put your non-Plugin stuff after this line</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> <strong>注意：如果按这个文件配置，我在进行安装的时候回报错：</strong><br> 提示说  Plugin ‘file:///home/gmarik/path/to/plugin’   找不到，文档中说：git repos on your local machine (i.e. when working on your own plugin)  意思是这个安装本地插件的一个目录，我这没有本地插件，所以我就把这句注释掉了。</p>
+</blockquote>
+<p>4、  打开vim ，安装默认插件：</p>
+<blockquote>
+<p>只在终端键入 vim，后面什么都不加<br>    sudo  vim    –sudo临时提高权限，如果不加sudo，可能会遇到权限不够。<br>   然后键入下面的命令<br>    :PluginInstall<br>   之后等待安装完成，[ :q ] 来退出即可</p>
+</blockquote>
+<p> 安装成功如下图所示：<br> <img src="安装语句.png" alt="Ubuntu"></p>
+<h3 id="安装2个常用插件"><a href="#安装2个常用插件" class="headerlink" title="安装2个常用插件"></a>安装2个常用插件</h3><p>1、  tagbar</p>
+<p>这个插件可以浏览当前文件的标签，如果想更深的了解，GitHub地址为:   <a href="https://github.com/majutsushi/tagbar" target="_blank" rel="noopener">https://github.com/majutsushi/tagbar</a><br>效果图如下：<br><img src="vim-tagbar.png" alt="Ubuntu"></p>
+<ul>
+<li>该插件安装之前需要先安装 ctags</li>
+</ul>
+<blockquote>
+<p>  sudo apt-get install ctags</p>
+</blockquote>
+<ul>
+<li>添加插件和其他配置信息到   ~/.vimrc 中</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">进入 ~/.vimrc</span><br><span class="line"></span><br><span class="line"># 添加以下  tagbar  插件</span><br><span class="line">Plugin <span class="string">'majutsushi/tagbar'</span></span><br><span class="line"></span><br><span class="line"># 配置 tagbar 插件</span><br><span class="line">let g:tagbar_ctags_bin=<span class="string">'ctags'</span>     <span class="string">"ctags 程序的路径</span></span><br><span class="line"><span class="string">let g:tagbar_width=30                   "</span>窗口宽度设置为 <span class="number">30</span></span><br><span class="line">let g:tagbar_left=<span class="number">1</span>                         <span class="string">"设置在 vim 左边显示</span></span><br><span class="line"><span class="string">let g:tagbar_map_openfold = "</span>zv<span class="string">"   "</span>按 zv 组合键打开标签，默认 zc 关闭标签</span><br><span class="line"></span><br><span class="line"><span class="string">"如果是 C 语言的程序的话，tagbar 自动开启</span></span><br><span class="line"><span class="string">autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen() </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span>我设置 F2 为打开或者关闭的快捷键，根据你的习惯更改</span><br><span class="line">nnoremap &lt;silent&gt; &lt;F2&gt; :TagbarToggle&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>然后通过命令进行安装，语句和安装Vundle 第4步相同</li>
+</ul>
+<p>2、  安装 vim-airline 插件<br>    这个插件没有很大的实用性，但能增加逼格，增加vim的有趣性。<br>    <strong>第一步，我们先把下面的需要配置的文件添加到 ~/.vimrc 中</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" ------------------------安装 vim-airline------------------</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set laststatus=2   "</span> 永远显示状态栏</span><br><span class="line">set t_Co=<span class="number">256</span>       <span class="string">" 在windows中用xshell连接打开vim可以显示色彩</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span>Vim 在与屏幕/键盘交互时使用的编码(取决于实际的终端的设定)        </span><br><span class="line">:set encoding=utf-<span class="number">8</span></span><br><span class="line">:set langmenu=zh_CN.UTF-<span class="number">8</span></span><br><span class="line">:set fileencodings=utf-<span class="number">8</span></span><br><span class="line">:set fileencoding=utf-<span class="number">8</span></span><br><span class="line">:set termencoding=utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line">Plugin <span class="string">'vim-airline'</span>    </span><br><span class="line">let g:airline_theme=<span class="string">"molokai"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"这个是安装字体后 必须设置此项"</span> </span><br><span class="line">let g:airline_powerline_fonts = <span class="number">1</span>  </span><br><span class="line"><span class="string">"打开tabline功能,方便查看Buffer和切换,省去了minibufexpl插件</span></span><br><span class="line"><span class="string"> let g:airline#extensions#tabline#enabled = 1</span></span><br><span class="line"><span class="string"> let g:airline#extensions#tabline#buffer_nr_show = 1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span>设置切换Buffer快捷键<span class="string">"</span></span><br><span class="line"><span class="string">nnoremap &lt;F4&gt; :bn&lt;CR&gt;</span></span><br><span class="line"><span class="string">"</span> 关闭状态显示空白符号计数</span><br><span class="line"> let g:airline#extensions#whitespace<span class="selector-id">#enabled</span> = <span class="number">0</span></span><br><span class="line"> let g:airline#extensions#whitespace<span class="selector-id">#symbol</span> = <span class="string">'!'</span></span><br><span class="line"></span><br><span class="line"> <span class="string">" 设置consolas字体"</span>前面已经设置过</span><br><span class="line"> <span class="string">"set guifont=Consolas\ for\ Powerline\ FixedD:h11</span></span><br><span class="line"><span class="string"> if !exists('g:airline_symbols')</span></span><br><span class="line"><span class="string">	let g:airline_symbols = &#123;&#125;</span></span><br><span class="line"><span class="string"> endif</span></span><br><span class="line"><span class="string"> "</span> old vim-powerline symbols</span><br><span class="line"> let g:airline_left_sep = <span class="string">'⮀'</span></span><br><span class="line"> let g:airline_left_alt_sep = <span class="string">'⮁'</span></span><br><span class="line"> let g:airline_right_sep = <span class="string">'⮂'</span></span><br><span class="line"> let g:airline_right_alt_sep = <span class="string">'⮃'</span></span><br><span class="line"> let g:airline_symbols<span class="selector-class">.branch</span> = <span class="string">'⭠'</span></span><br><span class="line"> let g:airline_symbols<span class="selector-class">.readonly</span> = <span class="string">'⭤'</span></span><br></pre></td></tr></table></figure>
+<p><strong>第二步：要安装字体，如果没有安装字体的话，vim-airline的效果就没法正确的显示</strong></p>
+<p>字体安装GitHub地址：<a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">https://github.com/powerline/fonts</a></p>
+<p>在终端上一步步输入下面的内容即可：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># clone</span><br><span class="line">git clone https:<span class="comment">//github.com/powerline/fonts.git --depth=1</span></span><br><span class="line"># install</span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br><span class="line"># clean-up a bit</span><br><span class="line">cd ..</span><br><span class="line">rm -rf fonts</span><br></pre></td></tr></table></figure>
+<p>第三步：继续执行安装Vundle的第四步即可</p>
+<p>效果图如下：<br> <img src="字体.png" alt="Ubuntu"></p>
+<blockquote>
+<p> 注意：在安装的时候，如果遇到权限不够，使用sudo vim 临时提高权限<br> 使用vim时遇到的问题： 如何用vim命令把编辑文件的几行内容拷贝到一个新文件 — 如把58行到79行拷贝到~/test.txt文件可以使用下面的命令&gt;&gt; :58,79w!~/.test.txt</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward.png" alt="Foutlook WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward.png" alt="Foutlook Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+	
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux，vim，Vundle/" rel="tag"># Linux，vim，Vundle</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/20/深入理解JVM总结/" rel="next" title="【深入理解JVM】总结">
+                <i class="fa fa-chevron-left"></i> 【深入理解JVM】总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/30/装饰者模式/" rel="prev" title="装饰者模式">
+                装饰者模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <!--
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+   -->
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Foutlook" />
+          <p class="site-author-name" itemprop="name">Foutlook</p>
+          <p class="site-description motion-element" itemprop="description">生活如果很顺利,那该多无聊</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Foutlook" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/foutlook6" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5431985539" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/fxkai-ai" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://my.csdn.net/kai_12" title="我的CSDN" target="_blank">我的CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Vundle插件"><span class="nav-number">2.1.</span> <span class="nav-text">安装Vundle插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装2个常用插件"><span class="nav-number">2.2.</span> <span class="nav-text">安装2个常用插件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Foutlook</span>
+</div>
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  <span class="post-count">博客全站共98.0k字</span>
+</div>
+
+<!--
+<div class="powered-by">
+  由  强力驱动
+</div>
+-->
+
+
+<div class="theme-info">
+  主题 - 豫ICP备17009860号
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'foutlook';
+      var disqus_identifier = '2017/11/20/Ubuntu安装Vundle/';
+
+      var disqus_title = "Ubuntu安装Vundle管理vim插件";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
