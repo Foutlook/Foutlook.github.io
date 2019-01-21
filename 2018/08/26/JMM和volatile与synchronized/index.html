@@ -89,23 +89,23 @@
 
 
 
-<meta name="description" content="好的习惯可以影响人一生  概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字">
+<meta name="description" content="好的习惯可以影响人一生   概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态">
 <meta name="keywords" content="JMM，volatile，synchronized">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JMM和volatile与synchronized">
 <meta property="og:url" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="好的习惯可以影响人一生  概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字">
+<meta property="og:description" content="好的习惯可以影响人一生   概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/JMM.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/CAS.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/ABA-1.png">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/ABA-2.png">
 <meta property="og:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/ABA-3.png">
-<meta property="og:updated_time" content="2019-01-21T07:04:45.411Z">
+<meta property="og:updated_time" content="2019-01-21T07:14:27.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JMM和volatile与synchronized">
-<meta name="twitter:description" content="好的习惯可以影响人一生  概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字">
+<meta name="twitter:description" content="好的习惯可以影响人一生   概述在一开始的学习java的时候，一直认为JMM（Java Memory Model）和Java内存区域是一个东西。后面深入学习后，Java内存区域是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。JMM则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态">
 <meta name="twitter:image" content="http://yoursite.com/2018/08/26/JMM和volatile与synchronized/JMM.jpg">
 
 
@@ -425,7 +425,9 @@
         <blockquote>
 <p>好的习惯可以影响人一生</p>
 </blockquote>
+<hr>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>在一开始的学习java的时候，一直认为<code>JMM（Java Memory Model）</code>和<code>Java内存区域</code>是一个东西。后面深入学习后，<code>Java内存区域</code>是JVM在运行程序时会把其自动管理的内存划分为以上几个区域，每个区域都有的用途以及创建销毁的时机。<code>JMM</code>则是本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式。</p>
+<hr>
 <h1 id="JMM-Java-Memory-Model"><a href="#JMM-Java-Memory-Model" class="headerlink" title="JMM(Java Memory Model)"></a>JMM(Java Memory Model)</h1><p>Java内存区域就不在过多的介绍，有兴趣可以看我以前写的关于深入理解JVM的内容。<br>在执行程序时JVM运行程序的实体是<code>线程</code>，而每个线程创建时JVM都会为其创建一个<code>工作内存</code>(有些地方称为<code>栈空间</code>)，用于存储线程私有的数据，而Java内存模型中规定所有变量都存储在<code>主内存</code>，主内存是共享内存区域，所有线程都可以访问，但线程对变量的操作(读取赋值等)必须在工作内存中进行，<strong>首先要将变量从主内存拷贝的自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存，不能直接操作主内存中的变量，工作内存中存储着主内存中的变量副本拷贝，前面说过，工作内存是每个线程的私有数据区域，因此不同的线程间无法访问对方的工作内存</strong>，线程间的通信(传值)必须通过主内存来完成，其简要访问过程如下图:<br><img src="JMM.jpg" alt="1"><br>JMM与Java内存区域的划分是不同的概念层次，更恰当说JMM描述的是一组规则，通过这组规则控制程序中各个变量在共享数据区域和私有数据区域的访问方式，<strong>JMM是围绕原子性，有序性、可见性展开的</strong>。这也是我们在并发操作，或者使用多线程执行的时候围绕这三个原则来保证数据的同步。</p>
 <p>对于一个实例对象中的成员方法而言，如果<code>方法中</code>包含本地变量是<code>基本数据类型</code>（boolean,byte,short,char,int,long,float,double），将直接存储在工作内存的<code>帧栈</code>结构中，但倘若<code>本地变量是引用类型</code>，那么该变量的<code>引用</code>会存储在功能内存的帧栈中，而对象实例将存储在主内存(共享数据区域，堆)中。但对于<code>实例对象的成员变量</code>，不管它是<code>基本数据类型</code>或者<code>包装类型</code>(Integer、Double等)还是<code>引用类型</code>，都会被存储到堆区。至于static变量以及类本身相关信息将会存储在主内存中。需要注意的是，在主内存中的实例对象可以被多线程共享，倘若两个线程同时调用了同一个对象的同一个方法，那么两条线程会将要操作的数据拷贝一份到自己的工作内存中，执行完成操作后才刷新到主内存，</p>
 <p>总结来说一句话：<strong>方法中的局部变量是基本类型就直接操作个线程的栈中，引用变量值存在主内存中。而对象成员变量都存放在主内存中。</strong></p>
@@ -442,6 +444,7 @@
 </ul>
 </blockquote>
 <p>所以，Java 迫切需要一个完善的 <code>JMM</code>，能够让普通 Java 开发者和编译器、JVM 工程师，能够清晰地达成共识。换句话说，可以<code>相对简单并准确地判断出，多线程程序什么样的执行序列是符合规范的</code>。</p>
+<hr>
 <h1 id="volatile和synchronized"><a href="#volatile和synchronized" class="headerlink" title="volatile和synchronized"></a>volatile和synchronized</h1><p>volatile在并发编程中很常见，但也容易被滥用，现在我们就进一步分析volatile关键字的语义。volatile是Java虚拟机提供的轻量级的同步机制。volatile关键字有如下两个作用</p>
 <blockquote>
 <ul>
@@ -461,6 +464,7 @@
 <h2 id="volatile和synchronized的区别"><a href="#volatile和synchronized的区别" class="headerlink" title="volatile和synchronized的区别"></a>volatile和synchronized的区别</h2><blockquote>
 <p>volatile本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取； synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。<br>volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、和类级别的<br>volatile仅能实现变量的修改可见性，不能保证原子性；而synchronized则可以保证变量的修改可见性和原子性<br>volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞。<br>volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化</p>
 </blockquote>
+<hr>
 <h1 id="volatile和Atomic"><a href="#volatile和Atomic" class="headerlink" title="volatile和Atomic"></a>volatile和Atomic</h1><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><h3 id="锁（lock）的代价"><a href="#锁（lock）的代价" class="headerlink" title="锁（lock）的代价"></a>锁（lock）的代价</h3><p>锁是用来做并发最简单的方式，当然其代价也是最高的。<strong>内核态的锁的时候需要操作系统进行一次上下文切换，加锁、释放锁会导致比较多的上下文切换和调度延时，等待锁的线程会被挂起直至锁释放</strong>。<strong>在上下文切换的时候，cpu之前缓存的指令和数据都将失效，对性能有很大的损失。</strong> 操作系统对多线程的锁进行判断就像两姐妹在为一个玩具在争吵，然后操作系统就是能决定他们谁能拿到玩具的父母，这是很慢的。用户态的锁虽然避免了这些问题，但是其实它们只是在没有真实的竞争时才有效。</p>
 <p>Java在JDK1.5之前都是靠synchronized关键字保证同步的，这种通过使用一致的锁定协议来协调对共享状态的访问，可以确保无论哪个线程持有守护变量的锁，都采用独占的方式来访问这些变量，如果出现多个线程同时访问锁，那第一些线线程将被挂起，当线程恢复执行时，必须等待其它线程执行完他们的时间片以后才能被调度执行，<strong>在挂起和恢复执行过程中存在着很大的开销。锁还存在着其它一些缺点，当一个线程正在等待锁时，它不能做任何事。如果一个线程在持有锁的情况下被延迟执行，那么所有需要这个锁的线程都无法执行下去。</strong> 如果被阻塞的线程优先级高，而持有锁的线程优先级低，将会导致优先级反转(Priority Inversion)。</p>
 <p><strong>与锁相比，volatile变量是一和更轻量级的同步机制，因为在使用这些变量时不会发生上下文切换和线程调度等操作，但是volatile变量也存在一些局限：不能用于构建原子的复合操作，因此当一个变量依赖旧值时就不能使用volatile变量。</strong></p>
@@ -499,6 +503,7 @@
 <figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov    <span class="number">0</span>xc(<span class="built_in">%r</span>11),<span class="built_in">%eax</span>       <span class="comment">; Load</span></span><br><span class="line">mov    <span class="built_in">%eax</span>,<span class="built_in">%r</span>8d            </span><br><span class="line">inc    <span class="built_in">%r</span>8d                 <span class="comment">; Increment</span></span><br><span class="line"><span class="keyword">lock</span> cmpxchg <span class="built_in">%r</span>8d,<span class="number">0</span>xc(<span class="built_in">%r</span>11) <span class="comment">; Compare and exchange</span></span><br></pre></td></tr></table></figure>
 <p>因为CAS是基于乐观锁的，也就是说当写入的时候，如果寄存器旧值已经不等于现值，说明有其他CPU在修改，那就继续尝试。所以这就保证了操作的原子性。</p>
 <p><strong>那CAS是什么？为什么能够保证操作的原子性？为什么比volatile更好？</strong></p>
+<hr>
 <h2 id="CAS无锁算法"><a href="#CAS无锁算法" class="headerlink" title="CAS无锁算法"></a>CAS无锁算法</h2><p><strong>要实现无锁（lock-free）的非阻塞算法有多种实现方法，其中CAS（比较与交换，Compare and swap）是一种有名的无锁算法</strong>。CAS, CPU指令，在大多数处理器架构，包括IA32、Space中采用的都是CAS指令，CAS的语义是“我认为V的值应该为A，如果是，那么将V的值更新为B，否则不修改并告诉V的值实际为多少”，CAS是项乐观锁技术，当多个线程尝试使用CAS同时更新同一个变量时，只有其中一个线程能更新变量的值，而其它线程都失败，失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。</p>
 <p><strong>CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做</strong>。CAS无锁算法的C实现如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> compare_and_swap (<span class="keyword">int</span>* <span class="keyword">reg</span>, <span class="keyword">int</span> oldval, <span class="keyword">int</span> newval) </span><br><span class="line">&#123;</span><br><span class="line">  ATOMIC();</span><br><span class="line">  <span class="keyword">int</span> old_reg_val = *<span class="keyword">reg</span>;</span><br><span class="line">  <span class="keyword">if</span> (old_reg_val == oldval) </span><br><span class="line">     *<span class="keyword">reg</span> = newval;</span><br><span class="line">  END_ATOMIC();</span><br><span class="line">  <span class="keyword">return</span> old_reg_val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -532,6 +537,7 @@
 <li>Lock-free无锁的例子：CAS（CPU的<code>Compare-And-Swap</code>指令）的利用和LMAX的disruptor无锁消息队列数据结构等。</li>
 </ul>
 </blockquote>
+<hr>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>volatile无法保证原则性。可以使用并发包提供的Atomic* 。 </p>
 
       
