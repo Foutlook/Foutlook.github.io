@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/20/ThreadLocal/</loc>
+    
+    <lastmod>2019-01-21T07:40:05.695Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
     
     <lastmod>2019-01-21T07:14:27.561Z</lastmod>
