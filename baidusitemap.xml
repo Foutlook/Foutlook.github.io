@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
+    <lastmod>2019-01-21T07:04:45.411Z</lastmod>
+    <data>
+        <display>
+        <title>JMM和volatile与synchronized</title>
+        <pubTime>2018-08-26T04:00:00.000Z</pubTime>
+        
+        <tag>JMM，volatile，synchronized</tag>
+         
+         
+           
+             
+              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/12/20/Dubbo%E4%B8%8EZookeeper/</loc>
     <lastmod>2019-01-17T08:21:12.487Z</lastmod>
     <data>
@@ -192,26 +212,6 @@
         <pubTime>2018-08-19T01:00:00.000Z</pubTime>
         
         <tag>多线程</tag>
-         
-         
-           
-             
-              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/08/26/JMM%E5%92%8Cvolatile%E4%B8%8Esynchronized/</loc>
-    <lastmod>2018-11-21T09:24:30.892Z</lastmod>
-    <data>
-        <display>
-        <title>JMM和volatile与synchronized</title>
-        <pubTime>2018-08-26T04:00:00.000Z</pubTime>
-        
-        <tag>JMM，volatile，synchronized</tag>
          
          
            
