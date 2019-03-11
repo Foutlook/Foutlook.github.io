@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2019/01/20/Netty/</loc>
+    <lastmod>2019-03-11T12:17:24.958Z</lastmod>
+    <data>
+        <display>
+        <title>Netty简介</title>
+        <pubTime>2019-01-20T04:00:00.000Z</pubTime>
+        
+        <tag>NIO，IO</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2019/01/20/ThreadLocal/</loc>
     <lastmod>2019-01-21T07:40:05.695Z</lastmod>
     <data>
