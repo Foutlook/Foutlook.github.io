@@ -99,8 +99,11 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/09/09/Spring小记/DI.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/09/09/Spring小记/AOP.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/09/09/Spring小记/bean.jpg">
-<meta property="og:updated_time" content="2019-01-12T03:25:20.482Z">
+<meta property="og:image" content="https://github.com/Foutlook/Faceyou/blob/master/spring/bean%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Foutlook/Faceyou/blob/master/spring/bean%E5%BC%95%E7%94%A8.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Foutlook/Faceyou/blob/master/spring/Bean%E7%9B%B8%E4%BA%92%E4%BE%9D%E8%B5%96.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Foutlook/Faceyou/blob/master/spring/AbstractAutoProxyCreator%E7%BB%A7%E6%89%BF%E5%9B%BE.jpg?raw=true">
+<meta property="og:updated_time" content="2019-08-17T12:56:31.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring小记">
 <meta name="twitter:description" content="人生而迷茫吗？   概述学了Spring框架那么久，也没有很好总结过，很长时间不用有马上都忘了，今天来总结一下。无论什么框架，一切皆源于Java最底层的设计。  为什么使用SpringSpring是最近最火的框架，是快速开发项目最不可或缺的。Spring主要两个有功能为我们的业务对象管理提供了非常便捷的方法：   DI（Dependency Injection，依赖注入）  AOP（Aspect">
@@ -394,7 +397,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">6,498(字)</span>
+           <span class="post-count">7,665(字)</span>
            
         </span>
 	  
@@ -404,7 +407,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">26(分)</span>
+           <span class="post-count">30(分)</span>
            
         </span>
 		<!-- 以上部分为: 字数统计、阅读时长插入代码 -->
@@ -450,7 +453,7 @@
 <ol>
 <li>解析xml或通过注解, 获取各种元素</li>
 <li>通过Java反射把各个bean 的实例创建起来。</li>
-<li>通过Java反射调用类的两个方法：set/get，把实例注入进来</li>
+<li>通过Java反射调用类的两个方法：setter或通过构造器把实例注入进来</li>
 </ol>
 </blockquote>
 <p>其实Spring的处理方式和上面说的非常类似， 当然Spring 处理了更多的细节，例如不仅仅是setter方法注入， 还可以构造函数注入，init 方法， destroy方法等等， 基本思想是一致的。<br><img src="DI.jpg" alt="DI"></p>
@@ -608,7 +611,7 @@
 <p>通过XML将无注解的Audience声明为切面:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:config&gt;</span><br><span class="line">  &lt;aop:aspect ref=<span class="string">"audience"</span>&gt;</span><br><span class="line">    &lt;aop:before</span><br><span class="line">      pointcut =<span class="string">"execution(** concert.Performance.perform(..))"</span></span><br><span class="line">      method=<span class="string">"sillenceCellPhones"</span>/&gt;</span><br><span class="line">    &lt;aop:before</span><br><span class="line">      pointcut =<span class="string">"execution(** concert.Performance.perform(..))"</span></span><br><span class="line">      method=<span class="string">"taskSeats"</span>/&gt;</span><br><span class="line">    &lt;aop:after-returning</span><br><span class="line">      pointcut =<span class="string">"execution(** concert.Performance.perform(..))"</span></span><br><span class="line">      method=<span class="string">"applause"</span>/&gt;</span><br><span class="line">    &lt;aop:After-throwing</span><br><span class="line">        pointcut =<span class="string">"execution(** concert.Performance.perform(..))"</span></span><br><span class="line">        method=<span class="string">"demanRefund"</span>/&gt;</span><br><span class="line">  &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="关于Spring-Bean"><a href="#关于Spring-Bean" class="headerlink" title="关于Spring Bean"></a>关于Spring Bean</h2><p>Spring的ioc容器功能非常强大，负责Spring的Bean的创建和管理等功能。而Spring 的bean是整个Spring应用中很重要的一部分，了解Spring Bean的生命周期对我们了解整个spring框架会有很大的帮助。<br>BeanFactory和ApplicationContext是Spring两种很重要的容器,前者提供了最基本的依赖注入的支持，而后者在继承前者的基础进行了功能的拓展，例如增加了事件传播，资源访问和国际化的消息访问等功能。</p>
-<h3 id="Bean的声明周期"><a href="#Bean的声明周期" class="headerlink" title="Bean的声明周期"></a>Bean的声明周期</h3><p>首先看下生命周期图：<br><img src="bean.jpg" alt="bean"></p>
+<h3 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h3><p>首先看下生命周期图：<br><img src="https://github.com/Foutlook/Faceyou/blob/master/spring/bean%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B.jpg?raw=true" alt="Bean的生命周期"></p>
 <p>再谈生命周期之前有一点需要先明确：</p>
 <blockquote>
 <p>Spring 只帮我们管理单例模式 Bean 的完整生命周期，对于 prototype 的 bean ，Spring 在创建好交给使用者之后则不会再管理后续的生命周期。</p>
@@ -616,18 +619,38 @@
 <p>如你所见，在bean准备就绪之前，bean工厂执行了若干启动步骤。我们对图进行详细描述：</p>
 <blockquote>
 <ol>
-<li>Spring对bean进行实例化； </li>
-<li>Spring将值和bean的引用注入到bean对应的属性中；</li>
-<li>如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBean-Name()方法；</li>
-<li>如果bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()方法，将BeanFactory容器实例传入；</li>
-<li>如果bean实现了ApplicationContextAware接口，Spring将调用setApplicationContext()方法，将bean所在的应用上下文的引用传入进来；</li>
-<li>如果bean实现了BeanPostProcessor接口，Spring将调用它们的post-ProcessBeforeInitialization()方法；</li>
-<li>如果bean实现了InitializingBean接口，Spring将调用它们的after-PropertiesSet()方法。类似地，如果bean使用init-method声明了初始化方法，该方法也会被调用；</li>
-<li>如果bean实现了BeanPostProcessor接口，Spring将调用它们的post-ProcessAfterInitialization()方法；</li>
-<li>此时，bean已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁；</li>
-<li>如果bean实现了DisposableBean接口，Spring将调用它的destroy()接口方法。同样，如果bean使用destroy-method声明了销毁方法，该方法也会被调用。</li>
+<li>实例化 bean 对象，类似于 new XXObject()</li>
+<li>将配置文件中配置的属性填充到刚刚创建的 bean 对象中。</li>
+<li>检查 bean 对象是否实现了 Aware 一类的接口，如果实现了则把相应的依赖设置到 bean 对象中。比如如果 bean 实现了 BeanFactoryAware 接口，Spring 容器在实例化bean的过程中，会将 BeanFactory 容器注入到 bean 中。</li>
+<li>调用 BeanPostProcessor 前置处理方法，即 postProcessBeforeInitialization(Object bean, String beanName)。</li>
+<li>检查 bean 对象是否实现了 InitializingBean 接口，如果实现，则调用 afterPropertiesSet 方法。或者检查配置文件中是否配置了 init-method 属性，如果配置了，则去调用 init-method 属性配置的方法。</li>
+<li>调用 BeanPostProcessor 后置处理方法，即 postProcessAfterInitialization(Object bean, String beanName)。我们所熟知的 AOP 就是在这里将 Adivce 逻辑织入到 bean 中的。</li>
+<li>注册 Destruction 相关回调方法。</li>
+<li>bean 对象处于就绪状态，可以使用了。</li>
+<li>应用上下文被销毁，调用注册的 Destruction 相关方法。如果 bean 实现了 DispostbleBean 接口，Spring 容器会调用 destroy 方法。如果在配置文件中配置了 destroy 属性，Spring 容器则会调用 destroy 属性对应的方法。</li>
 </ol>
 </blockquote>
+<p>上述流程从宏观上对 Spring 中 singleton 类型 bean 的生命周期进行了描述，接下来说说所上面流程中的一些细节问题。<br>先看流程中的第二步 – <code>设置对象属性</code>，在这一步中，对于普通类型的属性，例如 String，Integer等，比较容易处理，直接设置即可。但是如果某个 bean 对象依赖另一个 bean 对象，此时就不能直接设置了。Spring 容器首先要先去实例化 bean 依赖的对象，实例化好后才能设置到当前 bean 中。大致流程如下：</p>
+<p><img src="https://github.com/Foutlook/Faceyou/blob/master/spring/bean%E5%BC%95%E7%94%A8.jpg?raw=true" alt="bean的相互引用"></p>
+<p>上面图片描述的依赖比较简单，就是 BeanA 依赖 BeanB。现在考虑这样一种情况，BeanA 依赖 BeanB，BeanB 依赖 BeanC，BeanC 又依赖 BeanA。三者形成了循环依赖，如下所示：</p>
+<p><img src="https://github.com/Foutlook/Faceyou/blob/master/spring/Bean%E7%9B%B8%E4%BA%92%E4%BE%9D%E8%B5%96.jpg?raw=true" alt="Bean的相互依赖"></p>
+<p>对于这样的循环依赖，根据依赖注入方式的不同，Spring 处理方式也不同。如果依赖靠构造器方式注入，则无法处理，Spring 直接会报循环依赖异常。这个理解起来也不复杂，构造 BeanA 时需要 BeanB 作为构造器参数，此时 Spring 容器会先实例化 BeanB。构造 BeanB 时，BeanB 又需要 BeanC 作为构造器参数，Spring 容器又不得不先去构造 BeanC。最后构造 BeanC 时，BeanC 又依赖 BeanA 才能完成构造。此时，BeanA 还没构造完成，BeanA 要等 BeanB 实例化好才能完成构造，BeanB 又要等 BeanC，BeanC 等 BeanA。这样就形成了死循环，所以对于以构造器注入方式的循环依赖是无解的，Spring 容器会直接报异常。对于 setter 类型注入的循环依赖则可以顺利完成实例化并依次注入。为什么对于setter类型注入的循环依赖可以顺利完成实例化注入呢？ 请看：<a href="htt">SpringIOC-Bean的初始化-循环依赖问题</a>。</p>
+<p>循环依赖问题说完，接下来 bean 实例化流程中的第7步 – 调用 BeanPostProcessor 后置处理方法。先介绍一下 BeanPostProcessor 接口，BeanPostProcessor 接口中包含了两个方法，其定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BeanPostProcessor 是一个很有用的接口，通过实现接口我们就可以插手 bean 的实例化过程，为拓展提供了可能。我们所熟知的 AOP 就是在这里进行织如入，具体点说是在 postProcessAfterInitialization(Object bean, String beanName) 执行织入逻辑的。下面就来说说 Spring AOP 织入的流程，以及 AOP 是怎样和 IOC 整合的。先说 Spring AOP 织入流程，大致如下：</p>
+<blockquote>
+<ol>
+<li>查找实现了 PointcutAdvisor 类型的切面类，切面类包含了 Pointcut 和 Advice 实现类对象。</li>
+<li>检查 Pointcut 中的表达式是否能匹配当前 bean 对象。</li>
+<li>如果匹配到了，表明应该对此对象织入 Advice。</li>
+<li>将 bean，bean class对象，bean实现的interface的数组，Advice对象传给代理工厂 ProxyFactory。代理工厂创建出 AopProxy 实现类，最后由 AopProxy 实现类创建 bean 的代理类，并将这个代理类返回。此时从 postProcessAfterInitialization(Object bean, String beanName) 返回的 bean 此时就不是原来的 bean 了，而是 bean 的代理类。原 bean 就这样被无感的替换掉了，是不是有点偷天换柱的感觉。</li>
+</ol>
+</blockquote>
+<p>这就是AOP作用在IOC上的原因，那么AOP是怎么和IOC整合起来并协同工作的呢？</p>
+<h3 id="AOP和IOC协同工作"><a href="#AOP和IOC协同工作" class="headerlink" title="AOP和IOC协同工作"></a>AOP和IOC协同工作</h3><p>Spring AOP 生成代理类的逻辑是在 AbstractAutoProxyCreator 相关子类中实现的，比如 DefaultAdvisorAutoProxyCreator、AspectJAwareAdvisorAutoProxyCreator 等。上面说了 BeanPostProcessor 为拓展留下了可能，这里 AbstractAutoProxyCreator 就将可能变为了现实。AbstractAutoProxyCreator 实现了 BeanPostProcessor 接口，这样 AbstractAutoProxyCreator 可以在 bean 初始化时做一些事情。光继承这个接口还不够，继承这个接口只能获取 bean，要想让 AOP 生效，还需要拿到切面对象（包含 Pointcut 和 Advice）才行。所以 AbstractAutoProxyCreator 同时继承了 BeanFactoryAware 接口，通过实现该接口，AbstractAutoProxyCreator 子类就可拿到 BeanFactory，有了 BeanFactory，就可以获取 BeanFactory 中所有的切面对象了。有了目标对象 bean，所有的切面类，此时就可以为 bean 生成代理对象了。</p>
+<p>引用其他博主一张继承图片：</p>
+<p><img src="https://github.com/Foutlook/Faceyou/blob/master/spring/AbstractAutoProxyCreator%E7%BB%A7%E6%89%BF%E5%9B%BE.jpg?raw=true" alt="AbstractAutoProxyCreator继承图"></p>
+<p>这里简单的展示了类之间的继承关系，实际Spring的实现比这个更复杂。这里的继承做了简化。</p>
 <h3 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h3><p>Spring定义了多种Bean作用域，可以基于这些作用域创建bean，包括：</p>
 <blockquote>
 <ul>
@@ -1012,7 +1035,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Spring"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Spring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-Bean"><span class="nav-number">3.</span> <span class="nav-text">Java Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入（DI）"><span class="nav-number">4.</span> <span class="nav-text">依赖注入（DI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向切面编程（AOP）"><span class="nav-number">5.</span> <span class="nav-text">面向切面编程（AOP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模版方法"><span class="nav-number">5.1.</span> <span class="nav-text">模版方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式"><span class="nav-number">5.2.</span> <span class="nav-text">装饰者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现AOP"><span class="nav-number">5.3.</span> <span class="nav-text">实现AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通知（Advice）"><span class="nav-number">5.3.1.</span> <span class="nav-text">通知（Advice）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接点（Join-point）"><span class="nav-number">5.3.2.</span> <span class="nav-text">连接点（Join point）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切点（Pointcut）"><span class="nav-number">5.3.3.</span> <span class="nav-text">切点（Pointcut）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切面（Aspect）"><span class="nav-number">5.3.4.</span> <span class="nav-text">切面（Aspect）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入（Introduction）"><span class="nav-number">5.3.5.</span> <span class="nav-text">引入（Introduction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#织入（Weaving）"><span class="nav-number">5.3.6.</span> <span class="nav-text">织入（Weaving）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Spring-Bean"><span class="nav-number">6.</span> <span class="nav-text">关于Spring Bean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean的声明周期"><span class="nav-number">6.1.</span> <span class="nav-text">Bean的声明周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean的作用域"><span class="nav-number">6.2.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明Bean"><span class="nav-number">6.3.</span> <span class="nav-text">声明Bean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">7.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-AOP之Around增强处理"><span class="nav-number">7.1.</span> <span class="nav-text">Spring AOP之Around增强处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义注解"><span class="nav-number">7.2.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sring-AOP-失效，自我调用"><span class="nav-number">7.3.</span> <span class="nav-text">Sring AOP 失效，自我调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例如下："><span class="nav-number">7.4.</span> <span class="nav-text">示例如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原因"><span class="nav-number">7.5.</span> <span class="nav-text">原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Spring"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Spring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-Bean"><span class="nav-number">3.</span> <span class="nav-text">Java Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入（DI）"><span class="nav-number">4.</span> <span class="nav-text">依赖注入（DI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向切面编程（AOP）"><span class="nav-number">5.</span> <span class="nav-text">面向切面编程（AOP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模版方法"><span class="nav-number">5.1.</span> <span class="nav-text">模版方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式"><span class="nav-number">5.2.</span> <span class="nav-text">装饰者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现AOP"><span class="nav-number">5.3.</span> <span class="nav-text">实现AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通知（Advice）"><span class="nav-number">5.3.1.</span> <span class="nav-text">通知（Advice）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接点（Join-point）"><span class="nav-number">5.3.2.</span> <span class="nav-text">连接点（Join point）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切点（Pointcut）"><span class="nav-number">5.3.3.</span> <span class="nav-text">切点（Pointcut）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切面（Aspect）"><span class="nav-number">5.3.4.</span> <span class="nav-text">切面（Aspect）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入（Introduction）"><span class="nav-number">5.3.5.</span> <span class="nav-text">引入（Introduction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#织入（Weaving）"><span class="nav-number">5.3.6.</span> <span class="nav-text">织入（Weaving）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Spring-Bean"><span class="nav-number">6.</span> <span class="nav-text">关于Spring Bean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean的生命周期"><span class="nav-number">6.1.</span> <span class="nav-text">Bean的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP和IOC协同工作"><span class="nav-number">6.2.</span> <span class="nav-text">AOP和IOC协同工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean的作用域"><span class="nav-number">6.3.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明Bean"><span class="nav-number">6.4.</span> <span class="nav-text">声明Bean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">7.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-AOP之Around增强处理"><span class="nav-number">7.1.</span> <span class="nav-text">Spring AOP之Around增强处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义注解"><span class="nav-number">7.2.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sring-AOP-失效，自我调用"><span class="nav-number">7.3.</span> <span class="nav-text">Sring AOP 失效，自我调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例如下："><span class="nav-number">7.4.</span> <span class="nav-text">示例如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原因"><span class="nav-number">7.5.</span> <span class="nav-text">原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1052,7 +1075,7 @@
 </div>
 
 <div class="powered-by">
-  <span class="post-count">博客全站共110.7k字</span>
+  <span class="post-count">博客全站共111.9k字</span>
 </div>
 
 <!--
