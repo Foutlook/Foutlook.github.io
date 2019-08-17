@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java，自动拆装箱," />
+  <meta name="keywords" content="Spring," />
 
 
 
@@ -89,24 +89,18 @@
 
 
 
-<meta name="description" content="问题关于以上问题，我们首先先看如下代码： 1234567891011121314public static void main(String[] args) &amp;#123;         Integer a =1;         Integer b =2;         Integer c =3;         Integer d =3;         Integer e =321;">
-<meta name="keywords" content="Java，自动拆装箱">
+<meta name="description" content="不能停下来   概述在实际工作中，经常由于设计不佳或者各种因素，导致类之间相互依赖。这些类可能单独使用时不会出问题，但是在使用Spring进行管理的时候可能就会抛出BeanCurrentlyInCreationException等异常 。当抛出这种异常时表示Spring解决不了该循环依赖，本文将简要说明Spring对于循环依赖的解决方法和原理。 循环依赖产生循环依赖的产生可能有很多种情况，例如：">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Integer用==比较时127相等128不相等的原因">
-<meta property="og:url" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/index.html">
+<meta property="og:title" content="SpringIOC-Bean的循环依赖问题">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/SpringIOC-Bean的循环依赖问题/index.html">
 <meta property="og:site_name" content="Foutin">
-<meta property="og:description" content="问题关于以上问题，我们首先先看如下代码： 1234567891011121314public static void main(String[] args) &amp;#123;         Integer a =1;         Integer b =2;         Integer c =3;         Integer d =3;         Integer e =321;">
+<meta property="og:description" content="不能停下来   概述在实际工作中，经常由于设计不佳或者各种因素，导致类之间相互依赖。这些类可能单独使用时不会出问题，但是在使用Spring进行管理的时候可能就会抛出BeanCurrentlyInCreationException等异常 。当抛出这种异常时表示Spring解决不了该循环依赖，本文将简要说明Spring对于循环依赖的解决方法和原理。 循环依赖产生循环依赖的产生可能有很多种情况，例如：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image1.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image2.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image4.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image5.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image3.png">
-<meta property="og:updated_time" content="2018-11-14T13:38:17.983Z">
+<meta property="og:updated_time" content="2019-08-17T16:42:03.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Integer用==比较时127相等128不相等的原因">
-<meta name="twitter:description" content="问题关于以上问题，我们首先先看如下代码： 1234567891011121314public static void main(String[] args) &amp;#123;         Integer a =1;         Integer b =2;         Integer c =3;         Integer d =3;         Integer e =321;">
-<meta name="twitter:image" content="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/Image1.png">
+<meta name="twitter:title" content="SpringIOC-Bean的循环依赖问题">
+<meta name="twitter:description" content="不能停下来   概述在实际工作中，经常由于设计不佳或者各种因素，导致类之间相互依赖。这些类可能单独使用时不会出问题，但是在使用Spring进行管理的时候可能就会抛出BeanCurrentlyInCreationException等异常 。当抛出这种异常时表示Spring解决不了该循环依赖，本文将简要说明Spring对于循环依赖的解决方法和原理。 循环依赖产生循环依赖的产生可能有很多种情况，例如：">
 
 
 
@@ -134,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/09/SpringIOC-Bean的循环依赖问题/"/>
 
 
 
 
 
-  <title> Integer用==比较时127相等128不相等的原因 | Foutin </title>
+  <title> SpringIOC-Bean的循环依赖问题 | Foutin </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/27/Integer用==比较时127相等128不相等的原因/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/SpringIOC-Bean的循环依赖问题/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Foutlook">
@@ -310,7 +304,7 @@
             
             
               
-                Integer用==比较时127相等128不相等的原因
+                SpringIOC-Bean的循环依赖问题
               
             
           </h1>
@@ -325,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-27T10:33:00+08:00">
-                2017-09-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T09:00:00+08:00">
+                2019-07-09
               </time>
             
 
@@ -348,8 +342,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -366,8 +360,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/27/Integer用==比较时127相等128不相等的原因/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/27/Integer用==比较时127相等128不相等的原因/" itemprop="commentCount"></span>
+                <a href="/2019/07/09/SpringIOC-Bean的循环依赖问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/09/SpringIOC-Bean的循环依赖问题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -396,7 +390,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">1,845(字)</span>
+           <span class="post-count">2,181(字)</span>
            
         </span>
 	  
@@ -422,64 +416,50 @@
       
 
       
-        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>关于以上问题，我们首先先看如下代码：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">         Integer a =1;</span><br><span class="line">         Integer b =2;</span><br><span class="line">         Integer c =3;</span><br><span class="line">         Integer d =3;</span><br><span class="line">         Integer e =321;</span><br><span class="line">         Integer f =321;</span><br><span class="line">         Long g = 3L;</span><br><span class="line">         System.out.println(c==d);            //true</span><br><span class="line">         System.out.println(e == f);         </span><br><span class="line">         System.out.println(c == (a+b));      //true</span><br><span class="line">         System.out.println(c.equals(a+b));   //true</span><br><span class="line">         System.out.println(g==(a+b));        //true</span><br><span class="line">         System.out.println(g.equals(a+b));   //false</span><br></pre></td></tr></table></figure>
-<p>运行的结果为：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
-<p>咱们来看看反编译的代码：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">         Integer a = Integer.valueOf(1);</span><br><span class="line">         Integer b = Integer.valueOf(2);</span><br><span class="line">         Integer c = Integer.valueOf(3);</span><br><span class="line">         Integer d = Integer.valueOf(3);</span><br><span class="line">         Integer e = Integer.valueOf(321);</span><br><span class="line">         Integer f = Integer.valueOf(321);</span><br><span class="line">         Long g = Long.valueOf(3L);</span><br><span class="line">         System.out.println(c == d);</span><br><span class="line">         System.out.println(e == f);</span><br><span class="line">         System.out.println(c.intValue() == a.intValue() + b.intValue());</span><br><span class="line">          System.out.println(c.equals(Integer.valueOf(a.intValue() + b.intValue())));</span><br><span class="line">         System.out.println(g.longValue() == (long) (a.intValue() + b.intValue()));</span><br><span class="line">          System.out.println(g.equals(Integer.valueOf(a.intValue() + b.intValue())));</span><br></pre></td></tr></table></figure>
-<p>第一个输出语句是true，第二个输出语句出现false主要是加入自动拆装箱而出现的问题，而==比较的是两个对象是不是同一个对象，如果上面的结果推算，也就是e和f经过自动拆装箱之后生成的对象不再是一个，而c和d仍是统一个对象。<br>为什么会出现这种情况呢？<br>我们来看看cdef打印的地址：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打印cdef的内存地址</span></span><br><span class="line">          System.out.println(c+"-"+d+":"+System.identityHashCode(c)+"-"+System.identityHashCode(d));</span><br><span class="line">          System.out.println(e+"-"+f+":"+System.identityHashCode(e)+"-"+System.identityHashCode(f));</span><br></pre></td></tr></table></figure>
-<p>结果如下图所示：<br><img src="Image1.png" alt="Class"></p>
-<p> 可以看出与我们推测的一样，cd经过自动装箱后认为同一个对象，而ef经过自动差装箱后不再为通过各对象，这主要是自动拆装箱带来的后果。<br>查看源码：<br>“从0到127不同时候自动装箱得到的是同一个对象”就只能有一种解释：自动装箱并不一定new出新的对象。<br>查看Integer.valueOf()源码如下：<br><img src="Image2.png" alt="Class"><br>其注释里就直接说明了-128到127之间的值都是直接从缓存中取出的。看看是怎么实现的：如果int型参数i在IntegerCache.low和IntegerCache.high范围内，则直接由IntegerCache返回；否则new一个新的对象返回。似乎IntegerCache.low就是-128，IntegerCache.high就是127了。<br>看看IntegerCache的源码：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">private static class IntegerCache &#123;</span><br><span class="line">        static final int low = -128;</span><br><span class="line">        static final int high;</span><br><span class="line">        static final Integer cache[];</span><br><span class="line">        static &#123;</span><br><span class="line">            <span class="comment">// high value may be configured by property</span></span><br><span class="line">            int h = 127;</span><br><span class="line">            String integerCacheHighPropValue =</span><br><span class="line">                sun.misc.VM.getSavedProperty("java.lang.Integer.IntegerCache.high");</span><br><span class="line">            <span class="keyword">if</span> (integerCacheHighPropValue != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    int i = parseInt(integerCacheHighPropValue);</span><br><span class="line">                    i = Math.max(i, 127);</span><br><span class="line">                    <span class="comment">// Maximum array size is Integer.MAX_VALUE</span></span><br><span class="line">                    h = Math.min(i, Integer.MAX_VALUE - (-low) -1);</span><br><span class="line">                &#125; catch( NumberFormatException nfe) &#123;</span><br><span class="line">                    <span class="comment">// If the property cannot be parsed into an int, ignore it.</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            high = h;</span><br><span class="line">            cache = new Integer[(high - low) + 1];</span><br><span class="line">            int j = low;</span><br><span class="line">            for(int k = 0; k &lt; cache.length; k++)</span><br><span class="line">                cache[k] = new Integer(j++);</span><br><span class="line">            <span class="comment">// range [-128, 127] must be interned (JLS7 5.1.7)</span></span><br><span class="line">            assert IntegerCache.high &gt;= 127;</span><br><span class="line">        &#125;</span><br><span class="line">        private IntegerCache() &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>果然在其static块中就一次性生成了-128到127直接的Integer类型变量存储在cache[]中，对于-128到127之间的int类型，返回的都是同一个Integer类型对象。<br>这下真相大白了，整个工作过程就是：Integer.class在装载（Java虚拟机启动）时，其内部类型IntegerCache的static块即开始执行，实例化并暂存数值在-128到127之间的Integer类型对象。当自动装箱int型值在-128到127之间时，即直接返回IntegerCache中暂存的Integer类型对象。<br>为什么Java这么设计？我想是出于效率考虑，因为自动装箱经常遇到，尤其是小数值的自动装箱；而如果每次自动装箱都触发new，在堆中分配内存，就显得太慢了；所以不如预先将那些常用的值提前生成好，自动装箱时直接拿出来返回。哪些值是常用的？就是-128到127了。<br>我们继续看第5和第6个输出语句，发现两种比较的方式，输出的结果却不同，为什么会这样呢？<br>通过<strong>反编译代码我们发现，第5个输出语句使用了强制类型转换，而第6个却没有</strong>，这又是为什么呢？<br>答：<strong>主要原因是包装类的“==”运算在不遇到算术运算的情况下不会自动拆箱，，equals方法不处理数据转换的关系，所以第6句没有强制类型转换</strong>。<br>注意，<strong>Integer、Short、Byte、Character、Long这几个类的valueOf方法的实现是类似的，Double、Float的valueOf方法的实现是类似的。</strong></p>
-<p>我们来试验Double类型，如下代码：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">System.out.println("-------Double---------");</span><br><span class="line">Double i1 = 100.0;</span><br><span class="line">Double i2 = 100.0;</span><br><span class="line">Double i3 = 200.0;</span><br><span class="line">Double i4 = 200.0;</span><br><span class="line">System.out.println(i1==i2);</span><br><span class="line">System.out.println(i3==i4);</span><br></pre></td></tr></table></figure>
-<p>结果：<br>false<br>false<br>我们来看Double的valueof方法：<br><img src="Image4.png" alt="Class"><br>然后我们观察Boolean类型，代码如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">System.out.println("-------Boolean--------");</span><br><span class="line">		Boolean b1 = false;</span><br><span class="line">		Boolean b2 = false;</span><br><span class="line">		Boolean b3 = true;</span><br><span class="line">		Boolean b4 = true;</span><br><span class="line">		System.out.println(b1==b2);</span><br><span class="line">		System.out.println(b3==b4);</span><br></pre></td></tr></table></figure>
-<p>结果：<br>true<br>true<br>我们来看看Boolean的valueof方法<br><img src="Image5.png" alt="Class"></p>
-<table>
-<thead>
-<tr>
-<th>基本类型</th>
-<th>==</th>
-<th>equals</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>字符串变量</td>
-<td>对象的内存地址</td>
-<td>内容</td>
-</tr>
-<tr>
-<td>非字符串变量</td>
-<td>地址</td>
-<td>内容</td>
-</tr>
-<tr>
-<td>基本类型</td>
-<td>值</td>
-<td>不可以（没有强制类型转换，不能使用）</td>
-</tr>
-<tr>
-<td>包装类</td>
-<td>地址（不同的包装类处理方式不同，Integer大小在127前在缓存中取，地址相同）</td>
-<td>比较的是两边的包装类是否为同一个对象</td>
-</tr>
-</tbody>
-</table>
-<p>Integer包装类的equals方法：<br><img src="Image3.png" alt="Class"><br>我们看到包装类的equals方法主要是比较两边是不是同一个对像。</p>
-<h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><p><strong>int和Integer的区别</strong><br>1、Integer是int的包装类，int则是java的一种基本数据类型<br>2、Integer变量必须实例化后才能使用，而int变量不需要<br>3、Integer实际是对象的引用，当new一个Integer时，实际上是生成一个指针指向此对象；而int则是直接存储数据值<br>4、Integer的默认值是null，int的默认值是0</p>
-<p><strong>关于Integer和int的比较</strong><br>1、由于Integer变量实际上是对一个Integer对象的引用，所以两个通过new生成的Integer变量永远是不相等的（因为new生成的是两个对象，其内存地址不同）。</p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Integer</span> i = <span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">100</span>);</span><br><span class="line"><span class="built_in">Integer</span> j = <span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">100</span>);</span><br><span class="line">System.<span class="keyword">out</span>.print(i == j); //<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>2、Integer变量和int变量比较时，只要两个变量的值是向等的，则结果为true（因为包装类Integer和基本数据类型int比较时，java会自动拆包装为int，然后进行比较，实际上就变为两个int变量的比较）</p>
-<figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Integer</span> i = new <span class="keyword">Integer</span>(<span class="number">100</span>);</span><br><span class="line"><span class="built_in">int</span> j = <span class="number">100</span>；</span><br><span class="line">System.<span class="keyword">out</span>.<span class="built_in">print</span>(i == j); //true</span><br></pre></td></tr></table></figure>
-<p>3、非new生成的Integer变量和new Integer()生成的变量比较时，结果为false。（因为非new生成的Integer变量指向的是java常量池中的对象，而new Integer()生成的变量指向堆中新建的对象，两者在内存中的地址不同）</p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Integer</span> i = <span class="keyword">new</span> <span class="built_in">Integer</span>(<span class="number">100</span>);</span><br><span class="line"><span class="built_in">Integer</span> j = <span class="number">100</span>;</span><br><span class="line">System.<span class="keyword">out</span>.print(i == j); //<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>4、对于两个非new生成的Integer对象，进行比较时，如果两个变量的值在区间-128到127之间，则比较结果为true，如果两个变量的值不在此区间，则比较结果为false</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Integer</span> i = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">Integer</span> j = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">System</span>.out.print(i == j); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Integer</span> i = <span class="number">128</span>;</span><br><span class="line"><span class="keyword">Integer</span> j = <span class="number">128</span>;</span><br><span class="line"><span class="keyword">System</span>.out.print(i == j); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>不能停下来</p>
+</blockquote>
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在实际工作中，经常由于设计不佳或者各种因素，导致类之间相互依赖。这些类可能单独使用时不会出问题，但是在使用Spring进行管理的时候可能就会抛出BeanCurrentlyInCreationException等异常 。当抛出这种异常时表示Spring解决不了该循环依赖，本文将简要说明Spring对于循环依赖的解决方法和原理。</p>
+<h2 id="循环依赖产生"><a href="#循环依赖产生" class="headerlink" title="循环依赖产生"></a>循环依赖产生</h2><p>循环依赖的产生可能有很多种情况，例如：</p>
+<blockquote>
+<p>A的构造方法中依赖了B的实例对象，同时B的构造方法中依赖了A的实例对象<br>A的构造方法中依赖了B的实例对象，同时B的某个field或者setter需要A的实例对象，以及反之<br>A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象，以及反之</p>
+</blockquote>
+<p>当然，Spring对于循环依赖的解决不是无条件的，首先前提条件是针对scope单例并且没有显式指明不需要解决循环依赖的对象，而且要求该对象没有被代理过。同时Spring解决循环依赖，以上三种情况只能解决两种，第一种在构造方法中相互依赖的情况Spring是无法解决的。下面来看看Spring的解决方法，知道了解决方案就能明白为啥第一种情况无法解决了。</p>
+<h2 id="Spring的单例对象的初始化"><a href="#Spring的单例对象的初始化" class="headerlink" title="Spring的单例对象的初始化"></a>Spring的单例对象的初始化</h2><p>Spring的单例对象的初始化主要分为三步： </p>
+<blockquote>
+<p>createBeanInstance， 实例化，实际上就是调用对应的构造方法构造对象，此时只是调用了构造方法，spring xml中指定的property并没有进行填充<br>populateBean，填充属性，这步对spring xml中指定的property进行填充<br>initializeBean，调用spring xml中指定的init方法，或者AfterPropertiesSet方法</p>
+</blockquote>
+<p>会发生循环依赖的步骤集中在第一步和第二步。</p>
+<h2 id="Spring循环依赖的解决方式"><a href="#Spring循环依赖的解决方式" class="headerlink" title="Spring循环依赖的解决方式"></a>Spring循环依赖的解决方式</h2><p>Spring循环依赖的理论依据其实是Java基于引用传递，当我们获取到对象的引用时，对象的field或者或属性是可以延后设置的。</p>
+<p>那么我们要解决循环引用也应该从初始化过程着手，对于单例来说，在Spring容器整个生命周期内，有且只有一个对象，所以很容易想到这个对象应该存在Cache中，Spring为了解决单例的循环依赖问题，使用了<code>三级缓存</code>。</p>
+<p>首先我们看源码，三级缓存主要指：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Cache of singleton objects: bean name --&gt; bean instance */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap&lt;String, Object&gt;(<span class="number">256</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Cache of singleton factories: bean name --&gt; ObjectFactory */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, ObjectFactory&lt;?&gt;&gt; singletonFactories = <span class="keyword">new</span> HashMap&lt;String, ObjectFactory&lt;?&gt;&gt;(<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Cache of early singleton objects: bean name --&gt; bean instance */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; earlySingletonObjects = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">16</span>);</span><br></pre></td></tr></table></figure>
+<p>这三级缓存分别指： </p>
+<blockquote>
+<p>singletonFactories ： 单例对象工厂的cache<br>earlySingletonObjects：提前暴光的单例对象的Cache<br>singletonObjects：单例对象的cache</p>
+</blockquote>
+<p>以上三个cache构成了三级缓存，Spring就用这三级缓存巧妙的解决了循环依赖问题。</p>
+<p>对于单例对象来说，在Spring的整个容器的生命周期内，有且只存在一个对象，很容易想到这个对象应该存在Cache中，Spring会尝试从缓存中获取，这个缓存就是指singletonObjects，主要调用的方法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">T <span class="title">doGetBean</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">final</span> String name, <span class="keyword">final</span> Class&lt;T&gt; requiredType, <span class="keyword">final</span> Object[] args, <span class="keyword">boolean</span> typeCheckOnly)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">    <span class="comment">// ...... </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 从缓存中获取 bean 实例</span></span><br><span class="line">    Object sharedInstance = getSingleton(beanName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getSingleton</span><span class="params">(String beanName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getSingleton(beanName, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getSingleton</span><span class="params">(String beanName, <span class="keyword">boolean</span> allowEarlyReference)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 从 singletonObjects 获取实例，singletonObjects 中的实例都是准备好的 bean 实例，可以直接使用</span></span><br><span class="line">    Object singletonObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">    <span class="comment">// 判断 beanName 对应的 bean 是否正在创建中</span></span><br><span class="line">    <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">            <span class="comment">// 从 earlySingletonObjects 中获取提前曝光的 bean</span></span><br><span class="line">            singletonObject = <span class="keyword">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">                <span class="comment">// 获取相应的 bean 工厂</span></span><br><span class="line">                ObjectFactory&lt;?&gt; singletonFactory = <span class="keyword">this</span>.singletonFactories.get(beanName);</span><br><span class="line">                <span class="keyword">if</span> (singletonFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 提前曝光 bean 实例（raw bean），用于解决循环依赖</span></span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// 将 singletonObject 放入缓存中，并将 singletonFactory 从缓存中移除</span></span><br><span class="line">                    <span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">                    <span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (singletonObject != NULL_OBJECT ? singletonObject : <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的源码中，doGetBean 所调用的方法 getSingleton(String) 是一个空壳方法，其主要逻辑在 getSingleton(String, boolean) 中。</p>
+<p>getSingleton方法首先解释两个参数：</p>
+<blockquote>
+<p>isSingletonCurrentlyInCreation 判断对应的单例对象是否在创建中，当单例对象没有被初始化完全(例如A定义的构造函数依赖了B对象，得先去创建B对象，或者在populatebean过程中依赖了B对象，得先去创建B对象，此时A处于创建中)<br>allowEarlyReference 是否允许从singletonFactories中通过getObject拿到对象</p>
+</blockquote>
+<p>分析getSingleton()的整个过程，Spring首先从一级缓存singletonObjects中获取。如果获取不到，并且对象正在创建中，就再从二级缓存earlySingletonObjects中获取。如果还是获取不到且允许singletonFactories通过getObject()获取，就从三级缓存singletonFactory.getObject()(三级缓存)获取，如果获取到了则：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line"><span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br></pre></td></tr></table></figure>
+<p>从singletonFactories中移除，并放入earlySingletonObjects中。其实也就是从三级缓存移动到了二级缓存。</p>
+<p>从上面三级缓存的分析，我们可以知道，Spring解决循环依赖的诀窍就在于singletonFactories这个三级cache。这个cache的类型是ObjectFactory，定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ObjectFactory</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在bean创建过程中，有两处比较重要的匿名内部类实现了该接口。一处是:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ObjectFactory&lt;Object&gt;() &#123;</span><br><span class="line">   <span class="meta">@Override</span>   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> createBean(beanName, mbd, args);</span><br><span class="line">      &#125;      <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">         destroySingleton(beanName);</span><br><span class="line">         <span class="keyword">throw</span> ex;</span><br><span class="line">      &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上文已经提到，Spring利用其创建bean。</p>
+<p>另一处就是:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">addSingletonFactory(beanName, <span class="keyword">new</span> ObjectFactory&lt;Object&gt;() &#123;</span><br><span class="line">   <span class="meta">@Override</span>   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> getEarlyBeanReference(beanName, mbd, bean);</span><br><span class="line">   &#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p>此处就是解决循环依赖的关键，这段代码发生在createBeanInstance之后，也就是说单例对象此时已经被创建出来的。这个对象已经被生产出来了，虽然还不完美（还没有进行初始化的第二步和第三步），但是已经能被人认出来了（根据对象引用能定位到堆中的对象），所以Spring此时将这个对象提前曝光出来让大家认识，让大家使用。</p>
+<p>这样做有什么好处呢？让我们来分析一下“A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象”这种循环依赖的情况。A首先完成了初始化的第一步，并且将自己提前曝光到singletonFactories中，此时进行初始化的第二步，发现自己依赖对象B，此时就尝试去get(B)，发现B还没有被create，所以走create流程，B在初始化第一步的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，尝试二级缓存earlySingletonObjects（也没有），尝试三级缓存singletonFactories，由于A通过ObjectFactory将自己提前曝光了，所以B能够通过ObjectFactory.getObject拿到A对象(虽然A还没有初始化完全，但是总比没有好呀)，B拿到A对象后顺利完成了初始化阶段1、2、3，完全初始化之后将自己放入到一级缓存singletonObjects中。此时返回A中，A此时能拿到B的对象顺利完成自己的初始化阶段2、3，最终A也完成了初始化，长大成人，进去了一级缓存singletonObjects中，而且更加幸运的是，由于B拿到了A的对象引用，所以B现在hold住的A对象也蜕变完美了！一切都是这么神奇！！<br>知道了这个原理时候，肯定就知道为啥Spring不能解决“A的构造方法中依赖了B的实例对象，同时B的构造方法中依赖了A的实例对象”这类问题了！因为加入singletonFactories三级缓存的前提是执行了构造器，所以构造器的循环依赖没法解决。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Spring通过三级缓存加上“提前曝光”机制，配合Java的对象引用原理，比较完美地解决了某些情况下的循环依赖问题！<br>上面是对Spring解决Bean循环依赖解决方案大致讲解，并没有很深入讲解代码的逻辑。博主能力有限，现在只能够理解到这个层次。</p>
 
       
     </div>
@@ -536,7 +516,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java，自动拆装箱/" rel="tag"># Java，自动拆装箱</a>
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
           
         </div>
       
@@ -545,8 +525,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/26/字节码指令简介/" rel="next" title="【深入理解JVM】之四：字节码指令简介">
-                <i class="fa fa-chevron-left"></i> 【深入理解JVM】之四：字节码指令简介
+              <a href="/2019/01/20/ThreadLocal/" rel="next" title="ThreadLocal">
+                <i class="fa fa-chevron-left"></i> ThreadLocal
               </a>
             
           </div>
@@ -554,10 +534,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/27/如何理解 String 类型值的不可变/" rel="prev" title="如何理解 String 类型值的不可变？">
-                如何理解 String 类型值的不可变？ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -771,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸"><span class="nav-number">2.</span> <span class="nav-text">延伸</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环依赖产生"><span class="nav-number">2.</span> <span class="nav-text">循环依赖产生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring的单例对象的初始化"><span class="nav-number">3.</span> <span class="nav-text">Spring的单例对象的初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring循环依赖的解决方式"><span class="nav-number">4.</span> <span class="nav-text">Spring循环依赖的解决方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -922,9 +898,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'foutlook';
-      var disqus_identifier = '2017/09/27/Integer用==比较时127相等128不相等的原因/';
+      var disqus_identifier = '2019/07/09/SpringIOC-Bean的循环依赖问题/';
 
-      var disqus_title = "Integer用==比较时127相等128不相等的原因";
+      var disqus_title = "SpringIOC-Bean的循环依赖问题";
 
 
       function run_disqus_script(disqus_script) {
