@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2019%2F08%2F19%2FSpring%20IOC%E5%92%8CAOP%E8%87%AA%E5%AE%9E%E7%8E%B0%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[SpringIOC和AOP自实现]]></title>
+    <url>%2F2019%2F07%2F25%2FSpringIOC%E5%92%8CAOP%E8%87%AA%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[长到这么大，我说不出来我最爱的一部电影，说不出来我最爱的一首歌，说不出来我最爱的一个人。时常觉得人生其实没那么有趣，偶尔也会质疑活着的意义，所有来自于书上和别人口中的意义都不曾说服过我。但今天突然觉得，大概人生最大的意义就是用余生去找到那些最爱吧。]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Redisson实现分布式可重入锁]]></title>
