@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2019/06/10/SpringIOC%E5%92%8CAOP%E8%87%AA%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2019-09-14T09:11:00.182Z</lastmod>
+    <data>
+        <display>
+        <title>SpringIOC和AOP自实现</title>
+        <pubTime>2019-06-10T01:00:00.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+         
+           
+             
+              <breadCrumb title="Spring" url="http://yoursite.com/categories/Spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2019/07/25/Redisson%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81/</loc>
     <lastmod>2019-08-21T15:16:23.331Z</lastmod>
     <data>
@@ -33,26 +53,6 @@
         <display>
         <title>SpringIOC-Bean的循环依赖问题</title>
         <pubTime>2019-05-31T01:00:00.000Z</pubTime>
-        
-        <tag>Spring</tag>
-         
-         
-           
-             
-              <breadCrumb title="Spring" url="http://yoursite.com/categories/Spring/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2019/06/10/SpringIOC%E5%92%8CAOP%E8%87%AA%E5%AE%9E%E7%8E%B0/</loc>
-    <lastmod>2019-08-19T15:26:34.285Z</lastmod>
-    <data>
-        <display>
-        <title>SpringIOC和AOP自实现</title>
-        <pubTime>2019-06-10T01:00:00.000Z</pubTime>
         
         <tag>Spring</tag>
          
