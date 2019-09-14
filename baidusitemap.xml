@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
+    <lastmod>2019-09-14T14:05:30.108Z</lastmod>
+    <data>
+        <display>
+        <title>线程池</title>
+        <pubTime>2018-08-19T01:00:00.000Z</pubTime>
+        
+        <tag>多线程</tag>
+         
+         
+           
+             
+              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2019/06/10/SpringIOC%E5%92%8CAOP%E8%87%AA%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2019-09-14T09:11:00.182Z</lastmod>
     <data>
@@ -280,26 +300,6 @@
            
              
               <breadCrumb title="Java" url="http://yoursite.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2018/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</loc>
-    <lastmod>2018-11-21T11:13:04.237Z</lastmod>
-    <data>
-        <display>
-        <title>线程池</title>
-        <pubTime>2018-08-19T01:00:00.000Z</pubTime>
-        
-        <tag>多线程</tag>
-         
-         
-           
-             
-              <breadCrumb title="线程" url="http://yoursite.com/categories/%E7%BA%BF%E7%A8%8B/"/>
           
         </display>
     </data>

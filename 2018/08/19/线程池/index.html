@@ -98,7 +98,7 @@
 <meta property="og:description" content="最好是更好的敌人  概述多线程的软件设计可以最大限度地发挥现代多核处理器的计算能力，提高生产系列的吞吐量和性能。但是，线程过多的话，不但不能达到提高性能的目的，还会是性能严重下降，因为过多的线程是CPU忙于进行线程之间的切换，而没有时间执行其他的任务。 为了避免系统频繁地创建和销毁线程，我们可以让创建的线程进行复用。如果有同学有过数据库开发的经验，对数据库连接池这个概念应该不会陌生。为了避免每次">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/08/19/线程池/线程池.jpg">
-<meta property="og:updated_time" content="2018-11-21T11:13:04.237Z">
+<meta property="og:updated_time" content="2019-09-14T14:05:30.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池">
 <meta name="twitter:description" content="最好是更好的敌人  概述多线程的软件设计可以最大限度地发挥现代多核处理器的计算能力，提高生产系列的吞吐量和性能。但是，线程过多的话，不但不能达到提高性能的目的，还会是性能严重下降，因为过多的线程是CPU忙于进行线程之间的切换，而没有时间执行其他的任务。 为了避免系统频繁地创建和销毁线程，我们可以让创建的线程进行复用。如果有同学有过数据库开发的经验，对数据库连接池这个概念应该不会陌生。为了避免每次">
@@ -392,7 +392,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">2,583(字)</span>
+           <span class="post-count">3,476(字)</span>
            
         </span>
 	  
@@ -402,7 +402,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">10(分)</span>
+           <span class="post-count">13(分)</span>
            
         </span>
 		<!-- 以上部分为: 字数统计、阅读时长插入代码 -->
@@ -471,6 +471,32 @@
 <li>优先任务队列：</li>
 </ol>
 <p>带有优先级别的队列，它通过PriorityBlokingQueue实现，可以控制任务执行的优先顺序。它是一个特殊的无界队列。无论是ArrayBlockingQueue还是LinkedBlockingQueue实现的队列，都是按照先进先出的算法处理任务，而PriorityBlokingQueue根据任务自身优先级顺序先后执行，在确保系统性能同时，也能很好的质量保证（总是确保高优先级的任务优先执行）。</p>
+<h2 id="线程池及增长策略和拒绝策略"><a href="#线程池及增长策略和拒绝策略" class="headerlink" title="线程池及增长策略和拒绝策略"></a>线程池及增长策略和拒绝策略</h2><p>ThreadPoolExecutor类实现了ExecutorService接口和Executor接口，可以设置线程池corePoolSize，最大线程池大小，AliveTime，拒绝策略等。常用构造方法：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize, <span class="keyword">int</span> maximumPoolSize,</span><br><span class="line"><span class="keyword">long</span> keepAliveTime, TimeUnit unit,</span><br><span class="line">BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">RejectedExecutionHandler <span class="keyword">handler</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>corePoolSize： 线程池维护线程的最少数量</li>
+<li>maximumPoolSize：线程池维护线程的最大数量</li>
+<li>keepAliveTime： 线程池维护线程所允许的空闲时间</li>
+<li>unit： 线程池维护线程所允许的空闲时间的单位</li>
+<li>workQueue： 线程池所使用的缓冲队列</li>
+<li>handler： 线程池对拒绝任务的处理策略</li>
+</ul>
+<p>当一个任务通过execute(Runnable)方法欲添加到线程池时：</p>
+<ul>
+<li>l  如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。</li>
+<li>2  如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。</li>
+<li>3  如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。</li>
+<li>4  如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过handler所指定的策略来处理此任务。</li>
+</ul>
+<p><strong>也就是：</strong> ==处理任务的优先级为：核心线程corePoolSize、任务队列workQueue、最大线程maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。 #070080==<br>当线程池中的线程数量大于corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止。这样，线程池可以动态的调整池中的线程数。</p>
+<p>handler有四个选择：</p>
+<ul>
+<li>策略1：直接抛异常：ThreadPoolExecutor.AbortPolicy() 抛出java.util.concurrent.RejectedExecutionException异常 </li>
+<li>策略2：ThreadPoolExecutor.CallerRunsPolicy，用于被拒绝任务的处理程序，它直接在 execute 方法的调用线程中运行被拒绝的任务；如果执行程序已关闭，则会丢弃该任务。如下：RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy(); 这个策略不想放弃执行任务。但是由于池中已经没有任何资源了，那么就直接使用调用该execute的线程本身来执行。</li>
+<li>策略3：RejectedExecutionHandler handler =<br>new ThreadPoolExecutor.DiscardOldestPolicy();如果执行程序尚未关闭，则位于工作队列头部的任务将被删除，然后重试执行程序。</li>
+<li>策略4：ThreadPoolExecutor.DiscardPolicy，用于被拒绝任务的处理程序，默认情况下它将丢弃被拒绝的任务。不能执行的任务将被丢弃。</li>
+</ul>
+<p>这四种策略是独立无关的，是对任务拒绝处理的四中表现形式。最简单的方式就是直接丢弃任务。但是却有两种方式，到底是该丢弃哪一个任务，比如==可以丢弃当前将要加入队列的任务本身（DiscardPolicy）== 或者 ==丢弃任务队列中最旧任务（DiscardOldestPolicy）。== 丢弃最旧任务也不是简单的丢弃最旧的任务，而是有一些额外的处理。除了丢弃任务还可以直接==抛出一个异常（RejectedExecutionException），== 这是比较简单的方式。抛出异常的方式（AbortPolicy）尽管实现方式比较简单，但是由于抛出一个RuntimeException，因此会中断调用者的处理过程。除了抛出异常以外还可以==不进入线程池执行，在这种方式（CallerRunsPolicy）== 中任务将有调用者线程去执行。 </p>
 <h2 id="自定义线程创建：ThreadFactory"><a href="#自定义线程创建：ThreadFactory" class="headerlink" title="自定义线程创建：ThreadFactory"></a>自定义线程创建：ThreadFactory</h2><p>ThreadFactory是一个接口，它只有一个方法，用来创建线程</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Thread <span class="title">newThread</span><span class="params">(Runnable r)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>当线程池需要新建线程时，就会调用这个方法。</p>
@@ -770,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的内部实现"><span class="nav-number">2.</span> <span class="nav-text">线程池的内部实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WorkQueue"><span class="nav-number">3.</span> <span class="nav-text">WorkQueue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义线程创建：ThreadFactory"><span class="nav-number">4.</span> <span class="nav-text">自定义线程创建：ThreadFactory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展线程池"><span class="nav-number">5.</span> <span class="nav-text">扩展线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的内部实现"><span class="nav-number">2.</span> <span class="nav-text">线程池的内部实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WorkQueue"><span class="nav-number">3.</span> <span class="nav-text">WorkQueue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池及增长策略和拒绝策略"><span class="nav-number">4.</span> <span class="nav-text">线程池及增长策略和拒绝策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义线程创建：ThreadFactory"><span class="nav-number">5.</span> <span class="nav-text">自定义线程创建：ThreadFactory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展线程池"><span class="nav-number">6.</span> <span class="nav-text">扩展线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
@@ -810,7 +836,7 @@
 </div>
 
 <div class="powered-by">
-  <span class="post-count">博客全站共119.2k字</span>
+  <span class="post-count">博客全站共120.1k字</span>
 </div>
 
 <!--
